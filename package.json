@@ -1,7 +1,7 @@
 {
   "name": "circuito-del-under",
   "version": "0.1.0",
-  "engine":{
+  "engines":{
     "npm":"6.12.1",
     "node":"12.13.1"
   },
