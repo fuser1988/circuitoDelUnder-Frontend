@@ -12,6 +12,7 @@ import LandingPage from "views/examples/LandingPage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import HomePage from "pages/HomePage.js";
+import RecitalesPage from "pages/RecitalesPage.js";
 
 import * as serviceWorker from './serviceWorker';
 
@@ -19,6 +20,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/index" render={props => <HomePage {...props} />} />
+      <Route path="/RecitalesPage/:busqueda" render={props => <RecitalesPage {...props} />} />
       <Route path="/components" render={props => <Index {...props} />} />
       <Route
         path="/landing-page"

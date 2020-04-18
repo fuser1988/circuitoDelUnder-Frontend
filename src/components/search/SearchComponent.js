@@ -14,17 +14,17 @@ import {withRouter} from "react-router-dom";
 class SearchBars extends Component {
   constructor(props){
     super(props);
-    this.state={food:""};
+    this.state={busqueda:""};
     this.updateInput =this.updateInput.bind(this);
     this.redirecSearch =this.redirecSearch.bind(this);
   }
   
   updateInput(event){
-    this.setState({food: event.target.value});
+    this.setState({busqueda: event.target.value});
   }
 
   redirecSearch(){
-    this.props.history.push("/components");// + this.state.food);
+    this.props.history.push("/RecitalesPage/" + this.state.busqueda);
   }
 
   render() {
