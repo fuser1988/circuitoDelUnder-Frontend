@@ -8,11 +8,9 @@ import "assets/scss/blk-design-system-react.scss?v=1.1.0";
 import "assets/demo/demo.css";
 
 import Index from "views/Index.js";
-import LandingPage from "views/examples/LandingPage.js";
-import RegisterPage from "views/examples/RegisterPage.js";
-import ProfilePage from "views/examples/ProfilePage.js";
 import HomePage from "pages/HomePage.js";
 import RecitalesPage from "pages/RecitalesPage.js";
+import PoliticaDePrivacidadPage from "pages/PoliticaDePrivacidadPage.js";
 
 import * as serviceWorker from './serviceWorker';
 
@@ -22,18 +20,7 @@ ReactDOM.render(
       <Route path="/index" render={props => <HomePage {...props} />} />
       <Route path="/RecitalesPage/:busqueda" render={props => <RecitalesPage {...props} />} />
       <Route path="/components" render={props => <Index {...props} />} />
-      <Route
-        path="/landing-page"
-        render={props => <LandingPage {...props} />}
-      />
-      <Route
-        path="/register-page"
-        render={props => <RegisterPage {...props} />}
-      />
-      <Route
-        path="/profile-page"
-        render={props => <ProfilePage {...props} />}
-      />
+      <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
       <Redirect from="/" to="/index" />
     </Switch>
   </BrowserRouter>,
