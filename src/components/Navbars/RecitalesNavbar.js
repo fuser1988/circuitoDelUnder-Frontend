@@ -24,13 +24,33 @@ class RecitalesNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user:null,
       collapseOpen: false,
       color: "navbar-transparent"
     };
   }
   componentDidMount() {
     window.addEventListener("scroll", this.changeColor);
-  }
+    this.cargarUsuario();
+    // window.FB.getLoginStatus();
+    // console.log(window.FB);
+    // function(response) {
+    //       response.status === 'connected' ? this.setState({user:response}) : this.setState({user:null});
+    //       });
+    }
+    
+    cargarUsuario = () =>{
+      window.FB?
+      window.FB.getLoginStatus((response)=>{this.cargar(response)})
+        :console.log(window);
+          
+        }
+        
+    cargar = (response)=>{
+       response.status === 'connected' ? this.setState({user:response}) : this.setState({user:null});
+
+    }
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this.changeColor);
   }
