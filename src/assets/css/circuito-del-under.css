@@ -16,3 +16,8 @@
   .items-center{
       padding-top: 10em;
   }
+
+  #imagecard {
+    height: 370px;
+    width: 220px;
+  }
