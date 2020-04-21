@@ -10,7 +10,7 @@ function RecitalCard({ recital }) {
             <CardBody className="pb-0">
                 <Row>
                     <Col md="6" className="">
-                        <img  className="card-img-top imageCard" src={recital.imagen}/>
+                        <img  alt="" className="card-img-top imageCard" src={recital.imagen}/>
                     </Col>
                     <Col md="6" className="">
                         <h4>{recital.descripcion}</h4>
