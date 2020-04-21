@@ -1,6 +1,6 @@
 import React from "react";
 
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
+import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import GrillaRecitales from "components/body/GrillaRecitales.js";
 import RecitaleService from "services/RecitalService.js";
@@ -33,7 +33,7 @@ class RecitalesPage extends React.Component {
     render() {
         return (
             <>
-                <IndexNavbar />
+                <RecitalesNavbar />
                 <RecitalesHeader />
                 <div className="wrapper">
                     <div className="row">

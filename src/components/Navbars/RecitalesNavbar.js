@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -12,7 +11,6 @@ import {
   NavbarBrand,
   Navbar,
   NavItem,
-  NavLink,
   Nav,
   Container,
   Row,
@@ -20,17 +18,39 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 
-class RecitalesNavbar extends React.Component {
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+
+class RecitalesNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user:null,
       collapseOpen: false,
       color: "navbar-transparent"
     };
   }
   componentDidMount() {
     window.addEventListener("scroll", this.changeColor);
-  }
+    this.cargarUsuario();
+    // window.FB.getLoginStatus();
+    // console.log(window.FB);
+    // function(response) {
+    //       response.status === 'connected' ? this.setState({user:response}) : this.setState({user:null});
+    //       });
+    }
+    
+    cargarUsuario = () =>{
+      window.FB?
+      window.FB.getLoginStatus((response)=>{this.cargar(response)})
+        :console.log(window);
+          
+        }
+        
+    cargar = (response)=>{
+       response.status === 'connected' ? this.setState({user:response}) : this.setState({user:null});
+
+    }
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this.changeColor);
   }
@@ -72,6 +92,25 @@ class RecitalesNavbar extends React.Component {
       .getElementById("download-section")
       .scrollIntoView({ behavior: "smooth" });
   };
+  responseFacebook = (response) => {
+    this.setState({ user: response });
+    console.log(response);
+  }
+
+  componentClicked = () => {
+    console.log("Clicked!")
+  }
+
+  logout = (e) => {
+    this.setState({ user: null });
+    e.preventDefault();
+    window.FB.logout();
+  }
+
+  falloLogin = () => {
+    this.setState({ user: null });
+  }
+
   render() {
     return (
       <Navbar
@@ -86,11 +125,10 @@ class RecitalesNavbar extends React.Component {
               tag={Link}
               id="navbar-brand"
             >
-              <span> </span>
               Circuito del under
             </NavbarBrand>
             <UncontrolledTooltip placement="bottom" target="navbar-brand">
-              Designed and Coded by Creative Tim
+              vivi la musica under donde vallas
             </UncontrolledTooltip>
             <button
               aria-expanded={this.state.collapseOpen}
@@ -128,42 +166,6 @@ class RecitalesNavbar extends React.Component {
               </Row>
             </div>
             <Nav navbar>
-              <NavItem className="p-0">
-                <NavLink
-                  data-placement="bottom"
-                  href="https://twitter.com/CreativeTim"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  title="Follow us on Twitter"
-                >
-                  <i className="fab fa-twitter" />
-                  <p className="d-lg-none d-xl-none">Twitter</p>
-                </NavLink>
-              </NavItem>
-              <NavItem className="p-0">
-                <NavLink
-                  data-placement="bottom"
-                  href="https://www.facebook.com/CreativeTim"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  title="Like us on Facebook"
-                >
-                  <i className="fab fa-facebook-square" />
-                  <p className="d-lg-none d-xl-none">Facebook</p>
-                </NavLink>
-              </NavItem>
-              <NavItem className="p-0">
-                <NavLink
-                  data-placement="bottom"
-                  href="https://www.instagram.com/CreativeTimOfficial"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  title="Follow us on Instagram"
-                >
-                  <i className="fab fa-instagram" />
-                  <p className="d-lg-none d-xl-none">Instagram</p>
-                </NavLink>
-              </NavItem>
               <UncontrolledDropdown nav>
                 <DropdownToggle
                   caret
@@ -174,7 +176,7 @@ class RecitalesNavbar extends React.Component {
                   onClick={e => e.preventDefault()}
                 >
                   <i className="fa fa-cogs d-lg-none d-xl-none" />
-                  Getting started
+                  Menu
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-with-icons">
                   <DropdownItem href="https://demos.creative-tim.com/blk-design-system-react/#/documentation/tutorial">
@@ -196,24 +198,19 @@ class RecitalesNavbar extends React.Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-               <Button
-                 className="nav-link d-none d-lg-block"
-                 color="primary"
-                 target="_blank"
-                 href="https://www.creative-tim.com/product/blk-design-system-pro-react?ref=bdsr-user-archive-index-navbar-upgrade-pro"
-               >
-                 <i className="tim-icons icon-spaceship" /> Upgrade to PRO
-               </Button>
-             </NavItem>
-              <NavItem>
-                <Button
-                  className="nav-link d-none d-lg-block"
-                  color="default"
-                  onClick={this.scrollToDownload}
-                >
-                  <i className="tim-icons icon-cloud-download-93" /> Download
-                </Button>
+                {!this.state.user ? (
+                  <FacebookLogin
+                    appId="222983722267666"
+                    onFailure={this.falloLogin}
+                    callback={this.responseFacebook}
+                    render={renderProps => (
+                      <Button onClick={renderProps.onClick}>Ingresar</Button>
+                    )}
+
+                  />) : (<Button onClick={(e) => { this.logout(e) }}>Salir</Button>)
+                }
               </NavItem>
+              
             </Nav>
           </Collapse>
         </Container>
@@ -222,4 +219,4 @@ class RecitalesNavbar extends React.Component {
   }
 }
 
-export default RecitalesNavbar;
+export default RecitalesNavBar;
