@@ -4,13 +4,13 @@ import { Row, Card, Col, CardBody, CardFooter, CardTitle } from "reactstrap";
 function RecitalCard({ recital }) {
 	return(
         <Col md={4}>
-		    <Card className="offset-2 col-md-12" key={recital.id}>
+		    <Card className="offset-2 col-md-10" key={recital.id}>
 			    <CardTitle>
                     <h1 className="mt-2 mb-0 text-center">{recital.nombre}</h1>
                 </CardTitle>
                 <CardBody className="pb-0">
                     <Row>
-                        <img  className="card-img-top imageCard" src={recital.imagen}/>
+                        <img  className="card-img-top" src={recital.imagen} id="imagecard"/>
                     </Row>
                     <br></br>
                     <Row>

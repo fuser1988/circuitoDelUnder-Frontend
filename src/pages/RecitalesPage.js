@@ -34,11 +34,13 @@ class RecitalesPage extends React.Component {
     render() {
         return (
             <>
+            <div style={{maxWidth: 1327}}> 
                 <IndexNavbar />
                 <RecitalesHeader />
                 <Row>
                     <GrillaRecitales recitales={this.state.recitales}/>
                 </Row>
+            </div>
             </>
         );
     }
