@@ -32,11 +32,6 @@ class RecitalesNavBar extends React.Component {
   componentDidMount() {
     window.addEventListener("scroll", this.changeColor);
     this.cargarUsuario();
-    // window.FB.getLoginStatus();
-    // console.log(window.FB);
-    // function(response) {
-    //       response.status === 'connected' ? this.setState({user:response}) : this.setState({user:null});
-    //       });
     }
     
     cargarUsuario = () =>{
@@ -203,6 +198,7 @@ class RecitalesNavBar extends React.Component {
                     appId="222983722267666"
                     onFailure={this.falloLogin}
                     callback={this.responseFacebook}
+                    fields="name,email,picture"
                     render={renderProps => (
                       <Button onClick={renderProps.onClick}>Ingresar</Button>
                     )}
