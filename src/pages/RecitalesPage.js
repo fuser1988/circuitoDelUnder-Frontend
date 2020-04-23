@@ -4,6 +4,7 @@ import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import GrillaRecitales from "components/body/GrillaRecitales.js";
 import RecitaleService from "services/RecitalService.js";
+import { Row } from "reactstrap";
 
 class RecitalesPage extends React.Component {
 
@@ -35,19 +36,10 @@ class RecitalesPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <div className="wrapper">
-                    <div className="row">
-                        <div className="col-md-2">
-
-                        </div>
-                        <div className="col-md-8">
-                            <GrillaRecitales recitales={this.state.recitales} />
-
-                        </div>
-                        <div className="col-md-2">
-
-                        </div>
-                    </div>
+                <div style={{maxWidth: 1327}}> 
+                <Row>
+                    <GrillaRecitales recitales={this.state.recitales}/>
+                </Row>
                 </div>
             </>
         );
