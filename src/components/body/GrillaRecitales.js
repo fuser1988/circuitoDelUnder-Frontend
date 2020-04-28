@@ -5,10 +5,11 @@ class GrillaRecitales extends React.Component {
 
     render() {
         return <>
-
-            {this.props.recitales.map(recital => {
-                return <RecitalCard recital = {recital} key={recital.id}/>
-            })}
+            <div className="row">
+                {this.props.recitales.map(recital => {
+                    return <RecitalCard recital = {recital} key={recital.id}/>
+                })}
+            </div>
         </>
     }
 }

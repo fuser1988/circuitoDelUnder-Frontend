@@ -1,31 +1,28 @@
 import React from 'react';
-import { Row, Card, Col, CardBody, CardFooter, CardTitle } from "reactstrap";
+import { Row, Card, CardBody, Col, CardFooter, CardTitle } from "reactstrap";
 
 function RecitalCard({ recital }) {
-	return(
-        <Col md={4}>
-		    <Card className="offset-2 col-md-10" key={recital.id}>
-			    <CardTitle>
-                    <h1 className="mt-2 mb-0 text-center">{recital.nombre}</h1>
+    return (
+        <Card className="mt-2 ml-2 col-3 responsive-card" key={recital.id}>
+            <CardBody className="">
+                <Row className="d-flex justify-content-center">
+                    <img alt="" className="" src={recital.imagen} id="" />
+                </Row>
+                <CardTitle className="mt-2 mb-0 text-center bold-text">
+                    {recital.nombre}
                 </CardTitle>
-                <CardBody className="pb-0">
-                    <Row>
-                        <img  className="card-img-top" src={recital.imagen} id="imagecard"/>
-                    </Row>
-                    <br></br>
-                    <Row>
-                        <h4>{recital.descripcion}</h4>
-                        <h3>{recital.lugar}</h3>
-                        <h3>{recital.direccion}</h3>
-                        <h3>{recital.fecha}</h3>
-                        <h3>{recital.hora}</h3>
-                    </Row>
-                </CardBody>
-                <CardFooter>
-                </CardFooter>
-		    </Card>
-        </Col>
-	);
+                <Col>
+                    <p>{recital.localidad}</p>
+                    <p>{recital.lugar}</p>
+                </Col>
+            {/* </CardBody>
+            <CardBody className=""> */}
+
+            </CardBody>
+            {/* <CardFooter>
+                </CardFooter> */}
+        </Card>
+    );
 }
 
 export default (RecitalCard);

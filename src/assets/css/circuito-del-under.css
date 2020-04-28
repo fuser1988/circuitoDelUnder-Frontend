@@ -6,7 +6,7 @@
     height: 35vh; 
 }
 
-.filter {
+.filter2 {
   -webkit-transition: all 150ms linear;
   -moz-transition: all 150ms linear;
   -o-transition: all 150ms linear;
@@ -20,4 +20,31 @@
 #imagecard {
   height: 370px;
   width: 370px;
+}
+
+.mt-2.ml-2.col-3.responsive-card {
+  min-width: 250px;
+}
+
+@media (max-width: 1000px){
+  .grilla-Responsive.offset-md-2.col-10 {
+    margin-left: 8.33333%;
+  }
+}
+
+@media (max-width: 898px){
+  .mt-2.ml-2.col-3.responsive-card {
+    min-width: 48%;
+  }
+}
+
+@media (max-width: 450px){
+  .mt-2.ml-2.col-3.responsive-card {
+    min-width: 100%;
+  }
+}
+
+.mt-2.mb-0.text-center.bold-text.card-title{
+  font-weight: bold;
+  font-size: large;
 }

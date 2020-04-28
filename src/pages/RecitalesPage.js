@@ -4,7 +4,6 @@ import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import GrillaRecitales from "components/body/GrillaRecitales.js";
 import RecitaleService from "services/RecitalService.js";
-import { Row } from "reactstrap";
 
 class RecitalesPage extends React.Component {
 
@@ -13,7 +12,7 @@ class RecitalesPage extends React.Component {
         this.state = {
             recitales: []
         };
-        this.buscarRecitales = this.buscarRecitales.bind(this); 
+        this.buscarRecitales = this.buscarRecitales.bind(this);
     }
 
     componentDidMount() {
@@ -28,7 +27,7 @@ class RecitalesPage extends React.Component {
         const { match: { params } } = this.props;
         let recitalesObtenidos = await RecitaleService.buscarPorNombreYGenero(params.busqueda);
         console.log(recitalesObtenidos);
-            this.setState({ recitales: recitalesObtenidos })
+        this.setState({ recitales: recitalesObtenidos })
     }
 
     render() {
@@ -36,10 +35,10 @@ class RecitalesPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <div style={{maxWidth: 1327}}> 
-                <Row>
-                    <GrillaRecitales recitales={this.state.recitales}/>
-                </Row>
+                <div className="row">
+                    <div className="grilla-Responsive offset-md-2 col-10">
+                        <GrillaRecitales recitales={this.state.recitales} />
+                    </div>
                 </div>
             </>
         );
