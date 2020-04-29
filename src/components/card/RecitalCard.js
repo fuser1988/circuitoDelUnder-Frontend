@@ -1,5 +1,7 @@
 import React from 'react';
-import { Row, Card, CardBody, Col, CardFooter, CardTitle } from "reactstrap";
+import { Row, Card, CardBody, Col, CardTitle } from "reactstrap";
+
+import "assets/css/nucleo-icons.css";
 
 function RecitalCard({ recital }) {
     return (
@@ -11,16 +13,12 @@ function RecitalCard({ recital }) {
                 <CardTitle className="mt-2 mb-0 text-center bold-text">
                     {recital.nombre}
                 </CardTitle>
-                <Col>
+                <Col className="pl-0 pr-0">
+                    <p><i className ="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar}</p>
                     <p>{recital.localidad}</p>
-                    <p>{recital.lugar}</p>
                 </Col>
-            {/* </CardBody>
-            <CardBody className=""> */}
 
             </CardBody>
-            {/* <CardFooter>
-                </CardFooter> */}
         </Card>
     );
 }
