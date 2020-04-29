@@ -16,6 +16,7 @@ function RecitalCard({ recital }) {
                 <Col className="pl-0 pr-0">
                     <p><i className ="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar}</p>
                     <p>{recital.localidad}</p>
+                    <p><i className ="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>{recital.fecha}</p>
                 </Col>
 
             </CardBody>
