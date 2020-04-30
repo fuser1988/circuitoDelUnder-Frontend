@@ -23,6 +23,11 @@ class RecitalesPage extends React.Component {
         document.body.classList.toggle("index-page");
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.props = nextProps;
+        this.buscarRecitales();
+    }
+
     async buscarRecitales() {
         const { match: { params } } = this.props;
         let recitalesObtenidos = await RecitaleService.buscarPorNombreYGenero(params.busqueda);

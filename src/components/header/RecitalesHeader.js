@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Container } from "reactstrap";
+import SearchComponent from "components/search/SearchComponent.js";
 
 function RecitalesHeader(props) {
   let pageHeader = React.createRef();
@@ -33,10 +34,17 @@ function RecitalesHeader(props) {
         {/* <div className="filter" /> */}
 
         <Container className="items-center">
-          <h2>
-            Circuito del Under
-          </h2>
-
+          <div className="row xs=3">
+            <div class="col-6">
+              <h2>
+                Circuito del Under
+              </h2>
+            </div>
+            <div class="col-6">
+                <SearchComponent/>
+            </div>
+          </div>
+          
         </Container>
       </div>
     </>
