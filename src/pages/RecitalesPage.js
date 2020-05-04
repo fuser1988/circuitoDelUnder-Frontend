@@ -40,7 +40,7 @@ class RecitalesPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <div className="row">
+                <div>
                     <div className="grilla-Responsive offset-md-2 col-10">
                         <GrillaRecitales recitales={this.state.recitales} />
                     </div>

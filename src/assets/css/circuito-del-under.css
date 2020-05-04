@@ -6,13 +6,6 @@
     height: 35vh; 
 }
 
-.filter2 {
-  -webkit-transition: all 150ms linear;
-  -moz-transition: all 150ms linear;
-  -o-transition: all 150ms linear;
-  -ms-transition: all 150ms linear;
-  transition: all 150ms linear; }
-
   .items-center{
       padding-top: 10em;
   }
@@ -26,25 +19,59 @@
   min-width: 250px;
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1064px){
   .grilla-Responsive.offset-md-2.col-10 {
     margin-left: 8.33333%;
   }
-}
-
-@media (max-width: 898px){
-  .mt-2.ml-2.col-3.responsive-card {
-    min-width: 48%;
+  .offset-2 {
+    margin-left: 11.66667% !important;
   }
 }
 
-@media (max-width: 450px){
+@media (max-width: 928px){
+  .mt-2.ml-2.col-3.responsive-card {
+    min-width: 48%;
+  }
+
+  .custom-size-header{
+    height: 150px !important;
+  }
+}
+
+@media (max-width: 479px){
   .mt-2.ml-2.col-3.responsive-card {
     min-width: 100%;
+  }
+
+  .custom-size-header{
+    height: 125px !important;
   }
 }
 
 .mt-2.mb-0.text-center.bold-text.card-title{
   font-weight: bold;
   font-size: large;
+}
+
+.custom-size-header{
+  height: 200px;
+}
+
+/* search bar responsive */
+
+@media (max-width: 990px){
+  .resize-search.offset-2.col-8.mt-4.col{
+    margin-left: 8.33333% !important;
+    flex: 0 0 83.33333% !important;
+    max-width: 83.33333% !important;
+  }
+}
+
+@media (max-width: 478px){
+  .resize-search.offset-2.col-8.mt-4.col{
+    margin-left: 0% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding-right: 0px !important;
+  }
 }
