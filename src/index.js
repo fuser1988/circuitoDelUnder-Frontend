@@ -11,6 +11,7 @@ import Index from "views/Index.js";
 import HomePage from "pages/HomePage.js";
 import RecitalesPage from "pages/RecitalesPage.js";
 import PoliticaDePrivacidadPage from "pages/PoliticaDePrivacidadPage.js";
+import RecitalAddPage from "pages/RecitalAddPage.js";
 
 import * as serviceWorker from './serviceWorker';
 
@@ -21,6 +22,7 @@ ReactDOM.render(
       <Route path="/RecitalesPage/:busqueda" render={props => <RecitalesPage {...props} />} />
       <Route path="/components" render={props => <Index {...props} />} />
       <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
+      <Route path="/recital-add" render={props => <RecitalAddPage {...props} />} />
       <Redirect from="/" to="/index" />
     </Switch>
   </BrowserRouter>,
