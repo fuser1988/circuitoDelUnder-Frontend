@@ -1,6 +1,7 @@
 import React from "react";
 import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
+import API from "utils/api2.js";
 
 
 class RecitalAddPage extends React.Component {
@@ -9,27 +10,55 @@ class RecitalAddPage extends React.Component {
         super(props);
         this.state = {
             
-            id:'',
-            nombre: '',
-            descripcion: '',
-            bandas:[],
-            fecha: '',
-            hora: '',
-            generos: [],
-            direccion: '',
-            localidad: '',
-            lugar: '',
-            imagen:'',
-            precio:0, 
-            
+            recital:{
+                nombre: '',
+                descripcion: '',
+                bandas:[],
+                fecha: '',
+                hora: '',
+                generos: [],
+                direccion: '',
+                localidad: '',
+                lugar: '',
+                imagen:'',
+                precio:0,
+            }        
         };
          
     }
+    
+    onChange(property, event) {
+        const currentRecital = this.state.recital;
+        this.setState({ recital: { ...currentRecital, [property]: event.target.value } });
+    }
 
-    onChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-        console.log(event.target.value);
-        console.log(this.state.generos.length)
+    formRow(label, property, propertyName, placeholder, type = 'text') {
+        return (
+          <div div className="grilla-Responsive offset-md-2 col-10" >
+            <label className="col-3 col-form-label">{label}</label>
+            <div className="col-9">
+                <input type={type} placeholder={placeholder} value={property} className="form-control" onChange={event => this.onChange(propertyName, event)} />
+            </div>
+            </div>
+        );
+    }
+
+    modificarListaBandas() {
+        if(this.state.recital.bandas.length != 0) {
+            let newBandas = this.state.recital.bandas
+            this.state.recital.bandas = newBandas.split(',')
+        }
+    }
+
+    sendRecital() {
+        this.modificarListaBandas()
+        API.post('recitales', { ...this.state.recital })
+          .then(() => this.props.history.push('/'))
+          .catch(console.log);
+    }
+
+    cancelar() {
+        this.props.history.push('/')
     }
 
     render() {
@@ -37,71 +66,25 @@ class RecitalAddPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-            <div>
-                <h2 className="text-center">Add Rectial</h2>
                 <form>
-                <div className="form-group">
-                    <label>Nombre:</label>
-                    <input type="text" placeholder="nombre" name="nombre" className="form-control" required value={this.state.nombre} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Descripción:</label>
-                    <input type="text" placeholder="descripción" name="descripcion" className="form-control" required value={this.state.descripcion} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Bandas:</label>
-                    <input type="text" placeholder="bandas ej: banda1, banda2" name="bandas" className="form-control" required value={this.state.bandas} onChange={this.onChange}/>
-                </div>
-                
-                <div className="form-group">
-                    <label>Fecha:</label>
-                    <input type="date" name="fecha" className="form-control" required value={this.state.fecha} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Hora:</label>
-                    <input type="text" placeholder="hh/mm/ss"name="hora" className="form-control" data-parse="time" pattern="\d{2}\/\d{2}/\d{2}" required value={this.state.hora} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Generos:</label>
-                    <input type="text" placeholder="generos" className="form-control" required value={this.state.generos} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Dirección:</label>
-                    <input type="text" placeholder="dirección ej. calle altura" name="direccion" className="form-control" required value={this.state.direccion} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Localidad:</label>
-                    <input type="text" placeholder="localidad" name="localidad" className="form-control" required value={this.state.localidad} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Lugar:</label>
-                    <input type="text" placeholder="lugar" name="lugar" className="form-control" required value={this.state.lugar} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Imagen:</label>
-                    <input type="text" placeholder="imagen" name="imagen" className="form-control" value={this.state.imagen} onChange={this.onChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Precio:</label>
-                    <input type="number" placeholder="precio" name="precio" className="form-control" required value={this.state.precio} onChange={this.onChange}/>
-                </div>
-
-                <button className="btn btn-text-center" onClick={this.saveRecital}>Save</button>
-                <button className="btn btn-text-center" onClick={this.cancelar}>Cancelar</button>
-                
+                    { this.formRow('Nombre', this.state.recital.nombre, 'nombre', 'nombre') }
+                    { this.formRow('Descripcion', this.state.recital.descripcion, 'descripcion', 'descripción') }
+                    { this.formRow('Bandas', this.state.recital.bandas, 'bandas', 'bandas ej: banda1, banda2') }
+                    { this.formRow('Fecha', this.state.recital.fecha, 'fecha', '', 'date') }
+                    { this.formRow('Hora', this.state.recital.hora, 'hora', 'hora','time') }
+                    { this.formRow('direccion', this.state.recital.direccion, 'dirección ej: calle altura', 'direccion') }
+                    { this.formRow('localidad', this.state.recital.localidad, 'localidad', 'localidad') }
+                    { this.formRow('lugar', this.state.recital.lugar, 'lugar', 'lugar') }   
+                    { this.formRow('URl Imagen', this.state.recital.imagen, 'imagen', 'URL Imagen') }
+                    { this.formRow('Precio', this.state.recital.precio, 'precio') }
                 </form>
-             </div>
-        );
-            </>
+                <br></br>
+                <div div div className="grilla-Responsive offset-md-2 col-10">
+                    <button className="btn btn-text-center" onClick={() => this.sendRecital()}>Accept</button>
+                    <button className="btn btn-text-center" onClick={() => this.cancelar()}>Cancelar</button>
+                </div>
+                <br></br>
+                </>
         );
     }
 }

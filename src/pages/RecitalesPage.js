@@ -4,6 +4,7 @@ import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import GrillaRecitales from "components/body/GrillaRecitales.js";
 import RecitaleService from "services/RecitalService.js";
+//import API from "utils/api2.js";
 
 class RecitalesPage extends React.Component {
 
@@ -28,6 +29,9 @@ class RecitalesPage extends React.Component {
         let recitalesObtenidos = await RecitaleService.buscarPorNombreYGenero(params.busqueda);
         console.log(recitalesObtenidos);
         this.setState({ recitales: recitalesObtenidos })
+      /*API.get(`recitales/bandas?genero=${params.busqueda}`)
+        .then(response => this.setState({ recitales: response }))
+        .catch(console.log);*/
     }
 
     render() {
