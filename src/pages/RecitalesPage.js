@@ -23,6 +23,11 @@ class RecitalesPage extends React.Component {
         document.body.classList.toggle("index-page");
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.props = nextProps;
+        this.buscarRecitales();
+    }
+
     async buscarRecitales() {
         const { match: { params } } = this.props;
         let recitalesObtenidos = await RecitaleService.buscarPorNombreYGenero(params.busqueda);
@@ -35,7 +40,7 @@ class RecitalesPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <div className="row">
+                <div>
                     <div className="grilla-Responsive offset-md-2 col-10">
                         <GrillaRecitales recitales={this.state.recitales} />
                     </div>
