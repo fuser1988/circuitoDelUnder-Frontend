@@ -4,7 +4,14 @@ import { Row, Card, CardBody, Col, CardTitle } from "reactstrap";
 import "assets/css/nucleo-icons.css";
 
 function RecitalCard({ recital }) {
+    
+    // redirectRecital() {
+	// 	this.props.history.push("/recital/" + this.props.business.id + "/menu");
+	// }
+    
     return (
+        // <a className="" href onClick={this.redirectRecital}>
+
         <Card className="mt-2 ml-2 col-3 responsive-card" key={recital.id}>
             <CardBody className="">
                 <Row className="d-flex justify-content-center">
@@ -21,6 +28,7 @@ function RecitalCard({ recital }) {
 
             </CardBody>
         </Card>
+        // </a>
     );
 }
 

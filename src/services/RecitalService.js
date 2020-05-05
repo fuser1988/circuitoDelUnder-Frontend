@@ -9,6 +9,13 @@ class RecitalService {
                 return _recitales;
             }).catch(console.log("no se encontraron resultados para la busqueda: implementar un mensaje amigable"));
     }
+    
+    buscarPorId(id) {
+        return API.get(`recitales/${id}`)
+            .then(({ data: _recital }) => {
+                return _recital;
+            }).catch(console.log("no se encontraron resultado para la busqueda: implementar un mensaje amigable"));
+    }
 }
 
 export default new RecitalService();

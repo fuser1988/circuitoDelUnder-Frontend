@@ -9,6 +9,7 @@ import "assets/demo/demo.css";
 
 import Index from "views/Index.js";
 import HomePage from "pages/HomePage.js";
+import DetallesRecitalPage from "pages/DetallesRecitalPage.js";
 import RecitalesPage from "pages/RecitalesPage.js";
 import PoliticaDePrivacidadPage from "pages/PoliticaDePrivacidadPage.js";
 
@@ -20,6 +21,7 @@ ReactDOM.render(
       <Route path="/index" render={props => <HomePage {...props} />} />
       <Route path="/RecitalesPage/:busqueda" render={props => <RecitalesPage {...props} />} />
       <Route path="/components" render={props => <Index {...props} />} />
+      <Route path="/Recital/:id" render={props => <DetallesRecitalPage {...props} />} />
       <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
       <Redirect from="/" to="/index" />
     </Switch>
