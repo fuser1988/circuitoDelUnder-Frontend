@@ -31,9 +31,9 @@ class SearchBars extends Component {
     return (
       <Container>
         <InputGroup>
-          <Col className="offset-2 col-md-8 mt-4">
+          <Col className="resize-search offset-2 col-8 mt-4">
             <InputGroupAddon className="d-flex align-items-center" addonType="append">
-              <Input className="form-control" placeholder="A donde vamos!" type="text" value={this.state.food} onChange={this.updateInput} ></Input>
+              <Input className="form-control" placeholder="" type="text" value={this.state.food} onChange={this.updateInput} ></Input>
               <Button className="btn btn-text-center" onClick={this.redirecSearch}>
                     Buscar
               </Button>

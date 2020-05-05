@@ -22,21 +22,22 @@ class RecitalAddPage extends React.Component {
                 imagen:'',
                 precio:0,
             },
-        };
-         
+            generosValidos : ["PUNK","PUNK_ROCK,ROCK","HARD_ROCK","HARDCORE","HARDCORE_PUNK","ROCK_AND_ROLL","METAL","NEW_METAL","REGGAE","BLUZ"]
+        }; 
     }
     
     onChange(property, event) {
         const currentRecital = this.state.recital;
         this.setState({ recital: { ...currentRecital, [property]: event.target.value } });
+        console.log(this.state.recital.descripcion)
     }
 
     formRow(label, property, propertyName, placeholder, type = 'text') {
         return (
-          <div div className="grilla-Responsive offset-md-2 col-10" >
+          <div>
             <label className="col-3 col-form-label">{label}</label>
             <div className="col-9">
-                <input type={type} placeholder={placeholder} className="form-control" required='true' value={property} onChange={event => this.onChange(propertyName, event)} />
+                <input type={type} placeholder={placeholder} className="form-control" required value={property} onChange={event => this.onChange(propertyName, event)} />
             </div>
             </div>
         );
@@ -44,18 +45,48 @@ class RecitalAddPage extends React.Component {
 
     modificarLista() {
         if(this.state.recital.bandas.length != 0) {
-            let newBandas = this.state.recital.bandas
-            this.state.recital.bandas = newBandas.split(',')
+            let newBandas = this.state.recital.bandas.split(',');
+            this.state.recital.bandas = newBandas
+            
         }
 
-        this.state.recital.generos = this.state.recital.generos.toUpperCase();
         if(this.state.recital.generos.length != 0) {
+            this.state.recital.generos = this.state.recital.generos.toUpperCase();
             let newGeneros = this.state.recital.generos
             this.state.recital.generos = newGeneros.split(',')
         }
     }
 
+
+    verificarValidacion() {
+        const recital = this.state.recital;
+        if(recital.nombre == ''){
+            alert("Se necesita un nombre")  
+        }
+        if(recital.descripcion == ''){
+            alert("Se necesita una descripción")  
+        }
+        if(recital.fecha == ''){
+            alert("Se necesita una fecha")  
+        }
+        if(recital.generos.length == 0){
+            alert("Se necesita al menos un genero valido, Ej PUNK,PUNK_ROCK,ROCK,HARD_ROCK,HARDCORE,HARDCORE_PUNK,ROCK_AND_ROLL,METAL,NEW_METAL,REGGAE,BLUZ")  
+        }else{
+            this.validarGeneros(recital)
+        }
+        if(recital.direccion == ''){
+            alert("Se necesita una dirección")  
+        }
+        if(recital.localidad == ''){
+            alert("Se necesita una localidad")  
+        }
+        if(recital.lugar == ''){
+            alert("Se necesita un lugar")  
+        }
+     }
+
     sendRecital() {
+        //this.verificarValidacion()
         this.modificarLista()
         API.post('recitales', { ...this.state.recital })
           .then(() => this.props.history.push('/'))
@@ -71,8 +102,7 @@ class RecitalAddPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <form>
-                
+                <form  className="grilla-Responsive offset-md-2 col-10" >
                     { this.formRow('Nombre', this.state.recital.nombre, 'nombre', 'nombre') }
                     { this.formRow('Descripcion', this.state.recital.descripcion, 'descripcion', 'descripción') }
                     { this.formRow('Bandas', this.state.recital.bandas, 'bandas', 'bandas ej: banda1, banda2') }
@@ -86,7 +116,8 @@ class RecitalAddPage extends React.Component {
                     { this.formRow('Precio', this.state.recital.precio, 'precio') }
                 </form>
                 <br></br>
-                <div div div className="grilla-Responsive offset-md-2 col-10">
+                
+                <div className="grilla-Responsive offset-md-2 col-10">
                     <button className="btn btn-text-center"  onClick={() => this.sendRecital()}>Accept</button>
                     <button className="btn btn-text-center" onClick={() => this.cancelar()}>Cancelar</button>
                 </div>
