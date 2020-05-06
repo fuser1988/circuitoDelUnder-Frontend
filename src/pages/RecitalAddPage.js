@@ -22,14 +22,14 @@ class RecitalAddPage extends React.Component {
                 imagen:'',
                 precio:0,
             },
-            generosValidos : ["PUNK","PUNK_ROCK,ROCK","HARD_ROCK","HARDCORE","HARDCORE_PUNK","ROCK_AND_ROLL","METAL","NEW_METAL","REGGAE","BLUZ"]
+            generosValidos : ["PUNK","PUNK_ROCK,ROCK","HARD_ROCK","HARDCORE","HARDCORE_PUNK","ROCK_AND_ROLL","METAL","NEW_METAL","REGGAE","BLUZ"],
+            isValido : true
         }; 
     }
     
     onChange(property, event) {
         const currentRecital = this.state.recital;
         this.setState({ recital: { ...currentRecital, [property]: event.target.value } });
-        console.log(this.state.recital.descripcion)
     }
 
     formRow(label, property, propertyName, placeholder, type = 'text') {
@@ -43,54 +43,62 @@ class RecitalAddPage extends React.Component {
         );
     }
 
-    modificarLista() {
-        if(this.state.recital.bandas.length != 0) {
-            let newBandas = this.state.recital.bandas.split(',');
-            this.state.recital.bandas = newBandas
-            
-        }
-
-        if(this.state.recital.generos.length != 0) {
-            this.state.recital.generos = this.state.recital.generos.toUpperCase();
-            let newGeneros = this.state.recital.generos
-            this.state.recital.generos = newGeneros.split(',')
-        }
+    modificarLista(property, lista) {
+        const currentRecital = this.state.recital;
+        this.setState({ recital: { ...currentRecital, [property]: lista.split(',') } });
     }
 
 
-    verificarValidacion() {
+    async verificarValidacion() {
+        this.setState({isValido:true});
         const recital = this.state.recital;
-        if(recital.nombre == ''){
+        if(recital.nombre === ''){
+            this.setState({isValido:false});
             alert("Se necesita un nombre")  
         }
-        if(recital.descripcion == ''){
+        if(recital.descripcion === ''){
+            this.setState({isValido:false});
             alert("Se necesita una descripción")  
         }
-        if(recital.fecha == ''){
+        if(recital.fecha === ''){
+            this.setState({isValido:false});
             alert("Se necesita una fecha")  
         }
-        if(recital.generos.length == 0){
-            alert("Se necesita al menos un genero valido, Ej PUNK,PUNK_ROCK,ROCK,HARD_ROCK,HARDCORE,HARDCORE_PUNK,ROCK_AND_ROLL,METAL,NEW_METAL,REGGAE,BLUZ")  
-        }else{
-            this.validarGeneros(recital)
+        if(recital.hora === ''){
+            this.setState({isValido:false});
+            alert("Se necesita una hora")  
         }
-        if(recital.direccion == ''){
+        if(recital.generos.length === 0){
+            this.setState({isValido:false});
+            alert("Se necesita al menos un genero valido, Ej PUNK,PUNK_ROCK,ROCK,HARD_ROCK,HARDCORE,HARDCORE_PUNK,ROCK_AND_ROLL,METAL,NEW_METAL,REGGAE,BLUZ")  
+        }/*else{
+            this.validarGeneros(recital)
+        }*/
+        if(recital.direccion === ''){
+            this.setState({isValido:false});
             alert("Se necesita una dirección")  
         }
-        if(recital.localidad == ''){
+        if(recital.localidad === ''){
+            this.setState({isValido:false});
             alert("Se necesita una localidad")  
         }
-        if(recital.lugar == ''){
+        if(recital.lugar === ''){
+            this.setState({isValido:false});
             alert("Se necesita un lugar")  
         }
      }
-
-    sendRecital() {
-        //this.verificarValidacion()
-        this.modificarLista()
-        API.post('recitales', { ...this.state.recital })
-          .then(() => this.props.history.push('/'))
-          .catch(console.log);
+     
+    async sendRecital() {
+        await this.verificarValidacion();
+        if(this.state.isValido){
+            const currentRecital = this.state.recital;
+            await this.modificarLista('bandas', currentRecital.bandas);
+            await this.modificarLista('generos', currentRecital.generos.toUpperCase());
+        
+            API.post('recitales', { ...this.state.recital })
+                .then(() => this.props.history.push('/'))
+                .catch(console.log);
+        }
     }
 
     cancelar() {
