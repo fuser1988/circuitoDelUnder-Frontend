@@ -22,8 +22,9 @@ class RecitalAddPage extends React.Component {
                 imagen:'',
                 precio:0,
             },
-            generosValidos : ["PUNK","PUNK_ROCK,ROCK","HARD_ROCK","HARDCORE","HARDCORE_PUNK","ROCK_AND_ROLL","METAL","NEW_METAL","REGGAE","BLUZ"],
-            isValido : true
+            generosValidos : ["PUNK","PUNK_ROCK","ROCK","HARD_ROCK","HARDCORE","HARDCORE_PUNK","ROCK_AND_ROLL","METAL","NEW_METAL","REGGAE","BLUZ"],
+            isValido : true,
+            isGenerosValidos: true
         }; 
     }
     
@@ -44,45 +45,60 @@ class RecitalAddPage extends React.Component {
     }
 
     modificarLista(property, lista) {
+        //modifico la lista para que se separe por comas
         const currentRecital = this.state.recital;
         this.setState({ recital: { ...currentRecital, [property]: lista.split(',') } });
     }
 
+    async validarGeneros(lista) {
+        // verifica si algunos de los generos recibido son validos
+        this.setState({isGenerosValidos:true});  
+        lista.map(r =>{
+            if(! this.state.generosValidos.includes(r)) {
+                console.log("entraalif")
+                this.setState({isGenerosValidos:false});
+                this.setState({ recital: { ...this.state.recital, ['generos']: [] } });
+                alert("El genero ingresado es invalido");
+                
+            }
+        })
+    }
 
     async verificarValidacion() {
+        // verifica si los datos recibidos son validos
         this.setState({isValido:true});
-        const recital = this.state.recital;
-        if(recital.nombre === ''){
+        const currentRecital = this.state.recital;
+        if(currentRecital.nombre === ''){
             this.setState({isValido:false});
             alert("Se necesita un nombre")  
         }
-        if(recital.descripcion === ''){
+        if(currentRecital.descripcion === ''){
             this.setState({isValido:false});
             alert("Se necesita una descripción")  
         }
-        if(recital.fecha === ''){
+        if(currentRecital.fecha === ''){
             this.setState({isValido:false});
             alert("Se necesita una fecha")  
         }
-        if(recital.hora === ''){
+        if(currentRecital.hora === ''){
             this.setState({isValido:false});
             alert("Se necesita una hora")  
         }
-        if(recital.generos.length === 0){
+        if(currentRecital.generos.length === 0){
             this.setState({isValido:false});
             alert("Se necesita al menos un genero valido, Ej PUNK,PUNK_ROCK,ROCK,HARD_ROCK,HARDCORE,HARDCORE_PUNK,ROCK_AND_ROLL,METAL,NEW_METAL,REGGAE,BLUZ")  
-        }/*else{
-            this.validarGeneros(recital)
-        }*/
-        if(recital.direccion === ''){
+        }else{
+            await this.modificarLista('generos', currentRecital.generos.toUpperCase());
+        }
+        if(currentRecital.direccion === ''){
             this.setState({isValido:false});
             alert("Se necesita una dirección")  
         }
-        if(recital.localidad === ''){
+        if(currentRecital.localidad === ''){
             this.setState({isValido:false});
             alert("Se necesita una localidad")  
         }
-        if(recital.lugar === ''){
+        if(currentRecital.lugar === ''){
             this.setState({isValido:false});
             alert("Se necesita un lugar")  
         }
@@ -91,13 +107,14 @@ class RecitalAddPage extends React.Component {
     async sendRecital() {
         await this.verificarValidacion();
         if(this.state.isValido){
-            const currentRecital = this.state.recital;
-            await this.modificarLista('bandas', currentRecital.bandas);
-            await this.modificarLista('generos', currentRecital.generos.toUpperCase());
-        
-            API.post('recitales', { ...this.state.recital })
+            await this.validarGeneros(this.state.recital.generos);
+            if(this.state.isGenerosValidos){
+                await this.modificarLista('bandas', this.state.recital.bandas);
+         
+                API.post('recitales', { ...this.state.recital })
                 .then(() => this.props.history.push('/'))
-                .catch(console.log);
+                .catch(console.log);    
+            }
         }
     }
 
