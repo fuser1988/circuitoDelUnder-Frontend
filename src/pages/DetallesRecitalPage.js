@@ -3,6 +3,7 @@ import React from "react";
 import RecitalesNavba from "components/Navbars/RecitalesNavbar.js";
 
 import RecitaleService from "services/RecitalService.js";
+import RecitalesHeader from "components/header/RecitalesHeader.js";
 
 class DetallesRecitalPage extends React.Component {
   
@@ -26,8 +27,6 @@ class DetallesRecitalPage extends React.Component {
   async buscarRecital(){
     const { match: { params } } = this.props;
         let recitalObtenido = await RecitaleService.buscarPorId(params.id);
-        console.log(recitalObtenido);
-        // recitalObtenido = JSON.stringify(recitalObtenido);
         this.setState({ recital: recitalObtenido })
   }
 
@@ -36,6 +35,7 @@ class DetallesRecitalPage extends React.Component {
       <>
         <RecitalesNavba />
         <div className="page-header">
+            <RecitalesHeader />
             <img
               alt="..."
               className="path"
@@ -74,8 +74,7 @@ class DetallesRecitalPage extends React.Component {
                   <h1 className="text-white">{this.state.recital.nombre}</h1>
                   <p className="text-white mb-3">{this.state.recital.descripcion}</p>
                   <div className="btn-wrapper mb-3">
-                      <p className="category text-success d-inline">From 9.99%/mo</p>
-                      <p className="category text-success d-inline">From 9.99%/mo</p>
+                      
                       <br/>
                       <p className="d-inline"><i className ="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{this.state.recital.lugar},</p>
                       <p className="d-inline pl-1">{this.state.recital.direccion}</p>
@@ -86,20 +85,17 @@ class DetallesRecitalPage extends React.Component {
                   </div>
                   <div className="btn-wrapper">
                     <div className="button-container">
-                      {console.log(this.state.recital.bandas)}
                       {this.state.recital.bandas.map(banda => { 
                       
-                          return<a href="#pablo" class="badge">{banda}</a>}
+                          return<a className="focus-pointer pl-1" href="/"  key={banda.id} >{banda}</a>}
                       )}  
                     </div>
                   </div>
                   </div>
-                  <div className="col-md-5 col-lg-4">
+                  <div className="col-md-6 col-lg-6">
                   <img alt="..." class="img-fluid"src={this.state.recital.imagen}/>
                 </div>
                 </div>
-            
-                
 
             </div>
           

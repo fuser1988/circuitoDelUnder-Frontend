@@ -2,8 +2,6 @@ import React from "react";
 
 import { Container } from "reactstrap";
 
-import SearchComponent from "components/search/SearchComponent.js";
-
 function RecitalesHeader(props) {
   let pageHeader = React.createRef();
  
@@ -36,7 +34,7 @@ function RecitalesHeader(props) {
         <Container className="">
  
             <div class="col-12">
-                <SearchComponent/>
+               {props.children}
             </div>
           
         </Container>

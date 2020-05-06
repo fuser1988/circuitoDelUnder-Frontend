@@ -4,6 +4,7 @@ import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import GrillaRecitales from "components/body/GrillaRecitales.js";
 import RecitaleService from "services/RecitalService.js";
+import SearchComponent from "components/search/SearchComponent.js";
 
 class RecitalesPage extends React.Component {
 
@@ -39,7 +40,9 @@ class RecitalesPage extends React.Component {
         return (
             <>
                 <RecitalesNavbar />
-                <RecitalesHeader />
+                <RecitalesHeader>
+                    <SearchComponent/>
+                </RecitalesHeader>
                 <div>
                     <div className="grilla-Responsive offset-md-2 col-10">
                         <GrillaRecitales recitales={this.state.recitales} />

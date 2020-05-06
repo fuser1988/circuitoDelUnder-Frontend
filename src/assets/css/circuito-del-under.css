@@ -74,4 +74,8 @@
     max-width: 100% !important;
     padding-right: 0px !important;
   }
+
+  focus-pointer{
+    cursor: pointer !important;
+  } 
 }
