@@ -36,17 +36,6 @@ class LoadRecitalPage extends React.Component{
         this.setState({ recital: { ...currentRecital, [property]: event.target.value } });
     }
 
-    formRow(label, property, propertyName, placeholder, type = 'text') {
-        return (
-          <div>
-            <label className="col-3 col-form-label">{label}</label>
-            <div className="col-9">
-                <input type={type} placeholder={placeholder} className="form-control" required value={property} onChange={event => this.onChange(propertyName, event)} />
-            </div>
-            </div>
-        );
-    }
-
     async modificarLista(property, lista) {
         //modifico la lista para que se separe por comas
         if(lista.length > 0 && this.state.isBandasValidas){
