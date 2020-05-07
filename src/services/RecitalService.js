@@ -1,6 +1,6 @@
 
 import API from "utils/api.js";
-
+import API2 from "utils/api2.js";
 class RecitalService {
 
     buscarPorNombreYGenero(busqueda) {
@@ -10,12 +10,11 @@ class RecitalService {
             }).catch(console.log("no se encontraron resultados para la busqueda: implementar un mensaje amigable"));
     }
 
-    /*newRecital(recital) {
-        return API.post(`recitales/`, {
-            method: 'POST',
-            body: recital,
-            });
-    }*/
+    crearRecital(recital){
+        API2.post('recitales', { ...recital })
+        .then(() => this.props.history.push('/'))
+        .catch(console.log);    
+    }
 }
 
 export default new RecitalService();
