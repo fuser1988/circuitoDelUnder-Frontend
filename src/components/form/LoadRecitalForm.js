@@ -60,7 +60,7 @@ class LoadRecitalPage extends React.Component{
                 
     }
 
-    async validarGeneros() {
+    validarGeneros() {
         // verifica si algunos de los generos recibido son validos
         this.setState({isGenerosValidos:true});  
         let lista = this.state.recital.generos;
@@ -68,7 +68,7 @@ class LoadRecitalPage extends React.Component{
             if(! this.state.generosValidos.includes(r)) {
                 this.setState({isGenerosValidos:false});
                 this.setearGeneroNoValido('generos');
-                alert("El genero ingresado es invalido, EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE, HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL, REGGAE, BLUZ");      
+                alert("El genero ingresado es invalido, EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE, HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL, REGGAE, BLUZ");
             }
         })
     }
