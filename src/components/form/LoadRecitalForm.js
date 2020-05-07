@@ -23,8 +23,8 @@ class LoadRecitalPage extends React.Component{
                 precio:0,
             },
             generosValidos : ["PUNK","PUNK_ROCK","ROCK","HARD_ROCK","HARDCORE","HARDCORE_PUNK","ROCK_AND_ROLL","METAL","NEW_METAL","REGGAE","BLUZ"],
-            isValido : true,
-            isGenerosValidos: true
+            isGenerosValidos: false,
+            isBandasValidas: true
         };
         this.onChange=this.onChange.bind(this); 
         this.cancelar=this.cancelar.bind(this); 
@@ -47,76 +47,60 @@ class LoadRecitalPage extends React.Component{
         );
     }
 
-    modificarLista(property, lista) {
+    async modificarLista(property, lista) {
         //modifico la lista para que se separe por comas
+        if(lista.length > 0 && this.state.isBandasValidas){
         const currentRecital = this.state.recital;
-        this.setState({ recital: { ...currentRecital, [property]: lista.split(',') } });
+        this.setState({ recital: { ...currentRecital, [property]: currentRecital.bandas.split(',') } });
+        this.setState({isBandasValidas: false})
+        }
     }
 
-    async validarGeneros(lista) {
+    async hayGeneros(property) {
+        if(this.state.recital.generos.length > 0){
+            this.state.recital.generos = this.state.recital.generos.toUpperCase();
+            const currentRecital = this.state.recital;
+            await this.setState({ recital: { ...currentRecital, [property]: currentRecital.generos.split(',') } });
+            this.validarGeneros()
+        }
+    }
+
+    setearGeneroNoValido(property) {
+        const currentRecital = this.state.recital;
+        this.setState({ recital: { ...currentRecital, [property]: [] } });
+                
+    }
+
+    async validarGeneros() {
         // verifica si algunos de los generos recibido son validos
         this.setState({isGenerosValidos:true});  
+        let lista = this.state.recital.generos;
         lista.map(r =>{
             if(! this.state.generosValidos.includes(r)) {
-                console.log("entraalif")
                 this.setState({isGenerosValidos:false});
-                this.setState({ recital: { ...this.state.recital, ['generos']: [] } });
-                alert("El genero ingresado es invalido");
-                
+                this.setearGeneroNoValido('generos');
+                alert("El genero ingresado es invalido, EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE, HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL, REGGAE, BLUZ");      
             }
         })
     }
 
-    async verificarValidacion() {
-        // verifica si los datos recibidos son validos
-        this.setState({isValido:true});
-        const currentRecital = this.state.recital;
-        if(currentRecital.nombre === ''){
-            this.setState({isValido:false});
-            alert("Se necesita un nombre")  
-        }
-        if(currentRecital.descripcion === ''){
-            this.setState({isValido:false});
-            alert("Se necesita una descripción")  
-        }
-        if(currentRecital.fecha === ''){
-            this.setState({isValido:false});
-            alert("Se necesita una fecha")  
-        }
-        if(currentRecital.hora === ''){
-            this.setState({isValido:false});
-            alert("Se necesita una hora")  
-        }
-        if(currentRecital.generos.length === 0){
-            this.setState({isValido:false});
-            alert("Se necesita al menos un genero valido, Ej PUNK,PUNK_ROCK,ROCK,HARD_ROCK,HARDCORE,HARDCORE_PUNK,ROCK_AND_ROLL,METAL,NEW_METAL,REGGAE,BLUZ")  
-        }else{
-            await this.modificarLista('generos', currentRecital.generos.toUpperCase());
-        }
-        if(currentRecital.direccion === ''){
-            this.setState({isValido:false});
-            alert("Se necesita una dirección")  
-        }
-        if(currentRecital.localidad === ''){
-            this.setState({isValido:false});
-            alert("Se necesita una localidad")  
-        }
-        if(currentRecital.lugar === ''){
-            this.setState({isValido:false});
-            alert("Se necesita un lugar")  
-        }
-     }
+    isValido() {
+    // verifica que todos los campos esten completos
+        let valid = true;
+        Object.values(this.state.recital).forEach(
+            (val) => (val.length === 0) && (valid = false)
+        );
+        return valid;
+    }
      
     async sendRecital() {
-        await this.verificarValidacion();
-        if(this.state.isValido){
-            await this.validarGeneros(this.state.recital.generos);
+        if(this.isValido()){
+            await this.modificarLista('bandas', this.state.recital.bandas);
+            await this.hayGeneros('generos');
             if(this.state.isGenerosValidos){
-                await this.modificarLista('bandas', this.state.recital.bandas);
-                console.log("aca entrooo");
                 await RecitalService.crearRecital(this.state.recital);
                 this.props.history.push('/');
-            }
+            }          
         }
     }
 
@@ -227,14 +211,12 @@ class LoadRecitalPage extends React.Component{
                     accion={this.onChange}
                     />
 
-            </form>
-            <br></br>
-        
-            <div className="grilla-Responsive offset-md-2 col-10">
+                <br></br>
+                
                 <button className="btn btn-text-center"  onClick={this.sendRecital}>Accept</button>
                 <button className="btn btn-text-center" onClick={this.cancelar}>Cancelar</button>
-            </div>
-            <br></br>
+           
+            </form>
            </>     
         )
     }
