@@ -74,7 +74,6 @@ class LoadRecitalPage extends React.Component{
                 this.setState({isGenerosValidos:false});
                 this.setearGeneroNoValido('generos');
                 this.setState({visible:true})
-                // alert("El genero ingresado es invalido, EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE, HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL, REGGAE, BLUZ");
             }
         })
     }
@@ -90,9 +89,9 @@ class LoadRecitalPage extends React.Component{
      
     async sendRecital() {
         if(this.isValido()){
-            await this.modificarLista('bandas', this.state.recital.bandas);
             await this.hayGeneros('generos');
             if(this.state.isGenerosValidos){
+                await this.modificarLista('bandas', this.state.recital.bandas);
                 await RecitalService.crearRecital(this.state.recital);
                 this.props.history.push('/');
             }          
