@@ -190,6 +190,10 @@ class RecitalesNavBar extends React.Component {
                     <i className="tim-icons icon-single-02" />
                     Profile Page
                   </DropdownItem>
+                  <DropdownItem tag={Link} to="/recital-add">
+                    <i className="tim-icons icon-triangle-right-17" />
+                    Add Recital
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>

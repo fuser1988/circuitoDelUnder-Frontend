@@ -8,10 +8,12 @@ import "assets/scss/blk-design-system-react.scss?v=1.1.0";
 import "assets/demo/demo.css";
 
 import Index from "views/Index.js";
+import RegisterPage from "views/examples/RegisterPage.js";
 import HomePage from "pages/HomePage.js";
 import DetallesRecitalPage from "pages/DetallesRecitalPage.js";
 import RecitalesPage from "pages/RecitalesPage.js";
 import PoliticaDePrivacidadPage from "pages/PoliticaDePrivacidadPage.js";
+import RecitalAddPage from "pages/RecitalAddPage.js";
 
 import * as serviceWorker from './serviceWorker';
 
@@ -23,6 +25,8 @@ ReactDOM.render(
       <Route path="/components" render={props => <Index {...props} />} />
       <Route path="/Recital/:id" render={props => <DetallesRecitalPage {...props} />} />
       <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
+      <Route path="/recital-add" render={props => <RecitalAddPage {...props} />} />
+      <Route path="/login" render={props => <RegisterPage {...props} />} />
       <Redirect from="/" to="/index" />
     </Switch>
   </BrowserRouter>,

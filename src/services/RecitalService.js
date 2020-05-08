@@ -1,6 +1,6 @@
 
 import API from "utils/api.js";
-
+import API2 from "utils/api2.js";
 class RecitalService {
 
     buscarPorNombreYGenero(busqueda) {
@@ -15,6 +15,12 @@ class RecitalService {
             .then(({ data: _recital }) => {
                 return _recital;
             }).catch(console.log("no se encontraron resultado para la busqueda: implementar un mensaje amigable"));
+    }
+    
+    crearRecital(recital){
+        API2.post('recitales', { ...recital })
+        .then(() => this.props.history.push('/'))
+        .catch(console.log);    
     }
 }
 
