@@ -1,7 +1,7 @@
 import RecitalService from "services/RecitalService.js";
 import RowForm from "components/form/RowForm.js";
 import {withRouter} from "react-router-dom";
-
+import { Alert } from "reactstrap";
 import React  from 'react'
 
 
@@ -24,11 +24,16 @@ class LoadRecitalPage extends React.Component{
             },
             generosValidos : ["PUNK","PUNK_ROCK","ROCK","HARD_ROCK","HARDCORE","HARDCORE_PUNK","ROCK_AND_ROLL","METAL","NEW_METAL","REGGAE","BLUZ"],
             isGenerosValidos: false,
+            visible: false,
             isBandasValidas: true
         };
         this.onChange=this.onChange.bind(this); 
         this.cancelar=this.cancelar.bind(this); 
         this.sendRecital=this.sendRecital.bind(this); 
+    }
+
+    onDismiss = () => {
+        this.setState({ visible: false });
     }
     
     onChange(property, event) {
@@ -68,7 +73,8 @@ class LoadRecitalPage extends React.Component{
             if(! this.state.generosValidos.includes(r)) {
                 this.setState({isGenerosValidos:false});
                 this.setearGeneroNoValido('generos');
-                alert("El genero ingresado es invalido, EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE, HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL, REGGAE, BLUZ");
+                this.setState({visible:true})
+                // alert("El genero ingresado es invalido, EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE, HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL, REGGAE, BLUZ");
             }
         })
     }
@@ -154,6 +160,17 @@ class LoadRecitalPage extends React.Component{
                     type='text'
                     accion={this.onChange}
                     />
+                
+                <Alert
+                color="warning"
+                isOpen={this.state.visible}
+                toggle={this.onDismiss}
+                >
+                    <strong>El genero ingresado es invalido!</strong> 
+                    EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE, 
+                    HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL, 
+                    REGGAE, BLUZ
+                </Alert>
 
                 <RowForm
                     label='direccion'
@@ -196,7 +213,7 @@ class LoadRecitalPage extends React.Component{
                     property={this.state.recital.precio}
                     propertyName='precio'
                     placeholder=''
-                    type='text'
+                    type='number'
                     accion={this.onChange}
                     />
 
