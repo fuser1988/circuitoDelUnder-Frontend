@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server = 'https://circuito-del-under-backend.herokuapp.com/circuito_under/';
+const server = 'https://localhost:3000/circuito_under/';
 
 const API = {
   get: path => axios.get(`${server}${path}`).then(response => response.data),
