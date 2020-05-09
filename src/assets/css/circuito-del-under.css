@@ -79,3 +79,20 @@
     cursor: pointer !important;
   } 
 }
+
+.presentation-title {
+  font-size: 8em;
+  font-weight: 700;
+  margin: 0;
+  color: #FFFFFF;
+  background: #fbf8ec;
+  background: linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header .content-center {
+  top: 62% !important;
+  /* padding: 0 0px !important; */
+  /* max-width: 962px; */
+}

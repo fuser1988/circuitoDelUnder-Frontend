@@ -16,7 +16,8 @@ class HomeBody extends React.Component {
             >
                 <Container>
                    <div className="content-center brand">
-                     <h1 className="h1-seo">CIRCUITO DEL UNDER</h1>
+                     <h1 className="h1-seo presentation-title">CIRCUITO</h1>
+                     <h1 className="h1-seo presentation-title">DEL UNDER</h1>
                      <h3 className="d-none d-sm-block">
                        Comparti a cada momento lo mejor de la musica.
                      </h3>
