@@ -2,7 +2,8 @@ import React from "react";
 
 import RecitalesNavba from "components/Navbars/RecitalesNavbar.js";
 
-import RecitaleService from "services/RecitalService.js";
+import {buscarPorId} from "services/RecitalService.js";
+
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 
 import { withRouter } from "react-router-dom";
@@ -28,8 +29,10 @@ class DetallesRecitalPage extends React.Component {
 
   async buscarRecital() {
     const { match: { params } } = this.props;
-    let recitalObtenido = await RecitaleService.buscarPorId(params.id);
-    this.setState({ recital: recitalObtenido })
+    buscarPorId(params.id)
+      .then((recitalObtenido)=>{
+        this.setState({ recital: recitalObtenido })
+      })
   }
 
   render() {

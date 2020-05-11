@@ -1,0 +1,14 @@
+
+.black-background{
+  background-color: white;
+  
+}
+.grow-font-size{
+    color: black;
+}
+
+.fancy-progress-bar{
+    background: linear-gradient(to right, #007aff, #34aadc, #5856d6);
+}
+
+

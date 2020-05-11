@@ -16,6 +16,7 @@ import PoliticaDePrivacidadPage from "pages/PoliticaDePrivacidadPage.js";
 import RecitalAddPage from "pages/RecitalAddPage.js";
 
 import * as serviceWorker from './serviceWorker';
+import ErrorServerPage from "./pages/ErrorServerPage";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -27,6 +28,7 @@ ReactDOM.render(
       <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
       <Route path="/recital-add" render={props => <RecitalAddPage {...props} />} />
       <Route path="/login" render={props => <RegisterPage {...props} />} />
+      <Route path="/serverError" render={props => <ErrorServerPage {...props} />} />
       <Redirect from="/" to="/index" />
     </Switch>
   </BrowserRouter>,

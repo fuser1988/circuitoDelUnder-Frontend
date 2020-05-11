@@ -1,25 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 
 import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import GrillaRecitales from "components/body/GrillaRecitales.js";
-import RecitaleService from "services/RecitalService.js";
+import {buscarPorNombreYGenero, traerTodos} from "services/RecitalService.js";
 import SearchComponent from "components/search/SearchComponent.js";
 
-class RecitalesPage extends React.Component {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './toast.css';
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            recitales: []
-        };
-        this.buscarRecitales = this.buscarRecitales.bind(this);
-    }
+function RecitalesPage(props) {
 
-    componentDidMount() {
+    const {recitales, setRecitales} = useState([])
+    
+    React.useEffect(()=>{
         document.body.classList.toggle("index-page");
-        this.buscarRecitales();
-    }
+        buscarRecitales();
+    });
+
+    notificar = (mensaje) => toast(mensaje, {
+        className: 'black-background',
+        bodyClassName: "grow-font-size",
+        progressClassName: 'fancy-progress-bar'
+    });
+
+    
     componentWillUnmount() {
         document.body.classList.toggle("index-page");
     }
@@ -29,11 +35,28 @@ class RecitalesPage extends React.Component {
         this.buscarRecitales();
     }
 
-    async buscarRecitales() {
+    buscarRecitales= ()=> {
         const { match: { params } } = this.props;
-        let recitalesObtenidos = await RecitaleService.buscarPorNombreYGenero(params.busqueda);
-        console.log(recitalesObtenidos);
-        this.setState({ recitales: recitalesObtenidos })
+        buscarPorNombreYGenero(params.busqueda)
+            .then((recitales) => { this.procesarResultadoDeBusqueda(recitales); })
+            .catch((message) => { this.notificar(message) });
+    }
+
+    buscarTodosLosRecitales= ()=> {
+        traerTodos()
+            .then((recitales)=>{this.setState({ recitales: recitales });})
+            .catch((message) => { this.notificar(message) });
+    }
+
+    procesarResultadoDeBusqueda = (recitales)=> {
+        console.log(recitales);
+        if (recitales.length === 0) {
+            this.buscarTodosLosRecitales();
+            this.notificar("No se encontraron resultados para tu búsqueda. Tal vez te interesen estos recitales");
+        } else {
+            this.setState({ recitales: recitales });
+        }
+
     }
 
     render() {
@@ -41,11 +64,12 @@ class RecitalesPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader>
-                    <SearchComponent/>
+                    <SearchComponent />
                 </RecitalesHeader>
                 <div>
                     <div className="grilla-Responsive offset-md-2 col-10">
                         <GrillaRecitales recitales={this.state.recitales} />
+                        <ToastContainer />
                     </div>
                 </div>
             </>

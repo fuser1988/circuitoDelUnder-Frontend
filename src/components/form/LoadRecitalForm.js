@@ -1,28 +1,18 @@
-import RecitalService from "services/RecitalService.js";
+import {crearRecital} from "services/RecitalService.js";
 import RowForm from "components/form/RowForm.js";
 import { withRouter } from "react-router-dom";
 
 import { Alert } from "reactstrap";
 import React from 'react'
+import Recital from "../../model/Recital";
 
 
 class LoadRecitalPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            recital: {
-                nombre: '',
-                descripcion: '',
-                bandas: [],
-                fecha: '',
-                hora: '',
-                generos: [],
-                direccion: '',
-                localidad: '',
-                lugar: '',
-                imagen: '',
-                precio: 0,
-            },
+            recital: new Recital()
+            ,
             generosValidos: ["PUNK", "PUNK_ROCK", "ROCK", "HARD_ROCK", "HARDCORE", "HARDCORE_PUNK", "ROCK_AND_ROLL", "METAL", "NEW_METAL", "REGGAE", "BLUZ"],
             isGenerosValidos: false,
             visible: false,
@@ -93,7 +83,7 @@ class LoadRecitalPage extends React.Component {
             await this.hayGeneros('generos');
             if (this.state.isGenerosValidos) {
                 await this.modificarLista('bandas', this.state.recital.bandas);
-                await RecitalService.crearRecital(this.state.recital);
+                await crearRecital(this.state.recital);
                 this.props.history.push('/');
             }
         }
