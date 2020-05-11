@@ -1,7 +1,7 @@
 import RecitalService from "services/RecitalService.js";
 import RowForm from "components/form/RowForm.js";
 import { withRouter } from "react-router-dom";
-
+import { Multiselect } from 'multiselect-react-dropdown';
 import { Alert } from "reactstrap";
 import React from 'react'
 
@@ -33,6 +33,28 @@ class LoadRecitalPage extends React.Component {
         this.sendRecital = this.sendRecital.bind(this);
     }
 
+    handleChange = (event) => {
+        const values = event;
+        const lastItem = values[values.length - 1]
+        
+        if (lastItem) {
+            values.pop();
+            const sameItem = values.find(value => value === lastItem);
+            if (sameItem === undefined) {
+                values.push(lastItem);
+            }
+        }
+
+     //   const currentRecital = this.state.recital;
+        this.modificarListaGeneros('generos', values);
+       // this.setState({ recital: { ...currentRecital, ['generos']: values } });
+        console.log(this.state.recital.generos)
+    }
+    async modificarListaGeneros(property, values) {
+        const currentRecital = this.state.recital;
+        await this.setState({ recital: { ... currentRecital, [property]: values}})
+    }
+
     onDismiss = () => {
         this.setState({ visible: false });
     }
@@ -42,42 +64,21 @@ class LoadRecitalPage extends React.Component {
         this.setState({ recital: { ...currentRecital, [property]: event.target.value } });
     }
 
-    async modificarLista(property, lista) {
+    async modificarListaBandas(property, lista) {
         //modifico la lista para que se separe por comas
         if (lista.length > 0 && this.state.isBandasValidas) {
             const currentRecital = this.state.recital;
-            this.setState({ recital: { ...currentRecital, [property]: currentRecital.bandas.split(',') } });
-            this.setState({ isBandasValidas: false })
+            this.setState({ 
+                recital: { ...currentRecital, [property]: currentRecital.bandas.split(',')},
+                isBandasValidas: false 
+            });
         }
     }
 
     async hayGeneros(property) {
-        if (this.state.recital.generos.length > 0) {
-            this.state.recital.generos = this.state.recital.generos.toUpperCase();
-            const currentRecital = this.state.recital;
-            await this.setState({ recital: { ...currentRecital, [property]: currentRecital.generos.split(',') } });
-            this.validarGeneros()
-        }
+        return (this.state.recital.generos.length > 0) 
     }
 
-    setearGeneroNoValido(property) {
-        const currentRecital = this.state.recital;
-        this.setState({ recital: { ...currentRecital, [property]: [] } });
-
-    }
-
-    validarGeneros() {
-        // verifica si algunos de los generos recibido son validos
-        this.setState({ isGenerosValidos: true });
-        const generos = this.state.recital.generos;
-        generos.map(genero => {
-            if (!this.state.generosValidos.includes(genero)) {
-                this.setState({ isGenerosValidos: false });
-                this.setearGeneroNoValido('generos');
-                this.setState({ visible: true })
-            }
-        })
-    }
 
     isValido() {
         // verifica que todos los campos esten completos
@@ -90,12 +91,9 @@ class LoadRecitalPage extends React.Component {
 
     async sendRecital() {
         if (this.isValido()) {
-            await this.hayGeneros('generos');
-            if (this.state.isGenerosValidos) {
-                await this.modificarLista('bandas', this.state.recital.bandas);
-                await RecitalService.crearRecital(this.state.recital);
-                this.props.history.push('/');
-            }
+            await this.modificarListaBandas('bandas', this.state.recital.bandas);
+            await RecitalService.crearRecital(this.state.recital);
+            this.props.history.push('/');
         }
     }
 
@@ -152,28 +150,24 @@ class LoadRecitalPage extends React.Component {
                         accion={this.onChange}
                     />
 
-                    <RowForm
-                        label='generos'
-                        property={this.state.recital.generos}
-                        propertyName='generos'
-                        placeholder='PUNK,PUNK_ROCK,ROCK,HARD_ROCK,HARDCORE,HARDCORE_PUNK,ROCK_AND_ROLL,METAL,NEW_METAL,REGGAE,BLUZ;'
-                        type='text'
-                        accion={this.onChange}
-                    />
-
-                    <Alert
-                        color="warning"
-                        isOpen={this.state.visible}
-                        toggle={this.onDismiss}
-                    >
-                        <strong>El genero ingresado es invalido!</strong>
-                    EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE,
-                    HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL,
-                    REGGAE, BLUZ
-                </Alert>
+                    <label className="col-6 col-form-label">Generos</label>
+                    <div className="col-9">
+                        <div className='multiSelectContainer'>
+                            <Multiselect
+                                options={this.state.generosValidos} // Options to display in the dropdown
+                                selectedValues={this.state.recital.generos} // Preselected value to persist in dropdown
+                                onSelect={this.handleChange} // Function will trigger on select event
+                                onRemove={this.handleChange}
+                                displayValue="name" // Property name to display in the dropdown options
+                                placeholder='Generos'
+                                isObject={false}
+                                valid={(true)}
+                            />
+                        </div>
+                    </div>
 
                     <RowForm
-                        label='direccion'
+                        label='Direccion'
                         property={this.state.recital.direccion}
                         propertyName='direccion'
                         placeholder='dirección ej: calle altura'
@@ -182,7 +176,7 @@ class LoadRecitalPage extends React.Component {
                     />
 
                     <RowForm
-                        label='localidad'
+                        label='Localidad'
                         property={this.state.recital.localidad}
                         propertyName='localidad'
                         placeholder='localidad'
@@ -191,7 +185,7 @@ class LoadRecitalPage extends React.Component {
                     />
 
                     <RowForm
-                        label='lugar'
+                        label='Lugar'
                         property={this.state.recital.lugar}
                         propertyName='lugar'
                         placeholder='lugar'

@@ -100,3 +100,24 @@
 .content-center.brand{
   top: 56% !important;
 }
+
+.multiSelectContainer {
+  position: relative;
+  text-align: left;
+  width: 100%;
+  background: #171941; /*fonde donde esta el resultado de la selecciones*/
+}
+
+.optionListContainer {
+  position: absolute;
+  width: 100%;
+  background: #171941;
+  border-radius: 4px;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.multiSelectContainer li {
+  padding: 10px 10px;
+  background: #171941;/*fondo selecciones*/
+}
