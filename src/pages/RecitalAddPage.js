@@ -12,7 +12,9 @@ class RecitalAddPage extends React.Component {
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <LoadRecitalForm />
+                <div className="offset-2 col-8">
+                    <LoadRecitalForm />
+                </div>
                 </>
         );
     }

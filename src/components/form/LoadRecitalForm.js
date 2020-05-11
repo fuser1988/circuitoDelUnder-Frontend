@@ -2,7 +2,7 @@ import RecitalService from "services/RecitalService.js";
 import RowForm from "components/form/RowForm.js";
 import { withRouter } from "react-router-dom";
 import { Multiselect } from 'multiselect-react-dropdown';
-import { Alert } from "reactstrap";
+import { Alert, Card, CardBody } from "reactstrap";
 import React from 'react'
 
 
@@ -104,7 +104,11 @@ class LoadRecitalPage extends React.Component {
     render() {
         return (
             <>
-                <form className="grilla-Responsive offset-md-2 col-10 form" >
+
+            <form className="grilla-Responsive form mt-3" >
+            <Card>
+            <CardBody>
+
                     <RowForm
                         label='Nombre'
                         property={this.state.recital.nombre}
@@ -112,7 +116,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='nombre'
                         type='text'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='Descripcion'
@@ -121,7 +125,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='descripción'
                         type='text'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='Bandas'
@@ -130,7 +134,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='bandas ej: banda1, banda2'
                         type='text'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='Fecha'
@@ -139,7 +143,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder=''
                         type='date'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='Hora'
@@ -148,7 +152,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='hora'
                         type='time'
                         accion={this.onChange}
-                    />
+                        />
 
                     <label className="col-6 col-form-label">Generos</label>
                     <div className="col-9">
@@ -162,7 +166,7 @@ class LoadRecitalPage extends React.Component {
                                 placeholder='Generos'
                                 isObject={false}
                                 valid={(true)}
-                            />
+                                />
                         </div>
                     </div>
 
@@ -173,7 +177,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='dirección ej: calle altura'
                         type='text'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='Localidad'
@@ -182,7 +186,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='localidad'
                         type='text'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='Lugar'
@@ -191,7 +195,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='lugar'
                         type='text'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='URl Imagen'
@@ -200,7 +204,7 @@ class LoadRecitalPage extends React.Component {
                         placeholder='URL Imagen'
                         type='text'
                         accion={this.onChange}
-                    />
+                        />
 
                     <RowForm
                         label='Precio'
@@ -209,13 +213,15 @@ class LoadRecitalPage extends React.Component {
                         placeholder=''
                         type='number'
                         accion={this.onChange}
-                    />
+                        />
 
                     <br></br>
 
                     <button className="btn btn-text-center" onClick={this.sendRecital}>Accept</button>
                     <button className="btn btn-text-center" onClick={this.cancelar}>Cancelar</button>
 
+                    </CardBody>
+                </Card>
                 </form>
             </>
         )
