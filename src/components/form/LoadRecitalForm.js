@@ -25,14 +25,14 @@ function LoadRecitalForm(props) {
 
     const onChange = (property, event) => {
         const currentRecital = recital;
-        setRecital({ recital: { ...currentRecital, [property]: event.target.value } });
+        setRecital({  ...currentRecital, [property]: event.target.value  });
     }
 
     const modificarLista = (property, lista) => {
         //modifico la lista para que se separe por comas
         if (lista.length > 0 && isBandasValidas) {
             const currentRecital = recital;
-            setRecital({ recital: { ...currentRecital, [property]: currentRecital.bandas.split(',') } });
+            setRecital({ ...currentRecital, [property]: currentRecital.bandas.split(',') } );
             isBandasValidas= false; 
         }
     }
@@ -41,14 +41,15 @@ function LoadRecitalForm(props) {
         if (recital.generos.length > 0) {
             recital.generos = recital.generos.toUpperCase();
             const currentRecital = recital;
-            setRecital({ recital: { ...currentRecital, [property]: currentRecital.generos.split(',') } });
+            console.log(currentRecital.generos.split(','));
+            setRecital({ ...currentRecital, [property]: currentRecital.generos.split(',')  });
             validarGeneros()
         }
     }
 
     const setearGeneroNoValido = (property) => {
         const currentRecital = recital;
-        setRecital({ recital: { ...currentRecital, [property]: [] } });
+        setRecital({ ...currentRecital, [property]: [] } );
 
     }
 
@@ -74,10 +75,13 @@ function LoadRecitalForm(props) {
         return valid;
     }
 
-    const sendRecital = () => {
+    const guardarRecital = (event) => {
+        event.preventDefault();
         if (isValido()) {
             hayGeneros('generos');
             if (isGenerosValidos) {
+                console.log("los generos son validos");
+
                 modificarLista('bandas', recital.bandas);
                 console.log(recital);
                 crearRecital(recital);
@@ -206,7 +210,7 @@ function LoadRecitalForm(props) {
 
                 <br></br>
 
-                <button className="btn btn-text-center" onClick={sendRecital}>Accept</button>
+                <button className="btn btn-text-center" onClick={guardarRecital}>Aceptar</button>
                 <button className="btn btn-text-center" onClick={cancelar}>Cancelar</button>
 
             </form>

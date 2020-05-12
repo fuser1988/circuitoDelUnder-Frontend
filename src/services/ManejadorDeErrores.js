@@ -7,7 +7,7 @@ export const useManejadorDeErrores = () => {
     
     const mostrarPaginaError = (error) => {
         console.log(error.message)
-        push("/");
+        push("/serverError");
     }
     return {mostrarPaginaError}
     

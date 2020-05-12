@@ -38,7 +38,7 @@ export const useRecitalService = () => {
 
     const crearRecital = (recital) => {
         return new Promise((resolve, reject) => {
-            API.post('recitales', { ...recital })
+            API.post('recitales', JSON.stringify(recital) )
                 .then(({ data: recital }) => { resolve(recital) })
                 .catch((error) => { reject(error.message); });
         });
