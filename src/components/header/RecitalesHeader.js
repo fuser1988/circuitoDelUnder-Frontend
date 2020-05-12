@@ -4,7 +4,7 @@ import { Container } from "reactstrap";
 
 function RecitalesHeader(props) {
   let pageHeader = React.createRef();
- 
+
   React.useEffect(() => {
     if (window.innerWidth < 991) {
       const updateScroll = () => {
@@ -32,11 +32,11 @@ function RecitalesHeader(props) {
       >
 
         <Container className="">
- 
-            <div class="col-12">
-               {props.children}
-            </div>
-          
+
+          <div class="col-12">
+            {props.children}
+          </div>
+
         </Container>
       </div>
     </>

@@ -1,18 +1,14 @@
-import React from 'react';
 import {useHistory} from "react-router";
 
-const ManejadorDeErroresContext = React.createContext();
-export const useManejadorDeErrores = () => React.useContext(ManejadorDeErroresContext);
 
-const ManejadorDeErrores = () => {
+export const useManejadorDeErrores = () => {
     
-    const history = useHistory();
+    const {push}= useHistory();
     
     const mostrarPaginaError = (error) => {
         console.log(error.message)
-        history.push("/");
+        push("/");
     }
     return {mostrarPaginaError}
     
 }
-export default ManejadorDeErrores;
