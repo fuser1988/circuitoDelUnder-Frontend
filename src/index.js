@@ -19,7 +19,7 @@ import * as serviceWorker from './serviceWorker';
 import ErrorServerPage from "./pages/ErrorServerPage";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter forceRefresh={true}>
     <Switch>
       <Route path="/index" render={props => <HomePage {...props} />} />
       <Route path="/RecitalesPage/:busqueda" render={props => <RecitalesPage {...props} />} />
