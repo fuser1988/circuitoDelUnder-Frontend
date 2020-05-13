@@ -10,7 +10,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             API.get(`recitales/bandas?genero=${busqueda}`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { reject(error.message) });
+                .catch((error) => { mostrarPaginaError(error) });
 
         });
     }
@@ -19,7 +19,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             API.get(`recitales`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { reject(error.message) });
+                .catch((error) => { mostrarPaginaError(error) });
 
         });
     }
@@ -40,7 +40,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             API.post('recitales', JSON.stringify(recital) )
                 .then(({ data: recital }) => { resolve(recital) })
-                .catch((error) => { reject(error.message); });
+                .catch((error) => { mostrarPaginaError(error) });
         });
 
     }

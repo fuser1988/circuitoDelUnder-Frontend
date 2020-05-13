@@ -1,7 +1,7 @@
 import React from "react";
-import {Button} from "reactstrap";
+import { Button } from "reactstrap";
 
-class ErrorServerMessage extends React.Component {
+class NotFoundMessage extends React.Component {
     render() {
         return (
             <>
@@ -10,9 +10,8 @@ class ErrorServerMessage extends React.Component {
                     className="img-center img-fluid rounded-circle medium"
                     src={require("assets/img/circuito.png")}
                 />
-                <h1 className="h1-seo mt-2">500 SERVER ERROR</h1>
-                <h3 className="mb-0"> Ocurrió un error en el servidor.</h3>
-                <h3> Por favor intentarlo nuevamente mas tarde.</h3>
+                <h1 className="h1-seo mt-2">404 NOT FOUND</h1>
+                <h3 className="mb-0"> No se encontró el recurso al que intenta acceder..</h3>
                 <div className="pt-3">
                     <Button href="/">Volver al inicio</Button>
                 </div>
@@ -21,4 +20,4 @@ class ErrorServerMessage extends React.Component {
     }
 }
 
-export default ErrorServerMessage;
+export default NotFoundMessage;

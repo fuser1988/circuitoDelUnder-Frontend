@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import RecitalesNavba from "components/Navbars/RecitalesNavbar.js";
 
 import { useRecitalService } from "services/RecitalService.js";
-
+import Spinner from "components/spinner/Spinner.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import Recital from "model/Recital.js";
 
@@ -12,7 +12,7 @@ import { withRouter } from "react-router-dom";
 function DetallesRecitalPage(props) {
 
   const { buscarPorId } = useRecitalService();
-
+  const [cargandoRecitales, setcargandoRecitales] = useState(true);
   const [recital, setRecital] = useState(new Recital());
 
   React.useEffect(
@@ -29,6 +29,7 @@ function DetallesRecitalPage(props) {
     buscarPorId(params.id)
       .then((recitalObtenido) => {
         setRecital(recitalObtenido)
+        setcargandoRecitales(false);
       })
   }
 
@@ -69,46 +70,46 @@ function DetallesRecitalPage(props) {
           src={require("assets/img/cercuri.png")}
         />
 
-        <div className="content-center">
+        {cargandoRecitales ? <Spinner /> :
+          <div className="content-center">
+            <div className="row-grid justify-content-between align-items-center text-left row" >
+              <div className="col-md-6 col-lg-6">
+                <h1 className="text-white">{recital.nombre}</h1>
+                <p className="text-white mb-3">{recital.descripcion}</p>
+                <div className="btn-wrapper">
+                  <div className="button-container">
+                    <h4 className="mb-1">Bandas:</h4>
+                    {recital.bandas.map(banda => {
+                      return <a className="focus-pointer pl-1" href="/" key={banda} >{banda}</a>
+                    }
+                    )}
 
-          <div className="row-grid justify-content-between align-items-center text-left row" >
-            <div className="col-md-6 col-lg-6">
-              <h1 className="text-white">{recital.nombre}</h1>
-              <p className="text-white mb-3">{recital.descripcion}</p>
-              <div className="btn-wrapper">
-                <div className="button-container">
-                  <h4 className="mb-1">Bandas:</h4>
-                  {recital.bandas.map(banda => {
-                    return <a className="focus-pointer pl-1" href="/" key={banda} >{banda}</a>
-                  }
-                  )}
-
-                  <h4 className="mb-1">Generos:</h4>
-                  {recital.generos.map(genero => {
-                    return <a className="focus-pointer pl-1" href="#rock" key={genero} >{genero}</a>
-                  }
-                  )}
+                    <h4 className="mb-1">Generos:</h4>
+                    {recital.generos.map(genero => {
+                      return <a className="focus-pointer pl-1" href="#rock" key={genero} >{genero}</a>
+                    }
+                    )}
+                  </div>
                 </div>
+                <div className="btn-wrapper mb-3">
+
+                  <br />
+                  <p className="d-inline"><i className="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar},</p>
+                  <p className="d-inline pl-1">{recital.direccion}</p>
+                  <p className="d-inline pl-1">{recital.localidad}</p>
+                  <p><i className="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>
+                    {recital.fecha}  {recital.hora}hs. </p>
+
+                </div>
+
               </div>
-              <div className="btn-wrapper mb-3">
-
-                <br />
-                <p className="d-inline"><i className="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar},</p>
-                <p className="d-inline pl-1">{recital.direccion}</p>
-                <p className="d-inline pl-1">{recital.localidad}</p>
-                <p><i className="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>
-                  {recital.fecha}  {recital.hora}hs. </p>
-
+              <div className="col-md-6 col-lg-6">
+                <img alt="..." class="img-fluid" src={recital.imagen} />
               </div>
+            </div>
 
-            </div>
-            <div className="col-md-6 col-lg-6">
-              <img alt="..." class="img-fluid" src={recital.imagen} />
-            </div>
           </div>
-
-        </div>
-
+        }
       </div>
     </>
   );
