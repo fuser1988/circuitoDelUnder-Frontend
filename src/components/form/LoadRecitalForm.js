@@ -65,11 +65,8 @@ function LoadRecitalForm(props) {
         event.preventDefault();
         if (isValido()) {
             modificarListaBandas('bandas', recital.bandas);
-            //crearRecital(recital);
-            //push('/');
-            console.log(recital)
-            //console.log(recital.bandas.split(','))
-            //console.log(JSON.stringify(recital))
+            crearRecital(recital);
+            push('/');
         }
     }
 
