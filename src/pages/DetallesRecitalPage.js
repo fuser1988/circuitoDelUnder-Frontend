@@ -1,118 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
 
 import RecitalesNavba from "components/Navbars/RecitalesNavbar.js";
 
-import RecitaleService from "services/RecitalService.js";
+import { useRecitalService } from "services/RecitalService.js";
+
 import RecitalesHeader from "components/header/RecitalesHeader.js";
+import Recital from "model/Recital.js";
 
 import { withRouter } from "react-router-dom";
 
-class DetallesRecitalPage extends React.Component {
+function DetallesRecitalPage(props) {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      recital: { bandas: [], generos: [] }
-    };
-    this.buscarRecital = this.buscarRecital.bind(this);
+  const { buscarPorId } = useRecitalService();
+
+  const [recital, setRecital] = useState(new Recital());
+
+  React.useEffect(
+    () => {
+      document.body.classList.toggle("landing-page");
+      buscarRecital();
+      return () => {
+        document.body.classList.toggle("landing-page");
+      }
+    }, []);
+
+  const buscarRecital = () => {
+    const { match: { params } } = props;
+    buscarPorId(params.id)
+      .then((recitalObtenido) => {
+        setRecital(recitalObtenido)
+      })
   }
 
-  componentDidMount() {
-    document.body.classList.toggle("landing-page");
-    this.buscarRecital();
-  }
 
-  componentWillUnmount() {
-    document.body.classList.toggle("landing-page");
-  }
+  return (
+    <>
+      <RecitalesNavba />
+      <div className="page-header">
+        <RecitalesHeader />
+        <img
+          alt="..."
+          className="path"
+          src={require("assets/img/blob.png")}
+        />
+        <img
+          alt="..."
+          className="path2"
+          src={require("assets/img/path2.png")}
+        />
+        <img
+          alt="..."
+          className="shapes triangle"
+          src={require("assets/img/triunghiuri.png")}
+        />
+        <img
+          alt="..."
+          className="shapes wave"
+          src={require("assets/img/waves.png")}
+        />
+        <img
+          alt="..."
+          className="shapes squares"
+          src={require("assets/img/patrat.png")}
+        />
+        <img
+          alt="..."
+          className="shapes circle"
+          src={require("assets/img/cercuri.png")}
+        />
 
-  async buscarRecital() {
-    const { match: { params } } = this.props;
-    let recitalObtenido = await RecitaleService.buscarPorId(params.id);
-    this.setState({ recital: recitalObtenido })
-  }
+        <div className="content-center">
 
-  render() {
-    return (
-      <>
-        <RecitalesNavba />
-        <div className="page-header">
-          <RecitalesHeader />
-          <img
-            alt="..."
-            className="path"
-            src={require("assets/img/blob.png")}
-          />
-          <img
-            alt="..."
-            className="path2"
-            src={require("assets/img/path2.png")}
-          />
-          <img
-            alt="..."
-            className="shapes triangle"
-            src={require("assets/img/triunghiuri.png")}
-          />
-          <img
-            alt="..."
-            className="shapes wave"
-            src={require("assets/img/waves.png")}
-          />
-          <img
-            alt="..."
-            className="shapes squares"
-            src={require("assets/img/patrat.png")}
-          />
-          <img
-            alt="..."
-            className="shapes circle"
-            src={require("assets/img/cercuri.png")}
-          />
+          <div className="row-grid justify-content-between align-items-center text-left row" >
+            <div className="col-md-6 col-lg-6">
+              <h1 className="text-white">{recital.nombre}</h1>
+              <p className="text-white mb-3">{recital.descripcion}</p>
+              <div className="btn-wrapper">
+                <div className="button-container">
+                  <h4 className="mb-1">Bandas:</h4>
+                  {recital.bandas.map(banda => {
+                    return <a className="focus-pointer pl-1" href="/" key={banda} >{banda}</a>
+                  }
+                  )}
 
-          <div className="content-center">
-
-            <div className="row-grid justify-content-between align-items-center text-left row" >
-              <div className="col-md-6 col-lg-6">
-                <h1 className="text-white">{this.state.recital.nombre}</h1>
-                <p className="text-white mb-3">{this.state.recital.descripcion}</p>
-                <div className="btn-wrapper">
-                  <div className="button-container">
-                    <h4 className="mb-1">Bandas:</h4>
-                    {this.state.recital.bandas.map(banda => {
-                      return <a className="focus-pointer pl-1" href="/" key={banda} >{banda}</a>
-                    }
-                    )}
-
-                    <h4 className="mb-1">Generos:</h4>
-                    {this.state.recital.generos.map(genero => {
-                      return <a className="focus-pointer pl-1" href="#rock" key={genero} >{genero}</a>
-                    }
-                    )}
-                  </div>
+                  <h4 className="mb-1">Generos:</h4>
+                  {recital.generos.map(genero => {
+                    return <a className="focus-pointer pl-1" href="#rock" key={genero} >{genero}</a>
+                  }
+                  )}
                 </div>
-                <div className="btn-wrapper mb-3">
+              </div>
+              <div className="btn-wrapper mb-3">
 
-                  <br />
-                  <p className="d-inline"><i className="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{this.state.recital.lugar},</p>
-                  <p className="d-inline pl-1">{this.state.recital.direccion}</p>
-                  <p className="d-inline pl-1">{this.state.recital.localidad}</p>
-                  <p><i className="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>
-                    {this.state.recital.fecha}  {this.state.recital.hora}hs. </p>
-
-                </div>
+                <br />
+                <p className="d-inline"><i className="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar},</p>
+                <p className="d-inline pl-1">{recital.direccion}</p>
+                <p className="d-inline pl-1">{recital.localidad}</p>
+                <p><i className="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>
+                  {recital.fecha}  {recital.hora}hs. </p>
 
               </div>
-              <div className="col-md-6 col-lg-6">
-                <img alt="..." class="img-fluid" src={this.state.recital.imagen} />
-              </div>
+
             </div>
-
+            <div className="col-md-6 col-lg-6">
+              <img alt="..." class="img-fluid" src={recital.imagen} />
+            </div>
           </div>
 
         </div>
-      </>
-    );
-  }
+
+      </div>
+    </>
+  );
+
 }
 
 export default withRouter(DetallesRecitalPage);

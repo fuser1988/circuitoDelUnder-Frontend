@@ -107,7 +107,7 @@
   /* max-width: 962px; */
 }
 
-.content-center.brand{
+.content-center.brand {
   top: 56% !important;
 }
 
@@ -130,4 +130,71 @@
 .multiSelectContainer li {
   padding: 10px 10px;
   background: #171941;/*fondo selecciones*/
+}
+
+.black-background{
+  background-color: blue;
+}
+
+/* ErrorPageServer */
+
+.img-center.img-fluid.rounded-circle.medium {
+  max-width: 40%;
+}
+
+.content-center.brand.aling {
+  top: 50% !important;
+  font-family: monospace;
+}
+
+@media (max-width: 768px){
+  .img-center.img-fluid.rounded-circle.medium {
+    max-width: 100%;
+  }
+}
+
+.new-rock-font {
+  font-family: 'New Rocker', cursive;
+}
+
+.h1-seo.mt-2 {
+  font-size: 3em;
+}
+
+h3{
+  text-transform: none !important;
+}
+
+
+/* RecitalNavbar */
+
+.font-nav{
+  font-size: 23px !important;
+}
+
+.img-center.img-fluid.rounded-circle.icon {
+  max-width: 50px;
+}
+@media (max-width: 991px){
+  .font-nav.new-rock-font.navbar-brand {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 579px){
+  .row.d-flex.align-items-center {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 335px){
+  
+  .h1-seo.presentation-title {
+    font-size: 4em;
+  }
+
+  .font-nav.new-rock-font.navbar-brand {
+    font-size: 12px !important;
+  }
+
 }

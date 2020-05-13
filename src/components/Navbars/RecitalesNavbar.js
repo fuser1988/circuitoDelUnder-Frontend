@@ -115,13 +115,24 @@ class RecitalesNavBar extends React.Component {
       >
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand
-              to="/"
-              tag={Link}
-              id="navbar-brand"
-            >
-              Circuito del under
-            </NavbarBrand>
+            <div className="row d-flex align-items-center">
+              <img
+                      alt="..."
+                      className="img-center img-fluid rounded-circle icon mr-2"
+                      src={require("assets/img/circuito2.png")}
+              />
+              
+              
+              <NavbarBrand
+                to="/"
+                tag={Link}
+                id="navbar-brand"
+                className="font-nav new-rock-font "
+              >
+                Circuito del under
+              </NavbarBrand>
+
+            </div>
             <UncontrolledTooltip placement="bottom" target="navbar-brand">
               vivi la musica under donde vallas
             </UncontrolledTooltip>
