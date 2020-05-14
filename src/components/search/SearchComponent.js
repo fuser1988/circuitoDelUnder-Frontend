@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useHistory } from "react-router";
 
 import {
   InputGroup,
@@ -9,51 +10,44 @@ import {
   Container
 } from "reactstrap";
 
-import { withRouter } from "react-router-dom";
 
-class SearchBars extends Component {
+function SearchBars(props) {
 
-  constructor(props) {
-    super(props);
-    this.state = { busqueda: "" };
-    this.updateInput = this.updateInput.bind(this);
-    this.redirecSearch = this.redirecSearch.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+  const { push } = useHistory();
+  const [busqueda, setBusqueda] = useState("");
+
+  const actualizarInput = (event) => {
+    setBusqueda(event.target.value);
   }
 
-  updateInput(event) {
-    this.setState({ busqueda: event.target.value });
-  }
-
-  redirecSearch() {
-    this.props.history.push("/RecitalesPage/" + this.state.busqueda);
-    this.setState({busqueda:""});
+  const redirecionarAPaginaDeBusqueda = () => {
+    push("/RecitalesPage/" + busqueda);
+    setBusqueda("");
   }
 
 
-  handleKeyPress(event) {
+  const redirecionarSiPresionoEnter = (event) => {
     if (event.key === 'Enter') {
-      this.redirecSearch();
+      redirecionarAPaginaDeBusqueda();
     }
   }
 
-  render() {
-    return (
-      <Container>
-        <InputGroup>
-          <Col className="resize-search offset-2 col-8 mt-4">
-            <InputGroupAddon className="d-flex align-items-center" addonType="append">
-              <Input className="form-control" placeholder="" type="text" value={this.state.busqueda} onChange={this.updateInput} onKeyPress={this.handleKeyPress} ></Input>
-              <Button className="btn btn-text-center" onClick={this.redirecSearch} >
-                Buscar
+  return (
+    <Container>
+      <InputGroup>
+        <Col className="resize-search offset-2 col-8 mt-4">
+          <InputGroupAddon className="d-flex align-items-center" addonType="append">
+            <Input className="form-control" placeholder="" type="text" value={busqueda} onChange={actualizarInput} onKeyPress={redirecionarSiPresionoEnter} ></Input>
+            <Button className="btn btn-text-center" onClick={redirecionarAPaginaDeBusqueda} >
+              Buscar
               </Button>
-            </InputGroupAddon>
-          </Col>
-        </InputGroup>
-      </Container >
-    );
-  }
+          </InputGroupAddon>
+        </Col>
+      </InputGroup>
+    </Container >
+  );
+
 
 }
 
-export default withRouter(SearchBars);
+export default SearchBars;

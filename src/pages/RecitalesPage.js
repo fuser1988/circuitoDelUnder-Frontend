@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './toast.css';
 
 function RecitalesPage(props) {
+
     const { buscarPorNombreYGenero, traerTodos} = useRecitalService();
     const [ recitales, setRecitales ] = useState([]);
     const [cargandoRecitales,setcargandoRecitales] = useState(true);
@@ -29,12 +30,6 @@ function RecitalesPage(props) {
         bodyClassName: "grow-font-size",
         progressClassName: 'fancy-progress-bar'
     });
-
-    //buscar equivalente con funciones y hooks
-    // const componentWillReceiveProps = (nextProps) => {
-    //     this.props = nextProps;
-    //     this.buscarRecitales();
-    // }
 
     const buscarRecitales = () => {
         setcargandoRecitales(true);

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import {UserContext} from "context/UserContext.js";
+
 
 import {
   Button,
@@ -20,214 +22,189 @@ import {
 
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
-class RecitalesNavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user:null,
-      collapseOpen: false,
-      color: "navbar-transparent"
-    };
-  }
-  componentDidMount() {
-    window.addEventListener("scroll", this.changeColor);
-    this.cargarUsuario();
-    }
-    
-    cargarUsuario = () =>{
-      window.FB?
-      window.FB.getLoginStatus((response)=>{this.cargar(response)})
-        :console.log(window);
-          
-        }
-        
-    cargar = (response)=>{
-       response.status === 'connected' ? this.setState({user:response}) : this.setState({user:null});
+function RecitalesNavBar(props) {
 
-    }
+  const {user, setUser} = useContext(UserContext);
+  const [collapseOpen, setCollapseOpen] = useState(false);
+  const [collapseOut, setCollapseOut] = useState(true);
+  const [color, setColor] = useState("navbar-transparent");
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.changeColor);
-  }
-  changeColor = () => {
-    if (
-      document.documentElement.scrollTop > 99 ||
-      document.body.scrollTop > 99
-    ) {
-      this.setState({
-        color: "bg-info"
-      });
+  React.useEffect(() => {
+    window.addEventListener("scroll", changeColor);
+    return ()=>{
+      window.removeEventListener("scroll", changeColor);
+    }
+  }, []);
+
+  const changeColor = () => {
+    if (document.documentElement.scrollTop > 99 ||document.body.scrollTop > 99 ) {
+      setColor("bg-info");
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
-      this.setState({
-        color: "navbar-transparent"
-      });
+      setColor("navbar-transparent");
     }
   };
-  toggleCollapse = () => {
+
+  const toggleCollapse = () => {
     document.documentElement.classList.toggle("nav-open");
-    this.setState({
-      collapseOpen: !this.state.collapseOpen
-    });
+    setCollapseOpen( !collapseOpen);
   };
-  onCollapseExiting = () => {
-    this.setState({
-      collapseOut: "collapsing-out"
-    });
+
+  const onCollapseExiting = () => {
+    setCollapseOut("collapsing-out");
   };
-  onCollapseExited = () => {
-    this.setState({
-      collapseOut: ""
-    });
+
+  const onCollapseExited = () => {
+    setCollapseOut("");
   };
-  scrollToDownload = () => {
+
+  const scrollToDownload = () => {
     document
       .getElementById("download-section")
       .scrollIntoView({ behavior: "smooth" });
   };
-  responseFacebook = (response) => {
-    this.setState({ user: response });
+
+  const responseFacebook = (response) => {
+    setUser( response );
     console.log(response);
   }
 
-  componentClicked = () => {
+  const componentClicked = () => {
     console.log("Clicked!")
   }
 
-  logout = (e) => {
-    this.setState({ user: null });
+  const logout = (e) => {
+    setUser( null );
     e.preventDefault();
     window.FB.logout();
   }
 
-  falloLogin = () => {
-    this.setState({ user: null });
+  const falloLogin = () => {
+    setUser( null );
   }
 
-  render() {
-    return (
-      <Navbar
-        className={"fixed-top " + this.state.color}
-        color-on-scroll="100"
-        expand="lg"
+  return (
+    <Navbar
+      className={"fixed-top " + color}
+      color-on-scroll="100"
+      expand="lg"
       >
-        <Container>
-          <div className="navbar-translate">
-            <div className="row d-flex align-items-center">
-              <img
-                      alt="..."
-                      className="img-center img-fluid rounded-circle icon mr-2"
-                      src={require("assets/img/circuito2.png")}
+      <Container>
+        <div className="navbar-translate">
+          <div className="row d-flex align-items-center">
+            <img
+              alt="..."
+              className="img-center img-fluid rounded-circle icon mr-2"
+              src={require("assets/img/circuito2.png")}
               />
-              
-              
-              <NavbarBrand
-                to="/"
-                tag={Link}
-                id="navbar-brand"
-                className="font-nav new-rock-font "
+
+
+            <NavbarBrand
+              to="/"
+              tag={Link}
+              id="navbar-brand"
+              className="font-nav new-rock-font "
               >
-                Circuito del under
+              Circuito del under
               </NavbarBrand>
 
-            </div>
-            <UncontrolledTooltip placement="bottom" target="navbar-brand">
-              vivi la musica under donde vallas
-            </UncontrolledTooltip>
-            <button
-              aria-expanded={this.state.collapseOpen}
-              className="navbar-toggler navbar-toggler"
-              onClick={this.toggleCollapse}
-            >
-              <span className="navbar-toggler-bar bar1" />
-              <span className="navbar-toggler-bar bar2" />
-              <span className="navbar-toggler-bar bar3" />
-            </button>
           </div>
-          <Collapse
-            className={"justify-content-end " + this.state.collapseOut}
-            navbar
-            isOpen={this.state.collapseOpen}
-            onExiting={this.onCollapseExiting}
-            onExited={this.onCollapseExited}
+          <UncontrolledTooltip placement="bottom" target="navbar-brand">
+            vivi la musica under donde vallas
+            </UncontrolledTooltip>
+          <button
+            aria-expanded={collapseOpen}
+            className="navbar-toggler navbar-toggler"
+            onClick={toggleCollapse}
+            >
+            <span className="navbar-toggler-bar bar1" />
+            <span className="navbar-toggler-bar bar2" />
+            <span className="navbar-toggler-bar bar3" />
+          </button>
+        </div>
+        <Collapse
+          className={"justify-content-end " + collapseOut}
+          navbar
+          isOpen={collapseOpen}
+          onExiting={onCollapseExiting}
+          onExited={onCollapseExited}
           >
-            <div className="navbar-collapse-header">
-              <Row>
-                <Col className="collapse-brand" xs="6">
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                    BLK•React
+          <div className="navbar-collapse-header">
+            <Row>
+              <Col className="collapse-brand" xs="6">
+                <a href="#circuito" onClick={e => e.preventDefault()}>
+                  BLK•React
                   </a>
-                </Col>
-                <Col className="collapse-close text-right" xs="6">
-                  <button
-                    aria-expanded={this.state.collapseOpen}
-                    className="navbar-toggler"
-                    onClick={this.toggleCollapse}
+              </Col>
+              <Col className="collapse-close text-right" xs="6">
+                <button
+                  aria-expanded={collapseOpen}
+                  className="navbar-toggler"
+                  onClick={toggleCollapse}
                   >
-                    <i className="tim-icons icon-simple-remove" />
-                  </button>
-                </Col>
-              </Row>
-            </div>
-            <Nav navbar>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  data-toggle="dropdown"
-                  href="#pablo"
-                  nav
-                  onClick={e => e.preventDefault()}
+                  <i className="tim-icons icon-simple-remove" />
+                </button>
+              </Col>
+            </Row>
+          </div>
+          <Nav navbar>
+            <UncontrolledDropdown nav>
+              <DropdownToggle
+                caret
+                color="default"
+                data-toggle="dropdown"
+                href="#pablo"
+                nav
+                onClick={e => e.preventDefault()}
                 >
-                  <i className="fa fa-cogs d-lg-none d-xl-none" />
+                <i className="fa fa-cogs d-lg-none d-xl-none" />
                   Menu
                 </DropdownToggle>
-                <DropdownMenu className="dropdown-with-icons">
-                  <DropdownItem href="https://demos.creative-tim.com/blk-design-system-react/#/documentation/tutorial">
-                    <i className="tim-icons icon-paper" />
+              <DropdownMenu className="dropdown-with-icons">
+                <DropdownItem href="https://demos.creative-tim.com/blk-design-system-react/#/documentation/tutorial">
+                  <i className="tim-icons icon-paper" />
                     Documentation
                   </DropdownItem>
-                  <DropdownItem tag={Link} to="/register-page">
-                    <i className="tim-icons icon-bullet-list-67" />
+                <DropdownItem tag={Link} to="/register-page">
+                  <i className="tim-icons icon-bullet-list-67" />
                     Register Page
                   </DropdownItem>
-                  <DropdownItem tag={Link} to="/landing-page">
-                    <i className="tim-icons icon-image-02" />
+                <DropdownItem tag={Link} to="/landing-page">
+                  <i className="tim-icons icon-image-02" />
                     Landing Page
                   </DropdownItem>
-                  <DropdownItem tag={Link} to="/profile-page">
-                    <i className="tim-icons icon-single-02" />
+                <DropdownItem tag={Link} to="/profile-page">
+                  <i className="tim-icons icon-single-02" />
                     Profile Page
                   </DropdownItem>
-                  <DropdownItem tag={Link} to="/recital-add">
-                    <i className="tim-icons icon-triangle-right-17" />
+                <DropdownItem tag={Link} to="/recital-add">
+                  <i className="tim-icons icon-triangle-right-17" />
                     Add Recital
                   </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem>
-                {!this.state.user ? (
-                  <FacebookLogin
-                    appId="222983722267666"
-                    onFailure={this.falloLogin}
-                    callback={this.responseFacebook}
-                    fields="name,email,picture"
-                    render={renderProps => (
-                      <Button onClick={renderProps.onClick}>Ingresar</Button>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            <NavItem>
+              {!user ? (
+                <FacebookLogin
+                  appId="222983722267666"
+                  onFailure={falloLogin}
+                  callback={responseFacebook}
+                  fields="name,email,picture"
+                  render={renderProps => (
+                    <Button onClick={renderProps.onClick}>Ingresar</Button>
                     )}
+                    
+                    />) : (<Button onClick={(e) => { logout(e) }}>Salir</Button>)
+                  }
+            </NavItem>
 
-                  />) : (<Button onClick={(e) => { this.logout(e) }}>Salir</Button>)
-                }
-              </NavItem>
-              
-            </Nav>
-          </Collapse>
-        </Container>
-      </Navbar>
-    );
-  }
+          </Nav>
+        </Collapse>
+      </Container>
+    </Navbar>
+  );
 }
 
 export default RecitalesNavBar;
