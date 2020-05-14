@@ -19,6 +19,7 @@ import {UserProvider} from "context/UserContext.js";
 import * as serviceWorker from './serviceWorker';
 import ErrorServerPage from "./pages/ErrorServerPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ConfirmacionCuentaPage from "./pages/ConfirmacionCuentaPage";
 
 
 
@@ -35,6 +36,7 @@ ReactDOM.render(
         <Route path="/login" render={props => <RegisterPage {...props} />} />
         <Route path="/serverError" render={props => <ErrorServerPage {...props} />} />
         <Route path="/notFound" render={props => <NotFoundPage {...props} />} />
+        <Route path="/confirmaciones-de-cuentas" render={props => <ConfirmacionCuentaPage {...props} />} />
         <Redirect from="/" to="/index" />
       </Switch>
     </BrowserRouter>

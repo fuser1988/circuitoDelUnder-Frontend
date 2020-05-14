@@ -259,3 +259,21 @@ div.loader {
       padding-top: 35%;
    }
 }
+
+/* ConfirmacionDeCuentaPage */
+
+.confirmacion-cuenta .content-center.brand.aling{
+  width: 100%;
+}
+
+.confirmacion-cuenta .img-center.img-fluid.rounded-circle.medium {
+  max-width: 25%;
+}
+
+.confirmacion-cuenta .brand .h1-seo {
+  font-size: 3em;
+}
+
+.confirmacion-cuenta h3, .h3 {
+  font-size: 1.2rem;
+}
