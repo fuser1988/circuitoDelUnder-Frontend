@@ -2,68 +2,52 @@ import { useRecitalService } from "services/RecitalService.js";
 
 import RowForm from "components/form/RowForm.js";
 import { useHistory } from "react-router-dom";
-
-import { Alert } from "reactstrap";
+import { Multiselect } from 'multiselect-react-dropdown';
 import React, { useState } from 'react'
 import Recital from "../../model/Recital";
-
 
 function LoadRecitalForm(props) {
 
     const { crearRecital } = useRecitalService();
-    const [ recital, setRecital ] = useState( new Recital() );
+    const [recital, setRecital] = useState(new Recital());
     const { push } = useHistory();
 
     const generosValidos = ["PUNK", "PUNK_ROCK", "ROCK", "HARD_ROCK", "HARDCORE", "HARDCORE_PUNK", "ROCK_AND_ROLL", "METAL", "NEW_METAL", "REGGAE", "BLUZ"];
-    let isGenerosValidos = false;
-    let visible = false;
     let isBandasValidas = true;
 
-    const onDismiss = () => {
-         visible= false;
+    const handleChange = (event) => {
+        const values = event;
+        const lastItem = values[values.length - 1]
+
+        if (lastItem) {
+            values.pop();
+            const sameItem = values.find(value => value === lastItem);
+            if (sameItem === undefined) {
+                values.push(lastItem);
+            }
+        }
+
+        setearRecital('generos', values);
+    }
+
+    const setearRecital = (property, values) => {
+        const currentRecital = recital;
+        setRecital({ ...currentRecital, [property]: values })
     }
 
     const onChange = (property, event) => {
         const currentRecital = recital;
-        setRecital({  ...currentRecital, [property]: event.target.value  });
+        setRecital({ ...currentRecital, [property]: event.target.value });
     }
 
-    const modificarLista = (property, lista) => {
+    const modificarListaBandas = (property, lista) => {
         //modifico la lista para que se separe por comas
         if (lista.length > 0 && isBandasValidas) {
             const currentRecital = recital;
-            setRecital({ ...currentRecital, [property]: currentRecital.bandas.split(',') } );
-            isBandasValidas= false; 
+            recital.bandas = recital.bandas.split(',');
+            //setRecital({ ...currentRecital, [property]: recital.bandas.split(',') } );
+            isBandasValidas = false;
         }
-    }
-
-    const hayGeneros = (property) => {
-        if (recital.generos.length > 0) {
-            recital.generos = recital.generos.toUpperCase();
-            const currentRecital = recital;
-            console.log(currentRecital.generos.split(','));
-            setRecital({ ...currentRecital, [property]: currentRecital.generos.split(',')  });
-            validarGeneros()
-        }
-    }
-
-    const setearGeneroNoValido = (property) => {
-        const currentRecital = recital;
-        setRecital({ ...currentRecital, [property]: [] } );
-
-    }
-
-    const validarGeneros = () => {
-        // verifica si algunos de los generos recibido son validos
-        isGenerosValidos = true;
-        const generos = recital.generos;
-        generos.map(genero => {
-            if (!generosValidos.includes(genero)) {
-                isGenerosValidos = false;
-                setearGeneroNoValido('generos');
-                visible = true;
-            }
-        })
     }
 
     const isValido = () => {
@@ -78,22 +62,16 @@ function LoadRecitalForm(props) {
     const guardarRecital = (event) => {
         event.preventDefault();
         if (isValido()) {
-            hayGeneros('generos');
-            if (isGenerosValidos) {
-                console.log("los generos son validos");
-
-                modificarLista('bandas', recital.bandas);
-                console.log(recital);
-                crearRecital(recital);
-                push('/');
-            }
+            modificarListaBandas('bandas', recital.bandas);
+            crearRecital(recital).then(newRecital => {
+                push('/Recital/' + newRecital.id + '/' + true)
+            })
         }
     }
 
     const cancelar = () => {
         push('/');
     }
-
 
     return (
         <>
@@ -143,28 +121,24 @@ function LoadRecitalForm(props) {
                     accion={onChange}
                 />
 
-                <RowForm
-                    label='generos'
-                    property={recital.generos}
-                    propertyName='generos'
-                    placeholder='PUNK,PUNK_ROCK,ROCK,HARD_ROCK,HARDCORE,HARDCORE_PUNK,ROCK_AND_ROLL,METAL,NEW_METAL,REGGAE,BLUZ;'
-                    type='text'
-                    accion={onChange}
-                />
-
-                <Alert
-                    color="warning"
-                    isOpen={visible}
-                    toggle={onDismiss}
-                >
-                    <strong>El genero ingresado es invalido!</strong>
-                    EJ: PUNK, PUNK_ROCK, ROCK, HARD_ROCK, HARDCORE,
-                    HARDCORE_PUNK, ROCK_AND_ROLL, METAL,NEW_METAL,
-                    REGGAE, BLUZ
-                </Alert>
+                <label className="col-6 col-form-label">Géneros</label>
+                <div className="col-9">
+                    <div className='multiSelectContainer'>
+                        <Multiselect
+                            options={generosValidos} // Options to display in the dropdown
+                            selectedValues={recital.generos} // Preselected value to persist in dropdown
+                            onSelect={handleChange} // Function will trigger on select event
+                            onRemove={handleChange}
+                            displayValue="name" // Property name to display in the dropdown options
+                            placeholder='Generos'
+                            isObject={false}
+                            valid={(true)}
+                        />
+                    </div>
+                </div>
 
                 <RowForm
-                    label='direccion'
+                    label='Dirección'
                     property={recital.direccion}
                     propertyName='direccion'
                     placeholder='dirección ej: calle altura'
@@ -173,7 +147,7 @@ function LoadRecitalForm(props) {
                 />
 
                 <RowForm
-                    label='localidad'
+                    label='Localidad'
                     property={recital.localidad}
                     propertyName='localidad'
                     placeholder='localidad'
@@ -182,7 +156,7 @@ function LoadRecitalForm(props) {
                 />
 
                 <RowForm
-                    label='lugar'
+                    label='Lugar'
                     property={recital.lugar}
                     propertyName='lugar'
                     placeholder='lugar'

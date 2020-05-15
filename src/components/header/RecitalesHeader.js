@@ -33,7 +33,7 @@ function RecitalesHeader(props) {
 
         <Container className="">
 
-          <div class="col-12">
+          <div>
             {props.children}
           </div>
 

@@ -8,6 +8,9 @@ import RecitalesHeader from "components/header/RecitalesHeader.js";
 import Recital from "model/Recital.js";
 
 import { withRouter } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../toast.css';
 
 function DetallesRecitalPage(props) {
 
@@ -19,10 +22,25 @@ function DetallesRecitalPage(props) {
     () => {
       document.body.classList.toggle("landing-page");
       buscarRecital();
+      notificarSiCorresponde();
       return () => {
         document.body.classList.toggle("landing-page");
       }
     }, []);
+  
+  const notificarSiCorresponde = () => {
+    const { match: { params } } = props;
+    console.log(params.new);
+    if(params.new){
+      notificar("El recital se cargó correctamente")
+    }
+  }
+
+  const notificar = (mensaje) => toast(mensaje, {
+    className: 'black-background',
+    bodyClassName: "grow-font-size",
+    progressClassName: 'fancy-progress-bar'
+  });
 
   const buscarRecital = () => {
     const { match: { params } } = props;
@@ -69,7 +87,7 @@ function DetallesRecitalPage(props) {
           className="shapes circle"
           src={require("assets/img/cercuri.png")}
         />
-
+        <ToastContainer />
         {cargandoRecitales ? <Spinner /> :
           <div className="content-center">
             <div className="row-grid justify-content-between align-items-center text-left row" >
@@ -104,7 +122,7 @@ function DetallesRecitalPage(props) {
 
               </div>
               <div className="col-md-6 col-lg-6">
-                <img alt="..." class="img-fluid" src={recital.imagen} />
+                <img alt="..." className="img-fluid" src={recital.imagen} />
               </div>
             </div>
 
