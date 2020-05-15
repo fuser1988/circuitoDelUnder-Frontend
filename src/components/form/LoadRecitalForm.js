@@ -3,14 +3,12 @@ import { useRecitalService } from "services/RecitalService.js";
 import RowForm from "components/form/RowForm.js";
 import { useHistory } from "react-router-dom";
 import { Multiselect } from 'multiselect-react-dropdown';
-import { Alert } from "reactstrap";
 import React, { useState } from 'react'
 import Recital from "../../model/Recital";
 
-
 function LoadRecitalForm(props) {
 
-    const { crearRecital } = useRecitalService();
+    const { crearRecital, buscarPorId } = useRecitalService();
     const [ recital, setRecital ] = useState( new Recital() );
     const { push } = useHistory();
 
@@ -28,11 +26,11 @@ function LoadRecitalForm(props) {
                 values.push(lastItem);
             }
         }
-
-        modificarListaGeneros('generos', values);
+        
+        setearRecital('generos', values);
     }
 
-    const modificarListaGeneros = (property, values) => {
+    const setearRecital = (property, values) => {
         const currentRecital = recital;
         setRecital({ ...currentRecital, [property]: values})
     }
@@ -65,8 +63,9 @@ function LoadRecitalForm(props) {
         event.preventDefault();
         if (isValido()) {
             modificarListaBandas('bandas', recital.bandas);
-            crearRecital(recital);
-            push('/');
+            crearRecital(recital).then( newRecital => {
+                push('/Recital/' + newRecital.id +'/' +true)
+            })
         }
     }
 

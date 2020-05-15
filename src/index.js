@@ -25,6 +25,7 @@ ReactDOM.render(
       <Route path="/index" render={props => <HomePage {...props} />} />
       <Route path="/RecitalesPage/:busqueda" render={props => <RecitalesPage {...props} />} />
       <Route path="/components" render={props => <Index {...props} />} />
+      <Route path="/Recital/:id/:new" render={props => <DetallesRecitalPage {...props} />} />
       <Route path="/Recital/:id" render={props => <DetallesRecitalPage {...props} />} />
       <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
       <Route path="/recital-add" render={props => <RecitalAddPage {...props} />} />
