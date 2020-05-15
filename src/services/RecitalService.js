@@ -1,5 +1,5 @@
 
-import API from "utils/api.js";
+import CircuitoDelUnderApi from "utils/CircuitoDelUnderApi.js";
 import {useManejadorDeErrores} from "./ManejadorDeErrores.js";
 
 export const useRecitalService = () => {
@@ -8,7 +8,7 @@ export const useRecitalService = () => {
 
     const buscarPorNombreYGenero = (busqueda) => {
         return new Promise((resolve, reject) => {
-            API.get(`recitales/bandas?genero=${busqueda}`)
+            CircuitoDelUnderApi.get(`recitales/bandas?genero=${busqueda}`)
                 .then((response) => { resolve(response.data); })
                 .catch((error) => { mostrarPaginaError(error) });
 
@@ -17,7 +17,7 @@ export const useRecitalService = () => {
 
     const traerTodos = () => {
         return new Promise((resolve, reject) => {
-            API.get(`recitales`)
+            CircuitoDelUnderApi.get(`recitales`)
                 .then((response) => { resolve(response.data); })
                 .catch((error) => { mostrarPaginaError(error) });
 
@@ -26,7 +26,7 @@ export const useRecitalService = () => {
 
     const buscarPorId = (id) => {
         return new Promise((resolve, reject) => {
-            API.get(`recitales/${id}`)
+            CircuitoDelUnderApi.get(`recitales/${id}`)
                 .then(({ data: recital }) => {
                     resolve(recital);
                 })
@@ -38,7 +38,7 @@ export const useRecitalService = () => {
 
     const crearRecital = (recital) => {
         return new Promise((resolve, reject) => {
-            API.post('recitales', recital )
+            CircuitoDelUnderApi.post('recitales', recital )
                 .then(({ data: recital }) => { resolve(recital) })
                 .catch((error) => { mostrarPaginaError(error) });
         });

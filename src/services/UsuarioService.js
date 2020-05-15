@@ -1,14 +1,14 @@
 
-import API from "utils/api.js";
+import CircuitoDelUnderApi from "utils/CircuitoDelUnderApi.js";
 import { useManejadorDeErrores } from "./ManejadorDeErrores.js";
 
 export const useUsuarioService = () => {
 
     const { mostrarPaginaError } = useManejadorDeErrores();
 
-    const validarCodigo = (codigo) => {
+    const validarCodigoCuenta = (codigo) => {
         return new Promise((resolve, reject) => {
-            API.post('usuario/validacion', codigo)
+            CircuitoDelUnderApi.post('usuario/validacion', codigo)
                 .then(({ data: usuario }) => { resolve(usuario) })
                 .catch((error) => { mostrarPaginaError(error) });
         });
@@ -17,12 +17,12 @@ export const useUsuarioService = () => {
 
     const buscarUsuario = (referencia) => {
         return new Promise((resolve, reject) => {
-            API.post('usuario/info', referencia)
+            CircuitoDelUnderApi.post('usuario/info', referencia)
                 .then(({ data: respuesta }) => { resolve(respuesta) })
                 .catch((error) => { mostrarPaginaError(error) });
         });
 
     }
     
-    return { validarCodigo, buscarUsuario }
+    return { validarCodigoCuenta, buscarUsuario }
 }
