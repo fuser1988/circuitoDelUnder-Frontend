@@ -13,7 +13,7 @@ class RecitalAddPage extends React.Component {
                 <RecitalesNavbar />
                 <RecitalesHeader />
                 <LoadRecitalForm />
-                </>
+            </>
         );
     }
 }

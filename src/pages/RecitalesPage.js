@@ -9,7 +9,7 @@ import Spinner from "components/spinner/Spinner.js";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './toast.css';
+import '../toast.css';
 
 function RecitalesPage(props) {
 
