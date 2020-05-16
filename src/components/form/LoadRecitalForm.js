@@ -5,16 +5,16 @@ import { useHistory } from "react-router-dom";
 import { Multiselect } from 'multiselect-react-dropdown';
 import React, { useState } from 'react'
 import Recital from "../../model/Recital";
-
+import {Form, FormGroup, Label} from 'reactstrap';
 function LoadRecitalForm(props) {
 
-    const { crearRecital, buscarPorId } = useRecitalService();
+    const { crearRecital } = useRecitalService();
     const [ recital, setRecital ] = useState( new Recital() );
     const { push } = useHistory();
 
     const generosValidos = ["PUNK", "PUNK_ROCK", "ROCK", "HARD_ROCK", "HARDCORE", "HARDCORE_PUNK", "ROCK_AND_ROLL", "METAL", "NEW_METAL", "REGGAE", "BLUZ"];
     let isBandasValidas = true;
-
+    
     const handleChange = (event) => {
         const values = event;
         const lastItem = values[values.length - 1]
@@ -75,13 +75,14 @@ function LoadRecitalForm(props) {
 
     return (
         <>
-            <form className="grilla-Responsive offset-md-2 col-10 form" >
+            <Form>
                 <RowForm
                     label='Nombre'
                     property={recital.nombre}
                     propertyName='nombre'
                     placeholder='nombre'
                     type='text'
+                    invalid = {true}
                     accion={onChange}
                 />
 
@@ -91,8 +92,11 @@ function LoadRecitalForm(props) {
                     propertyName='descripcion'
                     placeholder='descripción'
                     type='text'
+                    invalid = {true}
                     accion={onChange}
                 />
+                
+
 
                 <RowForm
                     label='Bandas'
@@ -100,6 +104,7 @@ function LoadRecitalForm(props) {
                     propertyName='bandas'
                     placeholder='bandas ej: banda1, banda2'
                     type='text'
+                    invalid = {true}
                     accion={onChange}
                 />
 
@@ -109,6 +114,7 @@ function LoadRecitalForm(props) {
                     propertyName='fecha'
                     placeholder=''
                     type='date'
+                    invalid = {true}
                     accion={onChange}
                 />
 
@@ -118,24 +124,25 @@ function LoadRecitalForm(props) {
                     propertyName='hora'
                     placeholder='hora'
                     type='time'
+                    invalid = {true}
                     accion={onChange}
                 />
-
-                <label className="col-6 col-form-label">Géneros</label>
-                    <div className="col-9">
+                
+                <FormGroup className="grilla-Responsive offset-md-2 col-10 form">
+                    <Label className="col-3 col-form-label">Géneros</Label>
                         <div className='multiSelectContainer'>
-                            <Multiselect
+                            <Multiselect 
                                 options={generosValidos} // Options to display in the dropdown
                                 selectedValues={recital.generos} // Preselected value to persist in dropdown
                                 onSelect={handleChange} // Function will trigger on select event
                                 onRemove={handleChange}
                                 displayValue="name" // Property name to display in the dropdown options
-                                placeholder='Generos'
+                                placeholder='generos'
                                 isObject={false}
-                                valid={(true)}
-                                />
+                            />
                         </div>
-                    </div>
+                </FormGroup>
+                
 
                 <RowForm
                     label='Dirección'
@@ -143,6 +150,7 @@ function LoadRecitalForm(props) {
                     propertyName='direccion'
                     placeholder='dirección ej: calle altura'
                     type='text'
+                    invalid = {true}
                     accion={onChange}
                 />
 
@@ -152,6 +160,7 @@ function LoadRecitalForm(props) {
                     propertyName='localidad'
                     placeholder='localidad'
                     type='text'
+                    invalid = {true}
                     accion={onChange}
                 />
 
@@ -161,6 +170,7 @@ function LoadRecitalForm(props) {
                     propertyName='lugar'
                     placeholder='lugar'
                     type='text'
+                    invalid = {true}
                     accion={onChange}
                 />
 
@@ -170,6 +180,7 @@ function LoadRecitalForm(props) {
                     propertyName='imagen'
                     placeholder='URL Imagen'
                     type='text'
+                    invalid = {true}
                     accion={onChange}
                 />
 
@@ -182,12 +193,12 @@ function LoadRecitalForm(props) {
                     accion={onChange}
                 />
 
-                <br></br>
+                <div className="grilla-Responsive offset-md-2 col-10 form">
+                    <button className="btn btn-text-center" onClick={guardarRecital}>Aceptar</button>
+                    <button className="btn btn-text-center" onClick={cancelar}>Cancelar</button>
+                </div>
 
-                <button className="btn btn-text-center" onClick={guardarRecital}>Aceptar</button>
-                <button className="btn btn-text-center" onClick={cancelar}>Cancelar</button>
-
-            </form>
+            </Form>
         </>
     )
 

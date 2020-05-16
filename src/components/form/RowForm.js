@@ -1,19 +1,37 @@
 import React from 'react';
+import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
 class RowForm extends React.Component {
-    
+    constructor(props) {
+        super(props);
+          this.state = {
+          validate: this.props.invalid,
+        }
+      }
+
     update(event){
+        this.setState({validate:false})
         this.props.accion(this.props.propertyName, event)
     }
 
     render(){
         return (
-            <div className="">
-              <label className="col-3 col-form-label">{this.props.label}</label>
-              <div className="col-10">
-                  <input type={this.props.type} placeholder={this.props.placeholder} className="form-control" required value={this.props.property} onChange={event => this.update(event)} />
-              </div>
-              </div>
+            <FormGroup className="grilla-Responsive offset-md-2 col-10 form">
+              <Label className="col-3 col-form-label">{this.props.label}</Label>
+              <Input
+                type={this.props.type}
+                placeholder={this.props.placeholder}
+                value={ this.props.property }
+                invalid={this.state.validate}
+                onChange={event => this.update(event)}
+              />
+              <FormFeedback>
+                Se Requiere Completar el Campo.
+              </FormFeedback>
+            </FormGroup>
+
+
+
           );
     }
 }
