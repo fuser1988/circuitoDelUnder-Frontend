@@ -23,7 +23,7 @@ function LoadRecitalForm(props) {
             values.pop();
             const sameItem = values.find(value => value === lastItem);
             if (sameItem === undefined) {
-                values.push(lastItem);
+                            values.push(lastItem);
             }
         }
         

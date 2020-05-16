@@ -10,8 +10,8 @@ class RowForm extends React.Component {
       }
 
     update(event){
-        this.setState({validate:false})
-        this.props.accion(this.props.propertyName, event)
+      (event.target.value === '') ? this.setState({validate:true}) : this.setState({validate:false});
+      this.props.accion(this.props.propertyName, event)
     }
 
     render(){
