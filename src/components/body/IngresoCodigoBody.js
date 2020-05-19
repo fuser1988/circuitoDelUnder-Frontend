@@ -20,11 +20,13 @@ function IngresoCodigoBody(props) {
 
 
     const validarCodigo = () => {
-        validarCodigoCuenta(codigoVerificacion)
+        let codigoVerificacionConUsuario= {};
+        codigoVerificacionConUsuario.codigo = codigoVerificacion;
+        codigoVerificacionConUsuario.usuarioId = user.id;
+        validarCodigoCuenta(codigoVerificacionConUsuario)
         .then((respuesta)=>{
             if(respuesta){
                 let usuario = user;
-                usuario.valido=true;
                 setUser(usuario);
                 props.redirect();
 

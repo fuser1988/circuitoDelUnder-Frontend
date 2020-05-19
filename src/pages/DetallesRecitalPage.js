@@ -97,16 +97,16 @@ function DetallesRecitalPage(props) {
                 <div className="btn-wrapper">
                   <div className="button-container">
                     <h4 className="mb-1">Bandas:</h4>
-                    {recital.bandas.map(banda => {
+                    {/* {recital.bandas.map(banda => {
                       return <a className="focus-pointer pl-1" href="/" key={banda} >{banda}</a>
                     }
-                    )}
+                    )} */}
 
                     <h4 className="mb-1">Generos:</h4>
-                    {recital.generos.map(genero => {
+                    {/* {recital.getGeneros().map(genero => {
                       return <a className="focus-pointer pl-1" href="#rock" key={genero} >{genero}</a>
                     }
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className="btn-wrapper mb-3">

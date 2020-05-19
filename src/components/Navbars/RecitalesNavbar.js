@@ -72,18 +72,23 @@ function RecitalesNavBar(props) {
     progressClassName: 'fancy-progress-bar'
   });
 
-  const responseFacebook = (response) => {
+  const respuestaDeLoginConFaceboook = (response) => {
     let referencia = new Referencia(response);
+    setUser(response);
     buscarUsuario(referencia)
       .then(((usuario) => {
         setUser(usuario);
-        if (usuario.registrado) {
-          notificar("Bienvenido " + usuario.nombre);
-        } else {
-          push("/confirmaciones-de-cuentas");
-        }
+        procesarRespuestaDelBackend(usuario);
       }))
-    // notificar("Bienvenido "+response.name);
+      
+  const procesarRespuestaDelBackend = (usuario) => {
+        
+        if (usuario.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION") {
+          push("/confirmaciones-de-cuentas");
+        } else {
+          notificar("Bienvenido " + usuario.nombre);
+        }
+    }
   }
 
   const logout = (e) => {
@@ -91,6 +96,7 @@ function RecitalesNavBar(props) {
     if (window.FB) {
       window.FB.logout();
     }
+    push("/");
   }
 
   const falloLogin = () => {
@@ -203,7 +209,7 @@ function RecitalesNavBar(props) {
                   <FacebookLogin
                     appId="222983722267666"
                     onFailure={falloLogin}
-                    callback={responseFacebook}
+                    callback={respuestaDeLoginConFaceboook}
                     fields="name,email,picture"
                     render={renderProps => (
                       <Button onClick={renderProps.onClick}>Ingresar</Button>

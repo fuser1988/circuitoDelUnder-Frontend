@@ -4,7 +4,6 @@ class Recital {
     bandas = [];
     fecha = '';
     hora = '';
-    generos = [];
     direccion = '';
     localidad = '';
     lugar = '';
