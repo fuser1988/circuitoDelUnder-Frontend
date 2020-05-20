@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import InfoPage from "./InfoPage";
 import LogoCircuitoUnder from "components/logos/LogoCircuitoUnder";
 import IngresoCodigoBody from "../components/body/IngresoCodigoBody";
-import ServiceWorkerRegistration from "../components/body/RegistroExitosoBody";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
+import RegistroExitosoBody from "../components/body/RegistroExitosoBody";
 
 function ConfirmacionCuentaPage(props){
     const [validado, setValidado] = useState(false);
@@ -16,11 +16,16 @@ function ConfirmacionCuentaPage(props){
         }
     },[]);
 
-    const notificarFalloDeValidacionDeCodigo = (mensaje) => toast(mensaje, {
+    const notificarPorToast = (mensaje) => toast(mensaje, {
         className: 'black-background',
         bodyClassName: "grow-font-size",
         progressClassName: 'fancy-progress-bar'
     });
+
+
+    const notificarFalloDeValidacionDeCodigo = () => {
+        notificarPorToast("El codígo de validacón es incorrecto, intentelo nuevamente");
+    }
 
     const cambiarVista= ()=>{
         setValidado(true);
@@ -31,7 +36,7 @@ function ConfirmacionCuentaPage(props){
         <ToastContainer/>
         <InfoPage>
             <LogoCircuitoUnder/>
-            {validado? <ServiceWorkerRegistration/>:
+            {validado? <RegistroExitosoBody/>:
                 <IngresoCodigoBody notificarFallo={notificarFalloDeValidacionDeCodigo} redirect={cambiarVista}/>      
 
             }

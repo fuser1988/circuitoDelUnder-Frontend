@@ -24,14 +24,14 @@ function IngresoCodigoBody(props) {
         codigoVerificacionConUsuario.codigo = codigoVerificacion;
         codigoVerificacionConUsuario.usuarioId = user.id;
         validarCodigoCuenta(codigoVerificacionConUsuario)
-        .then((respuesta)=>{
-            if(respuesta){
-                let usuario = user;
+        .then((usuario)=>{
+            console.log(usuario.tipoUsuario);
+            if(usuario.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION"){
+                setCodigoVerificacion("");
+                props.notificarFallo();
+            }else{
                 setUser(usuario);
                 props.redirect();
-
-            }else{
-                props.notificarFallo();
             }
         })
         

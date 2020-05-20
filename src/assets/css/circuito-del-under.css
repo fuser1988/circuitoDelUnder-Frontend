@@ -348,3 +348,20 @@ div.loader {
     background: linear-gradient(to right, #007aff, #34aadc, #5856d6);
 }
 
+/* formulario carga de Banda */
+
+.background-form {
+  background-color: #403d3994;
+  padding-left: 27px;
+  padding-right: 27px;
+}
+
+.formulario-carga-banda{
+  /* width: 60%; */
+  z-index: 1040;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+  font-weight: 500;
+  color: white;
+  
+}

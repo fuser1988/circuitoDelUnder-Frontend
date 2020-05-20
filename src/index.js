@@ -20,6 +20,7 @@ import * as serviceWorker from './serviceWorker';
 import ErrorServerPage from "./pages/ErrorServerPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ConfirmacionCuentaPage from "./pages/ConfirmacionCuentaPage";
+import NuevaBandaPage from "./pages/NuevaBandaPage";
 
 
 
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route path="/serverError" render={props => <ErrorServerPage {...props} />} />
         <Route path="/notFound" render={props => <NotFoundPage {...props} />} />
         <Route path="/confirmaciones-de-cuentas" render={props => <ConfirmacionCuentaPage {...props} />} />
+        <Route path="/formularioNuevaBanda" render={props => <NuevaBandaPage {...props} />} />
         <Redirect from="/" to="/index" />
       </Switch>
     </BrowserRouter>

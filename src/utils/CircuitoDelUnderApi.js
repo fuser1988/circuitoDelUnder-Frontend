@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:8080/circuito_under/",
+  baseURL: "http://localhost:8080/circuito_under",
   responseType: "json" // default
 });

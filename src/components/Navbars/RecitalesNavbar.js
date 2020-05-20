@@ -153,8 +153,8 @@ function RecitalesNavBar(props) {
             <div className="navbar-collapse-header">
               <Row>
                 <Col className="collapse-brand" xs="6">
-                  <a href="#circuito" onClick={e => e.preventDefault()}>
-                    BLK•React
+                  <a href="#circuito" className="font-nav new-rock-font " onClick={e => e.preventDefault()}>
+                  Circuito del under
                   </a>
                 </Col>
                 <Col className="collapse-close text-right" xs="6">
@@ -170,7 +170,7 @@ function RecitalesNavBar(props) {
             </div>
             <Nav navbar>
               <UncontrolledDropdown nav>
-                <DropdownToggle
+                {user&&(<DropdownToggle
                   caret
                   color="default"
                   data-toggle="dropdown"
@@ -180,15 +180,17 @@ function RecitalesNavBar(props) {
                 >
                   <i className="fa fa-cogs d-lg-none d-xl-none" />
                   Menu
-                </DropdownToggle>
+                </DropdownToggle>)}
                 <DropdownMenu className="dropdown-with-icons">
-                  <DropdownItem href="https://demos.creative-tim.com/blk-design-system-react/#/documentation/tutorial">
+                  {user && user.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION"  && (
+                  <DropdownItem href="/confirmaciones-de-cuentas">
                     <i className="tim-icons icon-paper" />
-                    Documentation
+                    Valida tu cuenta
                   </DropdownItem>
-                  <DropdownItem tag={Link} to="/register-page">
+                  )}
+                  <DropdownItem tag={Link} to="/formularioNuevaBanda">
                     <i className="tim-icons icon-bullet-list-67" />
-                    Register Page
+                    Crea tu banda
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/landing-page">
                     <i className="tim-icons icon-image-02" />
@@ -198,10 +200,12 @@ function RecitalesNavBar(props) {
                     <i className="tim-icons icon-single-02" />
                     Profile Page
                   </DropdownItem>
+                  {/* {user && user.tipoUsuario ==="REGISTRADO_CON_BANDA" && ( */}
                   <DropdownItem tag={Link} to="/recital-add">
                     <i className="tim-icons icon-triangle-right-17" />
-                    Add Recital
+                    Nuevo recital
                   </DropdownItem>
+                  {/* )} */}
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
