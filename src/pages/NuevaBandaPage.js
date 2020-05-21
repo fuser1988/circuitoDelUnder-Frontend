@@ -1,158 +1,141 @@
-import React from "react";
+import React, {useState, useContext} from "react";
 
-import TemplateFormPage from "pages/TemplateFormPage.js";
-import {Input, Row, Col, Label, Button,FormGroup, Form} from "reactstrap";
+import { UserContext } from "context/UserContext.js";
+import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
+import {Input, Container, Row, Col, Label, Button,FormGroup, Form} from "reactstrap";
+import { Multiselect } from 'multiselect-react-dropdown';
+import Banda from "../model/Banda";
+import {generosValidos} from "../model/Generos";
+import { useHistory } from "react-router-dom";
+import { useBandaService } from "services/BandaService.js";
 
-class NuevaBandaPage extends React.Component {
-    componentDidMount() {
-        // document.body.classList.toggle("index-page");
+function NuevaBandaPage() {
+    
+    const [banda, setBanda] = useState(new Banda());    
+    const [imagen, setImagen] = useState(null);    
+    const { push } = useHistory();
+    const { user , setUser} = useContext(UserContext);
+    const { crearBanda } = useBandaService();
+
+    React.useEffect(() => {
+         let idDeUsuarioLogueado = user.id;
+        const bandaParaActualizar = banda;
+         setBanda({ ...bandaParaActualizar, usuarioId: idDeUsuarioLogueado });
+        return () => {
+        //willdidunmounted
+        }
+    },[]);
+    
+    const previsualizarImagen = (event)=>{
+            const bandaParaActualizar = banda;
+            setBanda({ ...bandaParaActualizar, imagen: URL.createObjectURL(event.target.files[0]) });
     }
-    componentWillUnmount() {
-        // document.body.classList.toggle("index-page");
+
+    const onChange = (event) => {
+        const bandaParaActualizar = banda;
+        setBanda({ ...bandaParaActualizar, [event.target.name]: event.target.value });
     }
-    render() {
-        return (
+    const agregarGenero = (event) => {
+        const values = event;
+        const lastItem = values[values.length - 1]
+
+        if (lastItem) {
+            values.pop();
+            const sameItem = values.find(value => value === lastItem);
+            if (sameItem === undefined) {
+                values.push(lastItem);
+            }
+        }
+        const bandaParaActualizar = banda;
+        setBanda({ ...bandaParaActualizar, 'generos': values })
+    }
+
+    const enviarBanda = (event) => {
+        event.preventDefault();
+        crearBanda(banda).then((banda)=>{
+            setImagen(banda.imagen);
+            push("/");
+
+        });
+    }
+
+    
+    return (
         <> 
         <div
             className="page-header"
             style={{
-            backgroundImage: "url(" + require("../assets/img/equipos5.jpg") + ")"
+            backgroundImage: "url(" + require("../assets/img/fondoCircuito.jpg") + ")"
             }}
         >
-            <TemplateFormPage>
                   
-           
-           
+            <RecitalesNavbar />
+           <Container className="formulario-angosto">
+
            <div className="formulario-carga-banda background-form ">
 
-             <h2 className="text-center mt-3 font-weight-bold">Carga tu banda </h2>  
-          <Form className="mt-2 " onSubmit={this.handleSubmit} autoComplete="none">
-            <FormGroup>
-              <Label for="name">
-              Nombre de menu
-                    
-                </Label>
-              <Input
-                type="text"
-                name="name"
-                id="name"
-                autoComplete="off"
-                placeholder="name"
-                onChange={this.handleChange} />
-            </FormGroup>
+         
+          <Form className="mt-3 pt-4 " onSubmit={enviarBanda} autoComplete="none">
             <Row>
-              <Col md={8}>
+                <Col md="6">
                 <FormGroup>
-                  <Label for="categoria">
-                  Categoria
-                    
-                    </Label>
-                  <Input type="select"
-                         name="categoria"
-                         id="categoria"
-                         onChange={this.handleChange} >
-                    <option>HAMBURGUESAS</option>
-                    <option>CERVEZA</option>
-                    <option>PIZZA</option>
-                    <option>SUSHI</option>
-                    <option>EMPANADAS</option>
-                    <option>GREEN</option>
-                    <option>VEGANO</option>
-                  </Input>
+                    <Label for="name">Nombre de tu banda</Label>
+                <Input
+                    type="text"
+                    name="nombre"
+                    id="nombre"
+                    autoComplete="off"
+                    placeholder=""
+                    onChange={event => onChange(event)} />
                 </FormGroup>
-              </Col>
-              <Col md={4}>
                 <FormGroup>
-                  <Label for="price">
-                  Precio
-                    
-                    </Label>
-                  <Input type="number"
-                    name="price"
-                    id="price"
-                    onChange={this.handleChange} />
+                    <Label for="name">Logo</Label>
+                <Input
+                    type="file"
+                    name="logo"
+                    id="logo"
+                    autoComplete="off"
+                    placeholder="http://unaimaegen/logo/mibanda.jpj"
+                    onChange={previsualizarImagen} />
                 </FormGroup>
-              </Col>
+                <FormGroup>
+                    <Label name="generos" for="generos">Generos</Label>
+                    <Multiselect
+                            options={generosValidos} // Options to display in the dropdown
+                            selectedValues={banda.generos} // Preselected value to persist in dropdown
+                            onSelect={agregarGenero} // Function will trigger on select event
+                            onRemove={agregarGenero}
+                            displayValue="genero" // Property name to display in the dropdown options
+                            placeholder='Generos'
+                            isObject={false}
+                            valid={(true)}
+                        />
+                </FormGroup>
+                    </Col>
+                    <Col md="6" className="">
+                        <div className="contenedor-imagen d-flex justify-content-center">
+
+                        <img
+                            
+                            alt="..."
+                            className=""
+                            src={banda.imagen?banda.imagen: require("../assets/img/circuito2.png")}
+                            />
+                            </div>
+                    </Col>
             </Row>
+              
             <FormGroup>
-              <Label for="description">
-              Descripcion
+              <Label for="descripcion">
+              Descripción
                     
                 </Label>
               <Input type="textarea"
-                name="description"
-                id="description"
-                onChange={this.handleChange} />
+                name="info"
+                id="info"
+                onChange={onChange} />
             </FormGroup>
-            <div className="row">
-            <FormGroup className="col-6">
-              <Label for="startDate">
-              Fecha de inicio
-                    
-                </Label>
-              <Input
-                type="date"
-                name="startDate"
-                id="startDate"
-                onChange={this.handleChange} />
-            </FormGroup>
-            <FormGroup className="col-6">
-              <Label for="dueDate">
-              Fecha de finalizacion"
-                    
-                </Label>
-              <Input type="date"
-                name="dueDate"
-                id="dueDate"
-                onChange={this.handleChange} />
-            </FormGroup>
-            </div>
             
-            <Col>
-              <FormGroup className="row pt-3">
-                  <Label className="pl-0 col-md-3" for="minimumQuantity">
-                  Cantidad minima
-                    
-                    </Label>
-                  <Input className="col-md-3" type="number"
-                    name="minimumQuantity"
-                    id="minimumQuantity"
-                    onChange={this.handleChange} />
-                  <Label className="col-md-3 " for="minimumQuantityPrice">
-                    Precio
-                    </Label>
-                  <Input className="col-md-3" type="number"
-                    name="minimumQuantityPrice"
-                    id="minimumQuantityPrice"
-                    onChange={this.handleChange} />
-              </FormGroup>
-              <FormGroup className="row">
-                  <Label className="pl-0 col-md-3" for="minimumQuantityTwo ">
-                    cantidad minima 2
-                    </Label>
-                  <Input className="col-md-3" type="number"
-                    name="minimumQuantityTwo "
-                    id="minimumQuantityTwo "
-                    onChange={this.handleChange} />
-                  <Label className="col-md-3" for="minimumQuantityPriceTwo">
-                      Precio
-                    </Label>
-                  <Input className="col-md-3" type="number"
-                    name="minimumQuantityPriceTwo"
-                    id="minimumQuantityPriceTwo"
-                    onChange={this.handleChange} />
-              </FormGroup>
-              <FormGroup className="row">
-                  <Label className="pl-0 col-md-9" for="maximumAmountSalesPerDay ">
-                        Cantidad maxima de ventas diarias
-
-                    </Label>
-                  <Input className="col-md-3" type="number"
-                    name="maximumAmountSalesPerDay "
-                    id="maximumAmountSalesPerDay "
-                    onChange={this.handleChange} />
-              </FormGroup>
-            </Col>
 
             <Button className="btn-danger mt-3 mb-3" >
                     Enviar
@@ -160,11 +143,18 @@ class NuevaBandaPage extends React.Component {
               </Button>
           </Form>
                     </div>
-                </TemplateFormPage>
+                    
+            <img
+                                
+            alt="..."
+            className=""
+            src={imagen?imagen: require("../assets/img/circuito2.png")}
+            />
+        </Container>
             </div>
         </>
         );
-    }
+    
 }
 
 export default NuevaBandaPage;

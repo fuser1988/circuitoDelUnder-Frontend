@@ -351,7 +351,7 @@ div.loader {
 /* formulario carga de Banda */
 
 .background-form {
-  background-color: #403d3994;
+  background-color: #000000cc;
   padding-left: 27px;
   padding-right: 27px;
 }
@@ -365,3 +365,62 @@ div.loader {
   color: white;
   
 }
+@media (min-width: 988px){ 
+  .formulario-angosto{
+    width: 1000px !important;
+  }
+
+}
+._2iA8p44d0WZ-WqRBGcAuEV {
+  border-color: #2b3553 !important;
+  border-radius: 0.4285rem !important;
+  font-size: 0.75rem !important;
+  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out !important; 
+} 
+
+._7ahQImyV4dj0EpcNOjnwA {
+  background: #2e3e63 !important;
+}
+
+._3vLmCG3bB3CM2hhAiQX1tN {
+  background: #000 !important;
+}
+
+textarea.form-control {
+  border: 1.1px solid #2b3553 !important;
+  border-radius: 1 !important;
+  min-height: 106px;
+}
+
+.form-control {
+  font-size: 1rem !important;
+}
+
+.form-group input[type=file] {
+  opacity: 1 !important;
+  position: initial !important;
+  background-color: #304068 !important;
+  border-radius: 4px !important;
+}
+@media (min-width: 1200px){ 
+  .contenedor-imagen {
+    width: 445px;
+    height: 291px;
+  }
+}
+@media (min-width: 990px){ 
+  .contenedor-imagen {
+    width: 400px;
+    height: 260px;
+  }
+}
+.form-group label{
+  font-size: 20px;
+
+}
+/* @media (min-width: 1020px){ 
+  .contenedor-imagen {
+    width: 445px;
+    height: 291px;
+  }
+} */
