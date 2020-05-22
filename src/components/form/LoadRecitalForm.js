@@ -3,7 +3,7 @@ import { useRecitalService } from "services/RecitalService.js";
 import RowForm from "components/form/RowForm.js";
 import { useHistory } from "react-router-dom";
 import { Multiselect } from 'multiselect-react-dropdown';
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import Recital from "../../model/Recital";
 import {Form, FormGroup, Label} from 'reactstrap';
 function LoadRecitalForm(props) {
@@ -12,9 +12,16 @@ function LoadRecitalForm(props) {
     const [ recital, setRecital ] = useState( new Recital() );
     const { push } = useHistory();
 
-    const generosValidos = ["PUNK", "PUNK_ROCK", "ROCK", "HARD_ROCK", "HARDCORE", "HARDCORE_PUNK", "ROCK_AND_ROLL", "METAL", "NEW_METAL", "REGGAE", "BLUZ"];
-    let isBandasValidas = true;
+    const listadoBandasSistema = props.bandas;
+    let bandasSeleccionadas = [];
+    const listadoBandas = props.opciones;
     
+    const crearListadoBandasSeleccionadas = () => {
+        const bandasLista = listadoBandasSistema.filter(b => bandasSeleccionadas.includes(b.nombre));
+        const bandasId = bandasLista.map(b => b.id);
+        setearRecital('bandas', bandasId)
+    }
+
     const handleChange = (event) => {
         const values = event;
         const lastItem = values[values.length - 1]
@@ -23,11 +30,12 @@ function LoadRecitalForm(props) {
             values.pop();
             const sameItem = values.find(value => value === lastItem);
             if (sameItem === undefined) {
-                            values.push(lastItem);
+                values.push(lastItem);
             }
         }
         
-        setearRecital('generos', values);
+        bandasSeleccionadas = values;
+        crearListadoBandasSeleccionadas();
     }
 
     const setearRecital = (property, values) => {
@@ -38,16 +46,6 @@ function LoadRecitalForm(props) {
     const onChange = (property, event) => {
         const currentRecital = recital;
         setRecital({  ...currentRecital, [property]: event.target.value  });
-    }
-
-    const modificarListaBandas = (property, lista) => {
-        //modifico la lista para que se separe por comas
-        if (lista.length > 0 && isBandasValidas) {
-            const currentRecital = recital;
-            recital.bandas = recital.bandas.split(',');
-            //setRecital({ ...currentRecital, [property]: recital.bandas.split(',') } );
-            isBandasValidas= false; 
-        }
     }
 
     const isValido = () => {
@@ -62,7 +60,7 @@ function LoadRecitalForm(props) {
     const guardarRecital = (event) => {
         event.preventDefault();
         if (isValido()) {
-            modificarListaBandas('bandas', recital.bandas);
+            console.log(recital)
             crearRecital(recital).then( newRecital => {
                 push('/Recital/' + newRecital.id +'/' +true)
             })
@@ -95,18 +93,21 @@ function LoadRecitalForm(props) {
                     invalid = {true}
                     accion={onChange}
                 />
-                
 
-
-                <RowForm
-                    label='Bandas'
-                    property={recital.bandas}
-                    propertyName='bandas'
-                    placeholder='bandas ej: banda1, banda2'
-                    type='text'
-                    invalid = {true}
-                    accion={onChange}
-                />
+                <FormGroup className="grilla-Responsive offset-md-2 col-10 form">
+                    <Label className="col-3 col-form-label">Bandas</Label>
+                        <div className='multiSelectContainer'>
+                            <Multiselect 
+                                options={listadoBandas} // Options to display in the dropdown
+                                selectedValues={bandasSeleccionadas} // Preselected value to persist in dropdown
+                                onSelect={handleChange} // Function will trigger on select event
+                                onRemove={handleChange}
+                                displayValue="name" // Property name to display in the dropdown options
+                                placeholder='bandas'
+                                isObject={false}
+                            />
+                        </div>
+                </FormGroup>
 
                 <RowForm
                     label='Fecha'
@@ -128,22 +129,6 @@ function LoadRecitalForm(props) {
                     accion={onChange}
                 />
                 
-                <FormGroup className="grilla-Responsive offset-md-2 col-10 form">
-                    <Label className="col-3 col-form-label">Géneros</Label>
-                        <div className='multiSelectContainer'>
-                            <Multiselect 
-                                options={generosValidos} // Options to display in the dropdown
-                                selectedValues={recital.generos} // Preselected value to persist in dropdown
-                                onSelect={handleChange} // Function will trigger on select event
-                                onRemove={handleChange}
-                                displayValue="name" // Property name to display in the dropdown options
-                                placeholder='generos'
-                                isObject={false}
-                            />
-                        </div>
-                </FormGroup>
-                
-
                 <RowForm
                     label='Dirección'
                     property={recital.direccion}

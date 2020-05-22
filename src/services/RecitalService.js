@@ -40,9 +40,19 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             API.post('recitales', recital )
                 .then(({ data: recital }) => { resolve(recital) })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { console.log()})///mostrarPaginaError(error) });
         });
 
     }
-    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital }
+
+    const traerTodasLasBandas = () => {
+        return new Promise((resolve, reject) => {
+            API.get(`bandas`)
+                .then((response) => { resolve(response.data); })
+                .catch((error) => { mostrarPaginaError(error) });
+        })
+    }
+
+    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital, traerTodasLasBandas }
+
 }
