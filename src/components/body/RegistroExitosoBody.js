@@ -12,7 +12,7 @@ function RegistroExitosoBody(props) {
                     <Button href="/">Volver al inicio</Button>
                 </div>
                 <div className="pl-2 pt-2">
-                    <Button href="/">Crea tu banda</Button>
+                    <Button href="/formularioNuevaBanda">Crea tu banda</Button>
                 </div>
 
             </div>

@@ -16,7 +16,7 @@ function DetallesRecitalPage(props) {
 
   const { buscarPorId } = useRecitalService();
   const [cargandoRecitales, setcargandoRecitales] = useState(true);
-  const [recital, setRecital] = useState(new Recital());
+  const [recital, setRecital] = useState({bandas:[]});
 
   React.useEffect(
     () => {
@@ -46,11 +46,10 @@ function DetallesRecitalPage(props) {
     const { match: { params } } = props;
     buscarPorId(params.id)
       .then((recitalObtenido) => {
-        setRecital(recitalObtenido)
+        setRecital(new Recital(recitalObtenido));
         setcargandoRecitales(false);
       })
   }
-
 
   return (
     <>
@@ -89,26 +88,18 @@ function DetallesRecitalPage(props) {
         />
         <ToastContainer />
         {cargandoRecitales ? <Spinner /> :
-          <div className="content-center">
-            <div className="row-grid justify-content-between align-items-center text-left row" >
-              <div className="col-md-6 col-lg-6">
+          <div className="container">
+            <div className="col body-recital " >
+              <div className="col pl-1 mw-800">
                 <h1 className="text-white">{recital.nombre}</h1>
-                <p className="text-white mb-3">{recital.descripcion}</p>
+                <p className="text-white mb-3 descripcio-text">{recital.descripcion}</p>
                 <div className="btn-wrapper">
-                  <div className="button-container">
-                    <h4 className="mb-1">Bandas:</h4>
-                    {/* {recital.bandas.map(banda => {
-                      return <a className="focus-pointer pl-1" href="/" key={banda} >{banda}</a>
-                    }
-                    )} */}
-
-                    <h4 className="mb-1">Generos:</h4>
-                    {/* {recital.getGeneros().map(genero => {
-                      return <a className="focus-pointer pl-1" href="#rock" key={genero} >{genero}</a>
-                    }
-                    )} */}
-                  </div>
                 </div>
+
+              </div>
+              <div className="col pl-0">
+                <img alt="..." className="img-fluid mw-800" src={recital.imagen} />
+              </div>
                 <div className="btn-wrapper mb-3">
 
                   <br />
@@ -119,15 +110,26 @@ function DetallesRecitalPage(props) {
                     {recital.fecha}  {recital.hora}hs. </p>
 
                 </div>
+                  <div className="button-container">
+                    <h4 className="mb-1">Bandas:</h4>
+                    {recital.bandas.map(banda => {
+                      return <a className="focus-pointer pl-1" href={"/banda/"+ banda.id} key={banda.nombre} id={banda.id} >{banda.nombre}</a>
+                    }
+                    )}
 
-              </div>
-              <div className="col-md-6 col-lg-6">
-                <img alt="..." className="img-fluid" src={recital.imagen} />
-              </div>
+                    <h4 className="mb-1">Generos:</h4>
+                    {recital.getGeneros().map(genero => {
+                      return <a className="focus-pointer pl-1"  href={"/RecitalesPage/" + genero} id={genero} key={genero} >{genero}</a>
+                    }
+                    )}
+                  </div>
             </div>
 
           </div>
         }
+        <br></br>
+        <br></br>
+        <br></br>   
       </div>
     </>
   );

@@ -63,7 +63,7 @@ function NuevaBandaPage() {
     return (
         <> 
         <div
-            className="page-header"
+            className="page-header fondo-responsive"
             style={{
             backgroundImage: "url(" + require("../assets/img/fondoCircuito.jpg") + ")"
             }}
@@ -144,12 +144,12 @@ function NuevaBandaPage() {
           </Form>
                     </div>
                     
-            <img
+            {/* <img
                                 
             alt="..."
             className=""
             src={imagen?imagen: require("../assets/img/circuito2.png")}
-            />
+            /> */}
         </Container>
             </div>
         </>

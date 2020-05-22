@@ -77,6 +77,7 @@ function RecitalesNavBar(props) {
     setUser(response);
     buscarUsuario(referencia)
       .then(((usuario) => {
+        console.log(usuario);
         setUser(usuario);
         procesarRespuestaDelBackend(usuario);
       }))

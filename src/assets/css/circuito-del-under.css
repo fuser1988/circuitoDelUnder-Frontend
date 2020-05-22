@@ -64,7 +64,7 @@
 }
 
 .custom-size-header{
-  height: 200px;
+  height: 130px;
 }
 
 /* search bar responsive */
@@ -424,3 +424,49 @@ textarea.form-control {
     height: 291px;
   }
 } */
+
+.page-header.fondo-responsive {
+  background: url(../img/fondoCircuito.jpg) no-repeat center center fixed !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
+  }
+
+.page-header.section-dark {
+    background: url(../img/fondoCircuito.jpg) no-repeat center center fixed !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+    }
+
+/* detalleRecitalPage */
+.body-recital {
+  margin-top: 3%;
+
+}
+
+.descripcio-text{
+  font-size: 21px;
+}
+.page-header{
+  max-height: 100% !important;
+
+}
+
+@media (max-width: 575.98px){
+.landing-page .page-header h1 {
+    margin-top: 30px !important;
+}
+}
+
+.mw-800 {
+  max-width: 800px !important;
+}
+
+@media (max-width: 994px){
+.img-fluid.mw-800 {
+  min-width: 800px !important;
+}
+}
