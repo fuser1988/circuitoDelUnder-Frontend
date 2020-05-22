@@ -9,7 +9,6 @@ function RecitalAddPage(){
 
     const {  traerTodasLasBandas } = useRecitalService();
     const [ bandas, setBandas ] = useState([]);
-    const [ bandasOpciones, setOpciones ] = useState([]);
 
     React.useEffect(() => {
         document.body.classList.toggle("index-page");
@@ -23,12 +22,6 @@ function RecitalAddPage(){
         traerTodasLasBandas()
         .then((bandasObtenidas) =>{
             setBandas(bandasObtenidas)
-            let nombreOpicones = [];
-            Object.values(bandasObtenidas).forEach(
-                (ban) => {
-                    nombreOpicones.push(ban.nombre);
-            })
-            setOpciones(nombreOpicones)
     })
 } 
         return (
@@ -36,7 +29,7 @@ function RecitalAddPage(){
                 <RecitalesNavbar />
                 <RecitalesHeader />
                 <Card className="offset-2 col-10 responsive-card">
-                    <LoadRecitalForm bandas = {bandas} opciones = {bandasOpciones}/>
+                    <LoadRecitalForm bandas = {bandas} />
                 </Card>
                 </>
         );

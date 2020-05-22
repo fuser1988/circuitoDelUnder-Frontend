@@ -14,13 +14,6 @@ function LoadRecitalForm(props) {
 
     const listadoBandasSistema = props.bandas;
     let bandasSeleccionadas = [];
-    const listadoBandas = props.opciones;
-    
-    const crearListadoBandasSeleccionadas = () => {
-        const bandasLista = listadoBandasSistema.filter(b => bandasSeleccionadas.includes(b.nombre));
-        const bandasId = bandasLista.map(b => b.id);
-        setearRecital('bandas', bandasId)
-    }
 
     const handleChange = (event) => {
         const values = event;
@@ -34,8 +27,7 @@ function LoadRecitalForm(props) {
             }
         }
         
-        bandasSeleccionadas = values;
-        crearListadoBandasSeleccionadas();
+        setearRecital('bandas', values)
     }
 
     const setearRecital = (property, values) => {
@@ -98,13 +90,12 @@ function LoadRecitalForm(props) {
                     <Label className="col-3 col-form-label">Bandas</Label>
                         <div className='multiSelectContainer'>
                             <Multiselect 
-                                options={listadoBandas} // Options to display in the dropdown
+                                options={listadoBandasSistema} // Options to display in the dropdown
                                 selectedValues={bandasSeleccionadas} // Preselected value to persist in dropdown
                                 onSelect={handleChange} // Function will trigger on select event
                                 onRemove={handleChange}
-                                displayValue="name" // Property name to display in the dropdown options
+                                displayValue="nombre" // Property name to display in the dropdown options
                                 placeholder='bandas'
-                                isObject={false}
                             />
                         </div>
                 </FormGroup>
