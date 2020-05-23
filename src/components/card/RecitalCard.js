@@ -24,7 +24,7 @@ class RecitalCard extends Component {
                         <img alt="" className="" src={this.props.recital.imagen} id="" />
                     </Row>
                     <CardTitle className="mt-2 mb-0 text-center bold-text">
-                        <a className="focus-pointer" href key={this.props.recital.id} id={this.props.recital.id} onClick={this.redirectRecital}>
+                        <a className="focus-pointer" href="###" key={this.props.recital.id} id={this.props.recital.id} onClick={this.redirectRecital}>
                             {this.props.recital.nombre}
                         </a>
                     </CardTitle>

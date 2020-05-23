@@ -19,7 +19,7 @@ function LoadRecitalForm(props) {
     const handleChange = (event) => {
         const values = event;
         const lastItem = values[values.length - 1]
-        
+
         if (lastItem) {
             values.pop();
             const sameItem = values.find(value => value === lastItem);
@@ -33,12 +33,12 @@ function LoadRecitalForm(props) {
 
     const setearRecital = (property, values) => {
         const currentRecital = recital;
-        setRecital({ ...currentRecital, [property]: values})
+        setRecital({ ...currentRecital, [property]: values })
     }
 
     const onChange = (property, event) => {
         const currentRecital = recital;
-        setRecital({  ...currentRecital, [property]: event.target.value  });
+        setRecital({ ...currentRecital, [property]: event.target.value });
     }
 
     const isValido = () => {
@@ -116,6 +116,7 @@ function LoadRecitalForm(props) {
                             />
                         
                     </div>
+                
 
                     <div className="col-6 form form-group">
     

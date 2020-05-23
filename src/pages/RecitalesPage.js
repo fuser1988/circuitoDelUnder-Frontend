@@ -9,9 +9,10 @@ import Spinner from "components/spinner/Spinner.js";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './toast.css';
+import '../toast.css';
 
 function RecitalesPage(props) {
+
     const { buscarPorNombreYGenero, traerTodos} = useRecitalService();
     const [ recitales, setRecitales ] = useState([]);
     const [cargandoRecitales,setcargandoRecitales] = useState(true);
@@ -29,12 +30,6 @@ function RecitalesPage(props) {
         bodyClassName: "grow-font-size",
         progressClassName: 'fancy-progress-bar'
     });
-
-    //buscar equivalente con funciones y hooks
-    // const componentWillReceiveProps = (nextProps) => {
-    //     this.props = nextProps;
-    //     this.buscarRecitales();
-    // }
 
     const buscarRecitales = () => {
         setcargandoRecitales(true);
@@ -63,7 +58,7 @@ function RecitalesPage(props) {
 
 
     return (
-        <>
+        <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
                 <SearchComponent />
@@ -74,7 +69,7 @@ function RecitalesPage(props) {
                     <ToastContainer />
                 </div>
             </div>
-        </>
+        </div>
     );
 
 }
