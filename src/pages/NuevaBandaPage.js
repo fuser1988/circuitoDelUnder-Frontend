@@ -65,9 +65,7 @@ function NuevaBandaPage() {
         <> 
         <div
             className="page-header fondo-responsive"
-            // style={{
-            // backgroundImage: "url(" + require("../assets/img/fondoCircuito.jpg") + ")"
-            // }}
+           
         >
                   
             <RecitalesNavbar />
