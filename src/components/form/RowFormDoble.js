@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
-class RowForm extends React.Component {
+class RowFormDoble extends React.Component {
     constructor(props) {
         super(props);
           this.state = {
@@ -16,7 +16,7 @@ class RowForm extends React.Component {
 
     render(){
         return (
-            <FormGroup className=" offset-2 col-8 form">
+            <FormGroup className="">
               <Label className="col-3 col-form-label pl-0">{this.props.label}</Label>
               <Input
                 type={this.props.type}
@@ -36,5 +36,5 @@ class RowForm extends React.Component {
     }
 }
 
-export default RowForm;
+export default RowFormDoble;
 

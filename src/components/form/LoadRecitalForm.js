@@ -1,6 +1,7 @@
 import { useRecitalService } from "services/RecitalService.js";
 
 import RowForm from "components/form/RowForm.js";
+import RowFormDoble from "components/form/RowFormDoble.js";
 import { useHistory } from "react-router-dom";
 import { Multiselect } from 'multiselect-react-dropdown';
 import React, { useState } from "react";
@@ -65,14 +66,14 @@ function LoadRecitalForm(props) {
 
     return (
         <>
-            <Form>
+            <Form className="mt-4">
                 <RowForm
-                    label='Nombre'
+                    label='Nombre del recital'
                     property={recital.nombre}
                     propertyName='nombre'
                     placeholder='nombre'
                     type='text'
-                    invalid = {true}
+                    invalid = {recital.nombre}
                     accion={onChange}
                 />
 
@@ -81,13 +82,13 @@ function LoadRecitalForm(props) {
                     property={recital.descripcion}
                     propertyName='descripcion'
                     placeholder='descripción'
-                    type='text'
-                    invalid = {true}
+                    type='textarea'
+                    invalid = {recital.descripcion}
                     accion={onChange}
                 />
 
-                <FormGroup className="grilla-Responsive offset-md-2 col-10 form">
-                    <Label className="col-3 col-form-label">Bandas</Label>
+                <FormGroup className="offset-2 col-8 form form-group">
+                    <Label className="col-3 col-form-label pl-0">Bandas</Label>
                         <div className='multiSelectContainer'>
                             <Multiselect 
                                 options={listadoBandasSistema} // Options to display in the dropdown
@@ -99,34 +100,44 @@ function LoadRecitalForm(props) {
                             />
                         </div>
                 </FormGroup>
+                <div className="offset-2 col-8 form form-group">
+                    <div className="row">
 
-                <RowForm
-                    label='Fecha'
-                    property={recital.fecha}
-                    propertyName='fecha'
-                    placeholder=''
-                    type='date'
-                    invalid = {true}
-                    accion={onChange}
-                />
+                    
+                    <div className="col-6 form form-group">
+                        <RowFormDoble
+                            label='Fecha'
+                            property={recital.fecha}
+                            propertyName='fecha'
+                            placeholder=''
+                            type='date'
+                            invalid = {recital.fecha}
+                            accion={onChange}
+                            />
+                        
+                    </div>
 
-                <RowForm
-                    label='Hora'
-                    property={recital.hora}
-                    propertyName='hora'
-                    placeholder='hora'
-                    type='time'
-                    invalid = {true}
-                    accion={onChange}
-                />
-                
+                    <div className="col-6 form form-group">
+    
+                        <RowFormDoble
+                            label='Hora'
+                            property={recital.hora}
+                            propertyName='hora'
+                            placeholder='hora'
+                            type='time'
+                            invalid = {recital.hora}
+                            accion={onChange}
+                        />
+                    </div>
+                            </div>
+                </div>
                 <RowForm
                     label='Dirección'
                     property={recital.direccion}
                     propertyName='direccion'
                     placeholder='dirección ej: calle altura'
                     type='text'
-                    invalid = {true}
+                    invalid = {recital.direccion}
                     accion={onChange}
                 />
 
@@ -136,7 +147,7 @@ function LoadRecitalForm(props) {
                     propertyName='localidad'
                     placeholder='localidad'
                     type='text'
-                    invalid = {true}
+                    invalid = {recital.localidad}
                     accion={onChange}
                 />
 
@@ -146,7 +157,7 @@ function LoadRecitalForm(props) {
                     propertyName='lugar'
                     placeholder='lugar'
                     type='text'
-                    invalid = {true}
+                    invalid = {recital.lugar}
                     accion={onChange}
                 />
 
@@ -156,7 +167,7 @@ function LoadRecitalForm(props) {
                     propertyName='imagen'
                     placeholder='URL Imagen'
                     type='text'
-                    invalid = {true}
+                    invalid = {recital.imagen}
                     accion={onChange}
                 />
 
@@ -168,11 +179,13 @@ function LoadRecitalForm(props) {
                     type='number'
                     accion={onChange}
                 />
-
-                <div className="grilla-Responsive offset-md-2 col-10 form">
-                    <button className="btn btn-text-center" onClick={guardarRecital}>Aceptar</button>
-                    <button className="btn btn-text-center" onClick={cancelar}>Cancelar</button>
-                </div>
+                <div className="offset-2 col-8 form form-group">
+                    <div className="d-flex justify-content-end pb-4">
+                        <button className="btn btn-text-center" onClick={cancelar}>Cancelar</button>
+                        <button className="btn btn-text-center" onClick={guardarRecital}>Aceptar</button>
+                    </div>
+                    
+                </div>    
 
             </Form>
         </>

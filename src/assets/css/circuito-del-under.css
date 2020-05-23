@@ -1,4 +1,32 @@
+
+label{
+  font-size: 16px !important;
+
+}
+
+.form-control {
+  font-size: 14px !important;
+}
+
+textarea {
+  height: 400px !important;
+}
+
 /* formularioCargaRecitales */
+
+.offset-2 col-8.form.form-group{
+  max-width:100% !important;
+}
+textarea.form-control{
+  border: 1px solid #2b3552 !important;
+}
+._2iA8p44d0WZ-WqRBGcAuEV {
+  border: 1px solid #252c52 !important;
+}
+.col-3.col-form-label{
+  max-width:100% !important;
+}
+
 
 .col-3.col-form-label {
   color:white !important;

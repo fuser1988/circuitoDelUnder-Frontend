@@ -28,7 +28,7 @@ function RecitalAddPage(){
             <>
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <Card className="offset-2 col-10 responsive-card">
+                <Card className="offset-2 col-8 responsive-card mt-4">
                     <LoadRecitalForm bandas = {bandas} />
                 </Card>
                 </>
