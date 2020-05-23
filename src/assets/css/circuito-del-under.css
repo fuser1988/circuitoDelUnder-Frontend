@@ -67,6 +67,10 @@
   height: 130px;
 }
 
+.recitalPage .custom-size-header{
+  height: 200px;
+}
+
 /* search bar responsive */
 
 @media (max-width: 990px){

@@ -58,7 +58,7 @@ function RecitalesPage(props) {
 
 
     return (
-        <>
+        <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
                 <SearchComponent />
@@ -69,7 +69,7 @@ function RecitalesPage(props) {
                     <ToastContainer />
                 </div>
             </div>
-        </>
+        </div>
     );
 
 }
