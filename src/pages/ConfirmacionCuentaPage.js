@@ -24,7 +24,7 @@ function ConfirmacionCuentaPage(props){
 
 
     const notificarFalloDeValidacionDeCodigo = () => {
-        notificarPorToast("El codígo de validacón es incorrecto, intentelo nuevamente");
+        notificarPorToast("El código de validación es incorrecto, inténtelo nuevamente");
     }
 
     const cambiarVista= ()=>{

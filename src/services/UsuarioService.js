@@ -18,7 +18,7 @@ export const useUsuarioService = () => {
     const buscarUsuario = (referencia) => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.post('usuario/info', referencia)
-                .then(({ data: respuesta }) => { resolve(respuesta) })
+                .then(({ data: respuesta }) => { resolve(respuesta); console.log(respuesta);console.log("-----------------------") })
                 .catch((error) => { mostrarPaginaError(error) });
         });
 

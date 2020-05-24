@@ -416,8 +416,15 @@ div.loader {
 }
 
 ._3vLmCG3bB3CM2hhAiQX1tN {
-  background: #000 !important;
+  background: #1f2251 !important;
 }
+
+.searchBox{
+
+  color: white !important;
+  font-size: 17px !important;
+}
+
 
 textarea.form-control {
   border: 1.1px solid #2b3553 !important;

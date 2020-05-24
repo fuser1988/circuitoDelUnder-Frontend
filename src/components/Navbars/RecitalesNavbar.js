@@ -134,7 +134,7 @@ function RecitalesNavBar(props) {
 
             </div>
             <UncontrolledTooltip placement="bottom" target="navbar-brand">
-              vivi la musica under donde vallas
+              viví la música under donde vayas
             </UncontrolledTooltip>
             <button
               aria-expanded={collapseOpen}

@@ -40,7 +40,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.post('recitales', recital )
                 .then(({ data: recital }) => { resolve(recital) })
-                .catch((error) => { console.log()})///mostrarPaginaError(error) });
+                .catch((error) => { mostrarPaginaError(error) });
         });
 
     }
