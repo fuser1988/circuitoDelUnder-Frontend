@@ -1,38 +1,44 @@
-import React, { useState }from "react";
+import React, { useState } from "react";
 import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import LoadRecitalForm from "components/form/LoadRecitalForm.js";
-import { Card } from "reactstrap";
-import {useRecitalService} from "services/RecitalService.js";
+import { Card, Container } from "reactstrap";
+import { useRecitalService } from "services/RecitalService.js";
 
-function RecitalAddPage(){
+function RecitalAddPage() {
 
-    const {  traerTodasLasBandas } = useRecitalService();
-    const [ bandas, setBandas ] = useState([]);
+    const { traerTodasLasBandas } = useRecitalService();
+    const [bandas, setBandas] = useState([]);
 
     React.useEffect(() => {
-        document.body.classList.toggle("index-page");
         obternerbandas();
         return () => {
-            document.body.classList.toggle("index-page");
         }
-   },[]);
+    }, []);
 
     const obternerbandas = () => {
         traerTodasLasBandas()
-        .then((bandasObtenidas) =>{
-            setBandas(bandasObtenidas)
-    })
-} 
-        return (
-            <>
+            .then((bandasObtenidas) => {
+                setBandas(bandasObtenidas)
+            })
+    }
+    return (
+        <>
+
+            <div
+                className="page-header fondo-responsive"
+
+            >
                 <RecitalesNavbar />
                 <RecitalesHeader />
-                <Card className="offset-2 col-8 responsive-card mt-4">
-                    <LoadRecitalForm bandas = {bandas} />
-                </Card>
-                </>
-        );
+                <Container className="formulario-angosto">
+                    <div className="formulario-carga-banda background-form ">
+                        <LoadRecitalForm bandas={bandas} />
+                    </div>
+                </Container>
+            </div>
+        </>
+    );
 }
 
 export default RecitalAddPage;

@@ -109,7 +109,7 @@ function NuevaBandaPage() {
                             />
                     </FormGroup>
                         </Col>
-                        <Col md="6" className="">
+                    <Col md="6" className="">
                             <div className="contenedor-imagen d-flex justify-content-center">
 
                             <img

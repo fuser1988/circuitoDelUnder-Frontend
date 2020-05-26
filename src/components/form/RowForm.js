@@ -16,7 +16,7 @@ class RowForm extends React.Component {
 
     render(){
         return (
-            <FormGroup className=" offset-2 col-8 form">
+            <FormGroup className="form">
               <Label className="col-3 col-form-label pl-0">{this.props.label}</Label>
               <Input
                 type={this.props.type}
