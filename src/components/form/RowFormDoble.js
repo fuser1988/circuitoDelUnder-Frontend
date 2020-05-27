@@ -18,7 +18,7 @@ class RowFormDoble extends React.Component {
         return (
             <FormGroup className="">
               <Label className="col-3 col-form-label pl-0">{this.props.label}</Label>
-              <Input
+              <Input className="placeholder-color"
                 type={this.props.type}
                 placeholder={this.props.placeholder}
                 value={ this.props.property }

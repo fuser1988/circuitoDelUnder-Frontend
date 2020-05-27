@@ -5,16 +5,25 @@ import RowFormDoble from "components/form/RowFormDoble.js";
 import { useHistory } from "react-router-dom";
 import { Multiselect } from 'multiselect-react-dropdown';
 import React, { useState } from "react";
+import classnames from "classnames";
 import Recital from "../../model/Recital";
-import { Form, FormGroup, Label,Button, Row, Col } from 'reactstrap';
+import { Form, FormGroup, Label,Button, Row, Col,Input,InputGroup,InputGroupAddon,InputGroupText } from 'reactstrap';
 function LoadRecitalForm(props) {
 
     const { crearRecital } = useRecitalService();
     const [recital, setRecital] = useState(new Recital());
+    const [entradaLibre, setEntradaLibre] = useState(true);
+    const [precioFocus, setPrecioFocus] = useState(false);
     const { push } = useHistory();
 
     const listadoBandasSistema = props.bandas;
     let bandasSeleccionadas = [];
+
+    React.useEffect(() => {
+        
+        return () => {
+        }
+    },[]);
 
     const handleChange = (event) => {
         const values = event;
@@ -64,6 +73,13 @@ function LoadRecitalForm(props) {
         push('/');
     }
 
+    const entrada = ()=>{ 
+        const recitalActual = recital;
+        setRecital({...recitalActual, precio:0});
+        setEntradaLibre(!entradaLibre);
+        console.log(recital);
+    }
+
     return (
         <>
             <Form className="mt-3 pt-4 ">
@@ -80,10 +96,10 @@ function LoadRecitalForm(props) {
                             accion={onChange}
                         />
                         <RowForm
-                            label='URl Imagen'
+                            label='Imagen'
                             property={recital.imagen}
                             propertyName='imagen'
-                            placeholder='URL Imagen'
+                            placeholder='URL de la imagen'
                             type='text'
                             invalid={recital.imagen}
                             accion={onChange}
@@ -91,7 +107,7 @@ function LoadRecitalForm(props) {
                         <FormGroup className=" form form-group">
                             <Label className="col-3 col-form-label pl-0">Bandas</Label>
                             <div className='multiSelectContainer'>
-                                <Multiselect
+                                <Multiselect className="mt-0"
                                     options={listadoBandasSistema} // Options to display in the dropdown
                                     selectedValues={bandasSeleccionadas} // Preselected value to persist in dropdown
                                     onSelect={handleChange} // Function will trigger on select event
@@ -124,7 +140,7 @@ function LoadRecitalForm(props) {
                     label='Descripcion'
                     property={recital.descripcion}
                     propertyName='descripcion'
-                    placeholder='descripción'
+                    placeholder='Hace una breve descripción del recital..'
                     type='textarea'
                     invalid={recital.descripcion}
                     accion={onChange}
@@ -175,7 +191,7 @@ function LoadRecitalForm(props) {
 
 
                         <div className="col-6 form form-group mb-0">
-                            <RowFormDoble
+                            <RowFormDoble 
                                 label='Fecha'
                                 property={recital.fecha}
                                 propertyName='fecha'
@@ -203,18 +219,49 @@ function LoadRecitalForm(props) {
                     </div>
                 </div>
 
+                <Row className="pt-2 pl-3 pr-3">
+                    <Col md={6} className="pl-0 pr-md-3">
+                    <InputGroup className={classnames({
+                            "input-group-focus": precioFocus
+                        })}>
 
-                <div className="col-sm-6 col-md-2 pl-0">
-                    <RowForm
-                        label='Precio'
-                        property={recital.precio}
-                        propertyName='precio'
-                        placeholder=''
-                        type='number'
-                        accion={onChange}
-                    />
-                </div>
+                        <Label className=" d-flex align-items-center mb-0 pr-3" >Precio de entrada
+                        </Label>    
+                        
+                        <InputGroupAddon  className="fix-input" addonType="prepend">
+                            <InputGroupText>$</InputGroupText>
+                        </InputGroupAddon>
+                        
+                        <Input  className="col-md-12"
+                            label='Precio de entrada'
+                            property='precio'
+                            propertyName='precio'
+                            placeholder=''
+                            type='number'
+                            disabled={entradaLibre}
+                            onFocus={e =>
+                                setPrecioFocus(true)
+                            }
+                            onBlur={e =>
+                                setPrecioFocus(false)
+                            }
+                            value={recital.precio}
+                            onChange={(event)=>{onChange("precio",event)}}
+                        />
+                    </InputGroup>
 
+                    </Col>
+                    <Col md={6} className="d-flex align-items-center"> 
+                    <label className="d-flex align-items-center">
+                        <input  className="mr-2"
+                        type="checkbox"
+                        checked={entradaLibre}
+                        onChange={entrada} 
+                        />
+                        Entrada libre
+                    </label>       
+                    </Col>
+                </Row>    
 
                 <div className="pt-3 pb-4">
                     <Button   className="col-sm-12 col-md-2 ml-0 " onClick={cancelar}>Cancelar</Button>

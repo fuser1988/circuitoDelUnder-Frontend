@@ -2,7 +2,7 @@ import React, {useState, useContext} from "react";
 
 import { UserContext } from "context/UserContext.js";
 import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
-import {Input, Container, Row, Col, Label, Button,FormGroup, Form} from "reactstrap";
+import {Input, Container, Row, Col, Label, Button,FormGroup, Form ,FormText} from "reactstrap";
 import { Multiselect } from 'multiselect-react-dropdown';
 import Banda from "../model/Banda";
 import {generosValidos} from "../model/Generos";
@@ -103,11 +103,15 @@ function NuevaBandaPage() {
                                 onSelect={agregarGenero} // Function will trigger on select event
                                 onRemove={agregarGenero}
                                 displayValue="genero" // Property name to display in the dropdown options
-                                placeholder='Generos'
+                                placeholder=''
                                 isObject={false}
                                 valid={(true)}
                             />
                     </FormGroup>
+                    <FormText color="muted" className="pb-2">
+                        Seleccioná los géneros o estilos con los que querés que tu banda
+                        aparezca en las búsquedas.
+                    </FormText>
                         </Col>
                     <Col md="6" className="">
                             <div className="contenedor-imagen d-flex justify-content-center">
@@ -130,13 +134,17 @@ function NuevaBandaPage() {
                 <Input type="textarea"
                     name="info"
                     id="info"
+                    placeholder="Hace una breve descripción de tu banda."
                     onChange={onChange} />
                 </FormGroup>
                 
-
-                <Button className="mt-3 mb-3" >
+                <div className="pt-3 pb-4">
+                    <Button   className="col-sm-12 col-md-2 ml-0 " onClick={()=>{push("/")}}>Cancelar</Button>
+                    <Button  className="col-sm-12 col-md-2 ml-0 ml-md-1" >aceptar</Button>
+                </div>    
+                {/* <Button className="mt-3 mb-3" >
                         Enviar
-                </Button>
+                </Button> */}
             </Form>
         </div>
         </Container>
