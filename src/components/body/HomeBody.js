@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container } from "reactstrap";
+import { Container, Button } from "reactstrap";
 
 import SearchComponent from "components/search/SearchComponent.js";
 
@@ -22,6 +22,8 @@ class HomeBody extends React.Component {
                        Comparti a cada momento lo mejor de la musica.
                      </h3>
                      <SearchComponent/>
+                     {/* <Button>Bandas</Button>
+                     <Button>Recitales</Button> */}
                    </div>
                  </Container>
             </div>

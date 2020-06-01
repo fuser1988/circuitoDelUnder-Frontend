@@ -44,7 +44,7 @@ function IngresoCodigoBody(props) {
     return (
         <>
             
-            <h1 className="h1-seo mb-3 mt-2">BIENVENIDO SOLO FALTA UN PASO PARA TERMINAR DE REGISTRA TU CUENTA</h1>
+            <h1 className="h1-seo mb-3 mt-2">BIENVENIDO SOLO FALTA UN PASO PARA TERMINAR DE REGISTRAR TU CUENTA</h1>
             <h3 className="mb-0"> Enviamos un código de verificación a tu cuenta de correo electrónico.
                 Ingrésalo aquí y termina de registrar tu cuenta.</h3>
             <div className="pt-2 offset-md-3 col-md-6 col-sm-12 intput-valacion-size">
