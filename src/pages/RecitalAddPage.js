@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import LoadRecitalForm from "components/form/LoadRecitalForm.js";
-import { Card, Container } from "reactstrap";
-import { useRecitalService } from "services/RecitalService.js";
+import { Container } from "reactstrap";
+import { useBandaService } from "services/BandaService.js";
 
 function RecitalAddPage() {
 
-    const { traerTodasLasBandas } = useRecitalService();
+    const { traerTodasRef } = useBandaService();
     const [bandas, setBandas] = useState([]);
 
     React.useEffect(() => {
@@ -17,7 +17,7 @@ function RecitalAddPage() {
     }, []);
 
     const obternerbandas = () => {
-        traerTodasLasBandas()
+        traerTodasRef()
             .then((bandasObtenidas) => {
                 setBandas(bandasObtenidas)
             })

@@ -21,6 +21,7 @@ import ErrorServerPage from "./pages/ErrorServerPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ConfirmacionCuentaPage from "./pages/ConfirmacionCuentaPage";
 import NuevaBandaPage from "./pages/NuevaBandaPage";
+import BandasPage from "pages/BandasPage.js";
 
 
 
@@ -30,6 +31,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/index" render={props => <HomePage {...props} />} />
         <Route path="/RecitalesPage/:busqueda" render={props => <RecitalesPage {...props} />} />
+        <Route path="/BandasPage/:busqueda" render={props => <BandasPage {...props} />} />
         <Route path="/components" render={props => <Index {...props} />} />
         <Route path="/Recital/:id/:new" render={props => <DetallesRecitalPage {...props} />} />
         <Route path="/Recital/:id" render={props => <DetallesRecitalPage {...props} />} />

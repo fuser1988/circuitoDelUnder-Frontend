@@ -45,14 +45,6 @@ export const useRecitalService = () => {
 
     }
 
-    const traerTodasLasBandas = () => {
-        return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`bandas`)
-                .then((response) => { resolve(response.data); })
-                .catch((error) => { mostrarPaginaError(error) });
-        })
-    }
-
-    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital, traerTodasLasBandas }
+    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital }
 
 }

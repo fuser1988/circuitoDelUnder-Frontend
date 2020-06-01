@@ -2,7 +2,7 @@ import React from "react";
 
 import { Container } from "reactstrap";
 
-import SearchComponent from "components/search/SearchComponent.js";
+import SearchComponent from "components/search/SearchComponentBanda.js";
 
 class HomeBody extends React.Component {
     render() {
