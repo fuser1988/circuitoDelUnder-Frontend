@@ -13,7 +13,6 @@ import {
 
 function SearchBars(props) {
 
-  const { push } = useHistory();
   const [busqueda, setBusqueda] = useState("");
 
   const actualizarInput = (event) => {
@@ -21,7 +20,7 @@ function SearchBars(props) {
   }
 
   const redirecionarAPaginaDeBusqueda = () => {
-    push("/RecitalesPage/" + busqueda);
+    props.busqueda(busqueda);
     setBusqueda("");
   }
 

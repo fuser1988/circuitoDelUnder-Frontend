@@ -25,18 +25,26 @@ function RecitalesPage(props) {
         }
     },[]);
 
+    const onChange = (event) => {
+        buscarRecitalesPorGenero(event)
+    }
+    
     const notificar = (mensaje) => toast(mensaje, {
         className: 'black-background',
         bodyClassName: "grow-font-size",
         progressClassName: 'fancy-progress-bar'
     });
 
-    const buscarRecitales = () => {
+    const buscarRecitalesPorGenero = (busqueda) => {
         setcargandoRecitales(true);
-        const { match: { params } } = props;
-        buscarPorNombreYGenero(params.busqueda)
+        buscarPorNombreYGenero(busqueda)
         .then((recitales) => { procesarResultadoDeBusqueda(recitales); setcargandoRecitales(false); })
         .catch((message) => { notificar(message) });
+    }
+
+
+    const buscarRecitales = () => {
+        buscarTodosLosRecitales()
     }
     
     const buscarTodosLosRecitales = () => {
@@ -61,7 +69,7 @@ function RecitalesPage(props) {
         <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
-                <SearchComponent />
+                <SearchComponent busqueda={onChange}/>
             </RecitalesHeader>
             <div>
                 <div className="grilla-Responsive offset-md-2 col-10">

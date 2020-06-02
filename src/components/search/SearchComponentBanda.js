@@ -7,7 +7,6 @@ import { InputGroup, Col, InputGroupAddon, Input, Button,Container
 
 function SearchComponentBanda(props) {
 
-  const { push } = useHistory();
   const [busqueda, setBusqueda] = useState("");
 
   const actualizarInput = (event) => {
@@ -15,7 +14,7 @@ function SearchComponentBanda(props) {
   }
 
   const redirecionarAPaginaDeBusqueda = () => {
-    push("/BandasPage/" + busqueda);
+    props.busqueda(busqueda);
     setBusqueda("");
   }
 

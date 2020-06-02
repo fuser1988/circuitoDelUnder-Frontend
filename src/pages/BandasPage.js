@@ -31,12 +31,19 @@ function BandasPage(props) {
         progressClassName: 'fancy-progress-bar'
     });
 
-    const buscarBandas = () => {
+    const onChange = (event) => {
+        buscarBandasPorGenero(event)
+    }
+
+    const buscarBandasPorGenero = (busqueda) => {
         setCargandoBandas(true);
-        const { match: { params } } = props;
-        buscarPorGenero(params.busqueda)
+        buscarPorGenero(busqueda)
         .then((bandas) => { procesarResultadoDeBusqueda(bandas)})
         .catch((message) => { notificar(message) });
+    }
+
+    const buscarBandas = () => {
+        buscarTodasLasBandas();
     }
     
     const buscarTodasLasBandas = () => {
@@ -61,7 +68,7 @@ function BandasPage(props) {
         <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
-                <SearchComponentBanda />
+                <SearchComponentBanda busqueda={onChange}/>
             </RecitalesHeader>
             <div>
                 <div className="grilla-Responsive offset-md-2 col-10">
