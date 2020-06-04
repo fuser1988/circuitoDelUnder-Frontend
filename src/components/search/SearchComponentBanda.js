@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router";
 
-import {
-  InputGroup,
-  Col,
-  InputGroupAddon,
-  Input,
-  Button,
-  Container
+import { InputGroup, Col, InputGroupAddon, Input, Button,Container 
 } from "reactstrap";
 
 
-function SearchBars(props) {
+function SearchComponentBanda(props) {
 
   const [busqueda, setBusqueda] = useState("");
 
@@ -49,4 +43,4 @@ function SearchBars(props) {
 
 }
 
-export default SearchBars;
+export default SearchComponentBanda;
