@@ -22,6 +22,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ConfirmacionCuentaPage from "./pages/ConfirmacionCuentaPage";
 import NuevaBandaPage from "./pages/NuevaBandaPage";
 import BandasPage from "pages/BandasPage.js";
+import DetallesBandaPage from "pages/DetallesBandaPage.js";
 
 
 
@@ -35,6 +36,7 @@ ReactDOM.render(
         <Route path="/components" render={props => <Index {...props} />} />
         <Route path="/Recital/:id/:new" render={props => <DetallesRecitalPage {...props} />} />
         <Route path="/Recital/:id" render={props => <DetallesRecitalPage {...props} />} />
+        <Route path="/Banda/:id" render={props => <DetallesBandaPage {...props} />} />
         <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
         <Route path="/recital-add" render={props => <RecitalAddPage {...props} />} />
         <Route path="/login" render={props => <RegisterPage {...props} />} />

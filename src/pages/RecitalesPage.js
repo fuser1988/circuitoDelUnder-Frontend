@@ -42,9 +42,9 @@ function RecitalesPage(props) {
         .catch((message) => { notificar(message) });
     }
 
-
     const buscarRecitales = () => {
-        buscarTodosLosRecitales()
+        const pathname = props.location.pathname;
+        (pathname === "/RecitalesPage") ? buscarTodosLosRecitales() : buscarRecitalesPorGenero(pathname.slice(15))
     }
     
     const buscarTodosLosRecitales = () => {
