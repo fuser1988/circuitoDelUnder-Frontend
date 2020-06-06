@@ -18,10 +18,8 @@ function RecitalesPage(props) {
     const [cargandoRecitales,setcargandoRecitales] = useState(true);
     
     useEffect(() => {
-        document.body.classList.toggle("index-page");
         buscarRecitales();
         return () => {
-            document.body.classList.toggle("index-page");
         }
     },[]);
 
