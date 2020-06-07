@@ -13,6 +13,7 @@ import { useBandaService } from "services/BandaService.js";
 function NuevaBandaPage() {
     
     const [banda, setBanda] = useState(new Banda());    
+    const [logo, setLogo] = useState(null);    
     const { push } = useHistory();
     const { user} = useContext(UserContext);
     const { crearBanda } = useBandaService();
@@ -25,10 +26,16 @@ function NuevaBandaPage() {
         }
     },[]);
     
-    const previsualizarImagen = (event)=>{
-        const bandaParaActualizar = banda;
-        setBanda({ ...bandaParaActualizar, imagen: URL.createObjectURL(event.target.files[0]) });
+    const cargarImagen = (selectorFiles) => {
+        toBase64(selectorFiles[0])
+            .then((imagenBase64) => {
+                const bandaParaActualizar = banda;
+                setBanda({ ...bandaParaActualizar, imagen: imagenBase64 });
+          });
+          setLogo(URL.createObjectURL(selectorFiles[0]));
     }
+
+    
 
     const onChange = (event) => {
         const bandaParaActualizar = banda;
@@ -57,6 +64,14 @@ function NuevaBandaPage() {
 
         });
     }
+
+    const toBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {resolve(reader.result)};
+        reader.onerror = error => reject(error);
+      })};
 
     
     return (
@@ -93,7 +108,7 @@ function NuevaBandaPage() {
                         id="logo"
                         autoComplete="off"
                         placeholder="http://unaimaegen/logo/mibanda.jpj"
-                        onChange={previsualizarImagen} />
+                        onChange={(e)=>{cargarImagen(e.target.files)}} />
                     </FormGroup>
                     <FormGroup>
                         <Label name="generos" for="generos">Generos</Label>
@@ -120,7 +135,7 @@ function NuevaBandaPage() {
                                 
                                 alt="..."
                                 className=""
-                                src={banda.imagen?banda.imagen: require("../assets/img/circuitoLogo.jpg")}
+                                src={logo?logo: require("../assets/img/circuitoLogo.jpg")}
                                 />
                                 </div>
                         </Col>
@@ -142,9 +157,6 @@ function NuevaBandaPage() {
                     <Button   className="col-sm-12 col-md-2 ml-0 " onClick={()=>{push("/")}}>Cancelar</Button>
                     <Button  className="col-sm-12 col-md-2 ml-0 ml-md-1" >aceptar</Button>
                 </div>    
-                {/* <Button className="mt-3 mb-3" >
-                        Enviar
-                </Button> */}
             </Form>
         </div>
         </Container>
