@@ -11,6 +11,7 @@ import { withRouter } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
+import { Row, Card, CardBody, CardTitle } from "reactstrap";
 
 function DetallesBandaPage(props) {
 
@@ -47,10 +48,119 @@ function DetallesBandaPage(props) {
       .then((bandaObtenido) => {
         setBanda(new Banda(bandaObtenido));
         setcargandoBanda(false);
-        const banda1 = new Banda(bandaObtenido)
-        console.log(bandaObtenido)
-        console.log(banda1)
       })
+  }
+
+  const crearVideo = (video) => {
+    return(
+      <div className="container-video">
+      <iframe className="video"
+        height="400"
+        src={video.url}
+        frameBorder="0"
+        allow="encrypted-media"
+        allowFullScreen
+        title="vidtitle"
+      />
+      <p className="text-center text-white mb-2 descripcio-text">{video.comentario}</p>
+      
+      </div>
+    )
+  }
+
+  const crearVideos = (videos) => {
+    return ( 
+      <Row>
+        {videos.map(video => {
+          if (video.tipoMaterial === "TIPO_VIDEO") {
+            return crearVideo(video)
+          }
+        })}
+      </Row>     
+    )
+  }
+
+  const mostrarVideos = (videos) => {
+    if (videos.length !== 0) {
+      return (
+        <div>
+          <h2 className="text-white">Material Visual</h2>
+          {crearVideos(videos)}
+        </div> 
+      )
+    }else {
+      return(
+        <div>
+          <h2 className="text-white">No Hay Material Visual</h2>
+        </div>
+      )
+    }
+  }
+
+  const crearVideos2 = (videos) => {
+    return(
+      <Row>
+        {videos.map(video => {
+          if (video.tipoMaterial === "TIPO_VIDEO") {
+            return(
+              <Card >
+              <iframe className="video"
+                height="400"
+                src={video.url}
+                frameBorder="0"
+                allow="encrypted-media"
+                allowFullScreen
+                title="vidtitle"
+              />
+              <CardTitle className="mt-2 mb-0 text-center bold-text">
+                <p className="text-center text-white mb-2 descripcio-text">{video.comentario}</p>
+              </CardTitle>
+              </Card>
+            )
+          }
+        })}
+      </Row>
+    )
+  } 
+      
+  const crearAlbum = (album) => {
+    return(
+      <Card className="mt-2 ml-2 col-3 responsive-card">
+        <CardTitle className="mt-2 mb-0 text-center bold-text">
+          <a className="focus-pointer" href={album.url}>{album.comentario}</a>
+        </CardTitle>
+      </Card>
+    )  
+  }
+
+  const crearAlbumes = (albumes) => {
+    return (
+      <Row>
+        {albumes.map(album => {
+          if (album.tipoMaterial === "TIPO_ALBUM") {
+            return crearAlbum(album)
+          }
+        })
+        }
+      </Row>
+    )
+  }
+
+  const mostrarMaterialDescargable = (albumes) => {
+    if (albumes.length !== 0) {
+      return (
+        <div>
+          <h2 className="text-white">Material Descargable</h2>
+          {crearAlbumes(albumes)}
+        </div> 
+      )
+    }else {
+      return(
+        <div>
+          <h2 className="text-white">No Hay Material Descargable</h2>
+        </div>
+      )
+    }
   }
 
   return (
@@ -108,39 +218,32 @@ function DetallesBandaPage(props) {
             <div className="col pl-1 mt-3 mw-800">
                 <p className="text-center text-white mb-2 descripcio-text">{banda.info}</p>
             </div>
-
-            <h4 className="mb-1">Generos:</h4>
-                {banda.getGeneros().map(genero => {
-                  return <a className="focus-pointer mr-2" href={"/BandasPage/" + genero} id={genero} key={genero} >{genero}</a>
-                }
-                )}
             <br></br>
             <br></br>
-            <br></br>
-            {banda.material.map(m => {
-              if(m.tipoMaterial === "TIPO_VIDEO"){
-                  return( 
-                  <div className="videoDiv">
-                    <iframe
-                      width="600"
-                      height="400"
-                      src={m.url}
-                      frameBorder="0"
-                      allow="encrypted-media"
-                      allowFullScreen
-                      title="vidtitle"
-                    />
-                  </div>     
-                )} else {
-                  return (
-                    <div>
-                      <h4 className="mb-1">AlBUM:</h4>
-                      <a className="focus-pointer mr-3" href={m.url}> Descargar Album</a>
-                    </div>
+            <div className="offset-md-1">
+              <h4 className="mb-1">Generos:</h4>
+                  {banda.getGeneros().map(genero => {
+                    return <a className="focus-pointer mr-2" href={"/BandasPage/" + genero} id={genero} key={genero} >{genero}</a>
+                  }
                   )}
-            })
-            }
-              
+            </div>
+            
+            <br></br>
+            <br></br>
+            <br></br>
+
+            <div className="grilla-Responsive offset-1 col-10">
+              {crearVideos2(banda.material)} 
+            </div>
+            
+            <br></br>
+            <br></br>
+
+            <div className="grilla-Responsive offset-md-1 col-10">
+              {mostrarMaterialDescargable(banda.material)}
+            </div>
+
+             
           </div>
         }
         <br></br>

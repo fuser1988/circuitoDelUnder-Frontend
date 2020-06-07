@@ -628,3 +628,18 @@ textarea.form-control {
   }
 
 }
+
+.container-video {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.video {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
