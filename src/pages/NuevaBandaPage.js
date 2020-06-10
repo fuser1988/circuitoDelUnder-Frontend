@@ -60,7 +60,7 @@ function NuevaBandaPage() {
     const enviarBanda = (event) => {
         event.preventDefault();
         crearBanda(banda).then((banda)=>{
-            push("/");
+            push("/banda/" + banda.id);
 
         });
     }
