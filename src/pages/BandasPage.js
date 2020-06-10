@@ -18,10 +18,8 @@ function BandasPage(props) {
     const [cargandoBandas,setCargandoBandas] = useState(true);
     
     useEffect(() => {
-        document.body.classList.toggle("index-page");
         buscarBandas();
         return () => {
-            document.body.classList.toggle("index-page");
         }
     },[]);
 
