@@ -7,20 +7,20 @@ const MAP_STYLES = {
     width: '100%'
 }
 
-const OPTIONS = {
-    center: {
-        lat: -34.706501,
-        lng: -58.2807187
-    },
-    zoom: 16
-}
-
 const API_CONFIG = {
     key: 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o',
     language: 'es'
 }
 
 const UbicacionMap = (props) => {
+
+    const OPTIONS = {
+        center: {
+            lat: props.ubicacion.latitud,
+            lng: props.ubicacion.longitud
+        },
+        zoom: 16
+    }
 
     React.useEffect(() => {
         componentDidMount()
@@ -50,13 +50,15 @@ const UbicacionMap = (props) => {
         // Promise para que al ser resulta puedas manipular
         // las opciones de Google Maps
         loadGoogleMapsAPI(API_CONFIG).then(googleMaps => {
-            const myLatLng = {lat: -34.706501, lng: -58.2807187};
+            const myLatLng = {lat: props.ubicacion.latitud, lng: props.ubicacion.longitud};
             var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
             new googleMaps.Marker({
                 position: myLatLng,
                 map: map,
-                title: props.lugar //"lugar" 
+                title: props.ubicacion //"lugar" 
               });
+              console.log("que hay")
+              console.log(myLatLng)
         }).catch(err => {
             console.warning('Something went wrong loading the map', err);
         });

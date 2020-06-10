@@ -137,7 +137,7 @@ function LoadRecitalForm(props) {
                 </Row>
                 
                 <RowForm
-                    label='Descripcion'
+                    label='Descripción'
                     property={recital.descripcion}
                     propertyName='descripcion'
                     placeholder='Hace una breve descripción del recital..'
