@@ -32,7 +32,7 @@ function DetallesBandaPage(props) {
   const notificarSiCorresponde = () => {
     const { match: { params } } = props;
     if (params.new) {
-      notificar("La buscar se cargó correctamente")
+      notificar("La banda se cargó correctamente")
     }
   }
 
@@ -205,7 +205,7 @@ function DetallesBandaPage(props) {
               <div className="col pl-1 mw-800">
                 <h1 className="fuente-precentaciones titulo text-center text-white mb-2">{banda.nombre}</h1>
               </div>
-                <div className="d-flex justify-content-center mb-2"> 
+                <div className="d-flex justify-content-center mb-2 mw-800"> 
                   {banda.getGeneros().map(genero => {
                     return <a className="btn-simple btn-round btn btn-primary focus-pointer" href={"/BandasPage/" + genero} id={genero} key={genero} ><i className="tim-icons icon-tag mr-2"></i>{genero}</a>
                   }
@@ -220,7 +220,7 @@ function DetallesBandaPage(props) {
             </div>
             <br></br>
             <br></br>
-            <div className="offset-md-1">
+            <div className="">
               <h4 className="mb-1">Generos:</h4>
                   {banda.getGeneros().map(genero => {
                     return <a className="focus-pointer mr-2" href={"/BandasPage/" + genero} id={genero} key={genero} >{genero}</a>
@@ -232,16 +232,16 @@ function DetallesBandaPage(props) {
             <br></br>
             <br></br>
 
-            <div className="grilla-Responsive offset-1 col-10">
+            <div className="grilla-Responsive mw-800">
               {crearVideos2(banda.material)} 
             </div>
             
             <br></br>
             <br></br>
 
-            <div className="grilla-Responsive offset-md-1 col-10">
+            {/* <div className="grilla-Responsive offset-md-1 col-10">
               {mostrarMaterialDescargable(banda.material)}
-            </div>
+            </div> */}
 
              
           </div>

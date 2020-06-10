@@ -17,7 +17,7 @@ export const useBandaService = () => {
 
     const buscarPorId = (id) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`banda/${id}`)
+            CircuitoDelUnderApi.get(`bandas/${id}`)
                 .then(({ data: banda }) => {
                     resolve(banda);
                 })

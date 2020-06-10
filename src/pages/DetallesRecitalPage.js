@@ -30,7 +30,7 @@ function DetallesRecitalPage(props) {
       buscarRecital();
       notificarSiCorresponde();
       return () => {
-        document.body.classList.toggle("landing-page");
+      document.body.classList.toggle("landing-page");
       }
     }, []);
 
