@@ -7,13 +7,16 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import React, { useState } from "react";
 import classnames from "classnames";
 import Recital from "../../model/Recital";
-import { Form, FormGroup, Label,Button, Row, Col,Input,InputGroup,InputGroupAddon,InputGroupText } from 'reactstrap';
+import { Form, FormGroup, Label,Button, Row, Col,Input,InputGroup,InputGroupAddon,InputGroupText,Modal, ModalFooter,ModalBody } from 'reactstrap';
+import UbicacionMap from 'components/body/UbicacionMap.js';
+
 function LoadRecitalForm(props) {
 
     const { crearRecital } = useRecitalService();
     const [recital, setRecital] = useState(new Recital());
     const [entradaLibre, setEntradaLibre] = useState(true);
     const [precioFocus, setPrecioFocus] = useState(false);
+    const [modal, setModal] = useState(false);
     const { push } = useHistory();
 
     const listadoBandasSistema = props.bandas;
@@ -50,6 +53,11 @@ function LoadRecitalForm(props) {
         setRecital({ ...currentRecital, [property]: event.target.value });
     }
 
+    const onChangeUbicacion = (property, event) => {
+        const currentRecital = recital;
+        setRecital({ ...currentRecital, [property]: event});
+    }
+
     const isValido = () => {
         // verifica que todos los campos esten completos
         let valid = true;
@@ -78,6 +86,12 @@ function LoadRecitalForm(props) {
         setRecital({...recitalActual, precio:0});
         setEntradaLibre(!entradaLibre);
         console.log(recital);
+    }
+
+    const toggle = () =>{
+        setModal(
+           !modal
+        );
     }
 
     return (
@@ -178,10 +192,19 @@ function LoadRecitalForm(props) {
                             invalid={recital.localidad}
                             accion={onChange}
                         />
+
                         <FormGroup className="form">
                             <Label className="col-3 col-form-label pl-0">Ubicar en mapa</Label>
-                            <Button className="mb-0 mt-0" onClick={cancelar}>mapa</Button>
+                            <Button className="mb-0 mt-0" onClick={toggle}>mapa</Button>
                         </FormGroup>
+                        <Modal isOpen={modal} toggle={toggle} className={props.className}>
+                            <ModalBody>
+                            <UbicacionMap accion={onChangeUbicacion}/>
+                            </ModalBody>
+                            <ModalFooter>
+                            <Button color='secondary' onClick={toggle}>Aceptar</Button>
+                            </ModalFooter>
+                        </Modal>
 
                     </Col>
                 </Row>    
