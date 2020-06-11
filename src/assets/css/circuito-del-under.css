@@ -643,3 +643,18 @@ textarea.form-control {
   left: 0;
 }
 
+/* modal material */
+
+.modal-body input,.modal-body textarea, select {
+  color:black !important;
+}
+
+.modal-body{
+  /* background-color: #dfdfdf; */
+  padding-top: 0px;
+}
+
+.modal-header{
+  /* background-color: #dfdfdf; */
+  padding-bottom: 24px;
+}
