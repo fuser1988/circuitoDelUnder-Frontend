@@ -110,7 +110,7 @@ function DetallesRecitalPage(props) {
               <Modal isOpen={modal} toggle={toggle} className={props.className}>
                 <ModalHeader toggle={toggle}>{recital.lugar}</ModalHeader>
                 <ModalBody>
-                  <UbicacionMap ubicacion={recital.ubicacion}/>
+                  <UbicacionMap ubicacion={recital.ubicacion} direccion={recital.direccion} localidad={recital.localidad}/>
                 </ModalBody>
                 <ModalFooter>
                   <Button color='secondary' onClick={toggle}>Aceptar</Button>

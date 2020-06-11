@@ -78,6 +78,12 @@ const UbicacionMap = (props) => {
                     map: map,
                     title: props.ubicacion
                   });
+                
+                  new googleMaps.InfoWindow({
+                    content: 'Dirección: ' +props.direccion
+                              +', Localidad: ' +props.localidad, position: myLatLng
+                }).open(map)
+
             }).catch(err => {
                 console.warning('Something went wrong loading the map', err);
             });
