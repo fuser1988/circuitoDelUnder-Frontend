@@ -90,7 +90,7 @@ const HomeBody = () => {
                             <Button color='secondary' onClick={toggle}>Aceptar</Button>
                             </ModalFooter>
                         </Modal>
-                        <a href="##" onClick={toggle}><i className="fas fa-map-marker-alt mr-1">   </i>ver mapa</a>
+                        <a href="##" onClick={toggle}><i className="fas fa-map-marker-alt mr-1">   </i>ver Ubicaión</a>
 
                         {!user && (
                             <div className="row d-flex justify-content-end align-items-center mt-4">
