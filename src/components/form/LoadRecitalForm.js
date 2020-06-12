@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import classnames from "classnames";
 import Recital from "../../model/Recital";
 import { Form, FormGroup, Label,Button, Row, Col,Input,InputGroup,InputGroupAddon,InputGroupText,Modal, ModalFooter,ModalBody } from 'reactstrap';
-import UbicacionMap from 'components/body/UbicacionMap.js';
+import UbicacionMap from 'components/body/UbicacionMapForm.js';
 
 function LoadRecitalForm(props) {
 
