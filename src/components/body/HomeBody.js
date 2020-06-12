@@ -9,7 +9,6 @@ import Referencia from "model/Referencia.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../toast.css';
-import UbicacionMap from 'components/body/UbicacionMapUser.js';
 
 const HomeBody = () => {
     const { push } = useHistory();
@@ -52,15 +51,6 @@ const HomeBody = () => {
         setUser(null);
     }
 
-    const toggle = () =>{
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                setModal(!modal)
-            },
-            error => notificar("Debe activar su ubicacion actual"),
-           );
-    }
-
     return (
         <>
             <ToastContainer />
@@ -81,16 +71,6 @@ const HomeBody = () => {
                             <Button className="col-sm-4 col-md-3 sm-mt btn-small" href="/BandasPage">Bandas</Button>
                             <Button className="col-sm-4 col-md-3 btn-small" href="/RecitalesPage" >Recitales</Button>
                         </div>
-                        <Modal isOpen={modal} toggle={toggle}>
-                            <ModalHeader toggle={toggle}></ModalHeader>
-                            <ModalBody>
-                            <UbicacionMap/>
-                            </ModalBody>
-                            <ModalFooter>
-                            <Button color='secondary' onClick={toggle}>Aceptar</Button>
-                            </ModalFooter>
-                        </Modal>
-                        <a href="##" onClick={toggle}><i className="fas fa-map-marker-alt mr-1">   </i>ver Ubicaión</a>
 
                         {!user && (
                             <div className="row d-flex justify-content-end align-items-center mt-4">
