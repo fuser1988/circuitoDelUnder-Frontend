@@ -12,13 +12,6 @@ const API_CONFIG = {
     language: 'es'
 }
 
-const OPTIONS = {
-    center: {
-        lat: -34.481620,
-        lng: -58.522587
-    },
-    zoom: 16
-}
 
 const UbicacionMapForm = (props) => {
 
@@ -47,21 +40,34 @@ const UbicacionMapForm = (props) => {
     const componentDidMount = () => {
         // Promise para que al ser resulta puedas manipular
         // las opciones de Google Maps
+        
         loadGoogleMapsAPI(API_CONFIG).then(googleMaps => {
-            var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
-            map.addListener('click', function(e) {
-                const myLatLng = {lat: e.latLng.lat(), lng: e.latLng.lng()};
-                new googleMaps.Marker({
-                    position:myLatLng,
-                    map: map,
+            navigator.geolocation.getCurrentPosition((position) => {
+                                
+                var OPTIONS = {
+                    center: {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    },
+                    zoom: 16
+                }
+
+                var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
+                map.addListener('click', function(e) {
+                    const myLatLng = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+                    new googleMaps.Marker({
+                        position:myLatLng,
+                        map: map,
+                    });
+                    map.panTo(myLatLng)
+                    const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng}
+                    props.accion('ubicacion', ubicacion)
                 });
-                map.panTo(myLatLng)
-                const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng}
-                props.accion('ubicacion', ubicacion)
-            });
+            })                    
         }).catch(err => {
-            console.warning('Something went wrong loading the map', err);
-        });
+                console.warning('Something went wrong loading the map', err);
+            });
+        
     }
 
     return (
