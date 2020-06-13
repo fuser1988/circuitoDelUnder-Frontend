@@ -658,3 +658,9 @@ textarea.form-control {
   /* background-color: #dfdfdf; */
   padding-bottom: 24px;
 }
+
+@media (max-width: 479px){
+  .mt-2.ml-2.col-3.responsive-card {
+    margin-left: 0px !important;
+  }
+}
