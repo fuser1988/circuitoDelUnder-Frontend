@@ -13,7 +13,7 @@ import '../toast.css';
 
 function BandasPage(props) {
 
-    const { buscarPorGenero, traerTodos} = useBandaService();
+    const { buscarPorNombre, traerTodos} = useBandaService();
     const [ bandas, setBandas ] = useState([]);
     const [cargandoBandas,setCargandoBandas] = useState(true);
     
@@ -35,7 +35,7 @@ function BandasPage(props) {
 
     const buscarBandasPorGenero = (busqueda) => {
         setCargandoBandas(true);
-        buscarPorGenero(busqueda)
+        buscarPorNombre(busqueda)
         .then((bandas) => { procesarResultadoDeBusqueda(bandas)})
         .catch((message) => { notificar(message) });
     }
