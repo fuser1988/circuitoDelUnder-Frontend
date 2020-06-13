@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
-import { Container, Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
+import { Container, Button } from "reactstrap";
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { UserContext } from "context/UserContext.js";
 import { useHistory } from "react-router";
@@ -14,7 +14,6 @@ const HomeBody = () => {
     const { push } = useHistory();
     const { buscarUsuario } = useUsuarioService();
     const { user, setUser } = useContext(UserContext);
-    const [modal, setModal] = useState(false);
 
     React.useEffect(() => {
 
