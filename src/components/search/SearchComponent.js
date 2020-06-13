@@ -36,7 +36,7 @@ function SearchBars(props) {
       <InputGroup>
         <Col className="resize-search offset-2 col-8 mt-4">
           <InputGroupAddon className="d-flex align-items-center" addonType="append">
-            <Input className="form-control" placeholder="" type="text" value={busqueda} onChange={actualizarInput} onKeyPress={redirecionarSiPresionoEnter} ></Input>
+            <Input id="search-input" className="form-control" placeholder="" type="text" value={busqueda} onChange={actualizarInput} onKeyPress={redirecionarSiPresionoEnter} ></Input>
             <Button className="btn btn-text-center" onClick={redirecionarAPaginaDeBusqueda} >
               Buscar
               </Button>

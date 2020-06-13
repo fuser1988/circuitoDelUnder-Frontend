@@ -18,7 +18,7 @@ class RecitalCard extends Component {
     
     render(){
         return(
-            <Card className="mt-2 ml-2 col-3 responsive-card" key={this.props.recital.id}>
+            <Card className="mt-2 ml-2 col-3 responsive-card" key={this.props.recital.id} id={this.props.recital.id}>
                 <CardBody className="">
                     <Row className="d-flex justify-content-center">
                         <img alt="" className="" src={this.props.recital.imagen} id="" />
