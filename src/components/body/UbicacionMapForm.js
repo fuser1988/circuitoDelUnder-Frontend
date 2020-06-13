@@ -12,7 +12,8 @@ const API_CONFIG = {
     language: 'es'
 }
 
-const UbicacionMap = (props) => {
+
+const UbicacionMapForm = (props) => {
 
     React.useEffect(() => {
         componentDidMount()
@@ -39,15 +40,18 @@ const UbicacionMap = (props) => {
     const componentDidMount = () => {
         // Promise para que al ser resulta puedas manipular
         // las opciones de Google Maps
-        if (props.ubicacion === undefined) {
-            const OPTIONS = {
-                center: {
-                    lat: -34.481620,
-                    lng: -58.522587
-                },
-                zoom: 16
-            }
-            loadGoogleMapsAPI(API_CONFIG).then(googleMaps => {
+        
+        loadGoogleMapsAPI(API_CONFIG).then(googleMaps => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                                
+                var OPTIONS = {
+                    center: {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    },
+                    zoom: 16
+                }
+
                 var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
                 map.addListener('click', function(e) {
                     const myLatLng = {lat: e.latLng.lat(), lng: e.latLng.lng()};
@@ -59,35 +63,11 @@ const UbicacionMap = (props) => {
                     const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng}
                     props.accion('ubicacion', ubicacion)
                 });
-            }).catch(err => {
+            })                    
+        }).catch(err => {
                 console.warning('Something went wrong loading the map', err);
             });
-        }else {
-            const OPTIONS = {
-                center: {
-                    lat: props.ubicacion.latitud,
-                    lng: props.ubicacion.longitud
-                },
-                zoom: 16
-            }
-            loadGoogleMapsAPI(API_CONFIG).then(googleMaps => {
-                const myLatLng = {lat: props.ubicacion.latitud, lng: props.ubicacion.longitud};
-                var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
-                new googleMaps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: props.ubicacion
-                  });
-                
-                  new googleMaps.InfoWindow({
-                    content: 'Dirección: ' +props.direccion
-                              +', Localidad: ' +props.localidad, position: myLatLng
-                }).open(map)
-
-            }).catch(err => {
-                console.warning('Something went wrong loading the map', err);
-            });
-        } 
+        
     }
 
     return (
@@ -96,4 +76,4 @@ const UbicacionMap = (props) => {
     
 }
 
-export default UbicacionMap;
+export default UbicacionMapForm;

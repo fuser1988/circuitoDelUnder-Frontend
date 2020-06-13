@@ -36,7 +36,6 @@ function DetallesRecitalPage(props) {
 
   const notificarSiCorresponde = () => {
     const { match: { params } } = props;
-    console.log(params.new);
     if (params.new) {
       notificar("El recital se cargó correctamente")
     }
@@ -111,7 +110,7 @@ function DetallesRecitalPage(props) {
               <Modal isOpen={modal} toggle={toggle} className={props.className}>
                 <ModalHeader toggle={toggle}>{recital.lugar}</ModalHeader>
                 <ModalBody>
-                  <UbicacionMap lugar={recital.lugar}/>
+                  <UbicacionMap ubicacion={recital.ubicacion} direccion={recital.direccion} localidad={recital.localidad}/>
                 </ModalBody>
                 <ModalFooter>
                   <Button color='secondary' onClick={toggle}>Aceptar</Button>

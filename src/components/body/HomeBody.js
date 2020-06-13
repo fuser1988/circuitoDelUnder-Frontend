@@ -50,7 +50,6 @@ const HomeBody = () => {
         setUser(null);
     }
 
-
     return (
         <>
             <ToastContainer />

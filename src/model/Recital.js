@@ -9,6 +9,7 @@ class Recital {
     lugar = '';
     imagen = '';
     precio = 0;
+    ubicacion = null;
 
     constructor(recital){
         if(recital){
@@ -22,6 +23,7 @@ class Recital {
             this.lugar = recital.lugar;
             this.imagen = recital.imagen;
             this.precio = recital.precio;
+            this.ubicacion = recital.ubicacion;
 
         }
     }
