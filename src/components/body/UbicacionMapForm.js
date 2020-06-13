@@ -12,15 +12,8 @@ const API_CONFIG = {
     language: 'es'
 }
 
-const UbicacionMap = (props) => {
 
-    const OPTIONS = {
-        center: {
-            lat: props.ubicacion.latitud,
-            lng: props.ubicacion.longitud
-        },
-        zoom: 16
-    }
+const UbicacionMapForm = (props) => {
 
     React.useEffect(() => {
         componentDidMount()
@@ -47,24 +40,34 @@ const UbicacionMap = (props) => {
     const componentDidMount = () => {
         // Promise para que al ser resulta puedas manipular
         // las opciones de Google Maps
-            
+        
         loadGoogleMapsAPI(API_CONFIG).then(googleMaps => {
-            const myLatLng = {lat: props.ubicacion.latitud, lng: props.ubicacion.longitud};
-            var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
-            new googleMaps.Marker({
-                position: myLatLng,
-                map: map,
-                title: props.ubicacion
-                });
-            
-                new googleMaps.InfoWindow({
-                content: 'Dirección: ' +props.direccion
-                            +', Localidad: ' +props.localidad, position: myLatLng
-            }).open(map)
+            navigator.geolocation.getCurrentPosition((position) => {
+                                
+                var OPTIONS = {
+                    center: {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    },
+                    zoom: 16
+                }
 
+                var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
+                map.addListener('click', function(e) {
+                    const myLatLng = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+                    new googleMaps.Marker({
+                        position:myLatLng,
+                        map: map,
+                    });
+                    map.panTo(myLatLng)
+                    const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng}
+                    props.accion('ubicacion', ubicacion)
+                });
+            })                    
         }).catch(err => {
-            console.warning('Something went wrong loading the map', err);
-        });     
+                console.warning('Something went wrong loading the map', err);
+            });
+        
     }
 
     return (
@@ -73,4 +76,4 @@ const UbicacionMap = (props) => {
     
 }
 
-export default UbicacionMap;
+export default UbicacionMapForm;
