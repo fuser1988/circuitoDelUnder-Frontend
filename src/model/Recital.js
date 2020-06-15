@@ -30,7 +30,6 @@ class Recital {
 
     getGeneros(){
         let generos = this.bandas.flatMap((banda)=>{return banda.generos});
-        console.log(generos);
         return [...new Set(generos.map((genero)=>{return genero.nombre}))];
     }
 }
