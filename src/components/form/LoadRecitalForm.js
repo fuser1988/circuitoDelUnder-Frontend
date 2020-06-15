@@ -1,5 +1,7 @@
 import { useRecitalService } from "services/RecitalService.js";
 
+import ReactDependentScript from "react-dependent-script";
+
 import RowForm from "components/form/RowForm.js";
 import RowFormDoble from "components/form/RowFormDoble.js";
 import { useHistory } from "react-router-dom";
@@ -21,6 +23,7 @@ function LoadRecitalForm(props) {
     const [precioFocus, setPrecioFocus] = useState(false);
     const [modal, setModal] = useState(false);
     const { push } = useHistory();
+    const key = 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o';
 
     const listadoBandasSistema = props.bandas;
     let bandasSeleccionadas = [];
@@ -28,8 +31,18 @@ function LoadRecitalForm(props) {
     React.useEffect(() => {
         
         return () => {
+            borrarDatosDeGmaps();
         }
     },[]);
+
+    const borrarDatosDeGmaps = ()=>{
+        const allScripts = document.getElementsByTagName('script');
+        [].filter.call(
+            allScripts,
+            (scpt) => scpt.src.indexOf('key=AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o') >= 0
+        )[0].remove();
+        window.google = {};
+    }
 
     const notificar = (mensaje) => toast(mensaje, {
         className: 'black-background',
@@ -154,8 +167,7 @@ function LoadRecitalForm(props) {
 
                                 alt="..."
                                 className=""
-                                // src={banda.imagen ? banda.imagen : require("../assets/img/circuitoLogo.jpg")}
-                                src={require("../../assets/img/circuitoLogo.jpg")}
+                                src={recital.imagen ? recital.imagen : require("../../assets/img/circuitoLogo.jpg")}
                             />
                         </div>
                     </Col>
@@ -212,7 +224,13 @@ function LoadRecitalForm(props) {
                         </FormGroup>
                         <Modal isOpen={modal} toggle={toggle} className={props.className}>
                             <ModalBody>
-                            <UbicacionMap accion={onChangeUbicacion}/>
+                            <ReactDependentScript
+                                scripts={[
+                                    'https://maps.googleapis.com/maps/api/js?key='+key+'&libraries=places,geometry'
+                                ]}
+                             >
+                                <UbicacionMap accion={onChangeUbicacion}/>
+                            </ReactDependentScript>
                             </ModalBody>
                             <ModalFooter>
                             <Button color='secondary' onClick={toggle}>Aceptar</Button>

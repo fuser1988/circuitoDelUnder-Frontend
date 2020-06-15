@@ -664,3 +664,20 @@ textarea.form-control {
     margin-left: 0px !important;
   }
 }
+
+/* imagen card */
+
+.imagen-card{
+  /* max-height: 175px; */
+  height: 200px;
+}
+
+@media (max-width: 928px){
+  .imagen-card{
+     height: 250px; 
+  }
+}
+
+.pac-container {
+  z-index: 10000 !important;
+}

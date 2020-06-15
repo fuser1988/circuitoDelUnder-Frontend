@@ -10,7 +10,7 @@ export const useBandaService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`bandas`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch(mostrarPaginaError );
 
         });
     }
@@ -21,7 +21,7 @@ export const useBandaService = () => {
                 .then(({ data: banda }) => {
                     resolve(banda);
                 })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch(mostrarPaginaError);
 
         });
 

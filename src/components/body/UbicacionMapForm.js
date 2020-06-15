@@ -1,79 +1,104 @@
 import React from 'react';
-import loadGoogleMapsAPI from 'load-google-maps-api'; // Única dependencia extra
+import {Input} from "reactstrap";
 
-// es muy importante añadirle height y width!!!
 const MAP_STYLES = {
     height: '450px',
     width: '100%'
 }
 
-const API_CONFIG = {
-    key: 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o',
-    language: 'es'
-}
-
+let markerActual;
 
 const UbicacionMapForm = (props) => {
 
     React.useEffect(() => {
         componentDidMount()
         return (() => {
-            componentWillUnmount();
         })
     }, []);
 
-    const componentWillUnmount = () => {
-        // limpiando despues el component ya no es usado
-        // evita errores en la console
-        const allScripts = document.getElementsByTagName('script');
-        // recopilar todos los scripts,
-        // filtrar los que contengan la key en 'src'
-        // eliminarlo
-        [].filter.call(
-            allScripts,
-            (scpt) => scpt.src.indexOf('key=AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o') >= 0
-        )[0].remove();
-        // resetear la variable de Google
-        window.google = {};
-    }
-
     const componentDidMount = () => {
-        // Promise para que al ser resulta puedas manipular
-        // las opciones de Google Maps
         
-        loadGoogleMapsAPI(API_CONFIG).then(googleMaps => {
-            navigator.geolocation.getCurrentPosition((position) => {
-                                
-                var OPTIONS = {
-                    center: {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    },
-                    zoom: 16
-                }
+        console.log(window.google);
+        var map = new window.google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.804979, lng: -58.278897},
+            zoom: 16,
+            mapTypeId: 'roadmap'
+          });
+		  
+		map.addListener('click', function(e) {
+            if(markerActual){
+                markerActual.setMap(null);        
 
-                var map =  new googleMaps.Map(document.getElementById('map'), OPTIONS);
-                map.addListener('click', function(e) {
-                    const myLatLng = {lat: e.latLng.lat(), lng: e.latLng.lng()};
-                    new googleMaps.Marker({
-                        position:myLatLng,
-                        map: map,
-                    });
-                    map.panTo(myLatLng)
-                    const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng}
-                    props.accion('ubicacion', ubicacion)
-                });
-            })                    
-        }).catch(err => {
-                console.warning('Something went wrong loading the map', err);
+            }
+            const myLatLng = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+            markerActual = new window.google.maps.Marker({
+                position:myLatLng,
+                map: map,
             });
+
+            map.panTo(myLatLng)
+            const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng}
+            props.accion('ubicacion', ubicacion)
+        });
         
+          var input = document.getElementById('pac-input');
+          var searchBox = new window.google.maps.places.SearchBox(input);
+        
+          map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+          });
+        
+          var markers = [];
+          searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+        
+            if (places.length == 0) {
+              return;
+            }
+        
+            markers.forEach(function(marker) {
+              marker.setMap(null);
+            });
+            markers = [];
+        
+            var bounds = new window.google.maps.LatLngBounds();
+            places.forEach(function(place) {
+              if (!place.geometry) {
+                console.log("Returned place contains no geometry");
+                return;
+              }
+              var icon = {
+                url: place.icon,
+                size: new window.google.maps.Size(71, 71),
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(17, 34),
+                scaledSize: new window.google.maps.Size(25, 25)
+              };
+        
+              markers.push(new window.google.maps.Marker({
+                map: map,
+                icon: icon,
+                title: place.name,
+                position: place.geometry.location
+              }));
+        
+              if (place.geometry.viewport) {
+
+                bounds.union(place.geometry.viewport);
+              } else {
+                bounds.extend(place.geometry.location);
+              }
+            });
+            map.fitBounds(bounds);
+          });     
     }
 
     return (
-            <div id="map" style={MAP_STYLES}></div>
+        <>
+        <Input id="pac-input" className="controls mb-4" type="text" placeholder="Ubicación"/>
+        <div id="map" style={MAP_STYLES}></div>
+        </>
         )
-    
 }
 
 export default UbicacionMapForm;

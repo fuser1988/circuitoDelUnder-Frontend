@@ -101,7 +101,7 @@ function DetallesBandaPage(props) {
     return(
       <Row>
         {videos.map(video => {
-          if (video.tipoMaterial === "TIPO_VIDEO") {
+          // if (video.tipoMaterial === "TIPO_VIDEO") {
             return(
               <Card >
               <iframe className="video"
@@ -117,51 +117,51 @@ function DetallesBandaPage(props) {
               </CardTitle>
               </Card>
             )
-          }
+          // }
         })}
       </Row>
     )
   } 
       
-  const crearAlbum = (album) => {
-    return(
-      <Card className="mt-2 ml-2 col-3 responsive-card">
-        <CardTitle className="mt-2 mb-0 text-center bold-text">
-          <a className="focus-pointer" href={album.url}>{album.comentario}</a>
-        </CardTitle>
-      </Card>
-    )  
-  }
+  // const crearAlbum = (album) => {
+  //   return(
+  //     <Card className="mt-2 ml-2 col-3 responsive-card">
+  //       <CardTitle className="mt-2 mb-0 text-center bold-text">
+  //         <a className="focus-pointer" href={album.url}>{album.comentario}</a>
+  //       </CardTitle>
+  //     </Card>
+  //   )  
+  // }
 
-  const crearAlbumes = (albumes) => {
-    return (
-      <Row>
-        {albumes.map(album => {
-          if (album.tipoMaterial === "TIPO_ALBUM") {
-            return crearAlbum(album)
-          }
-        })
-        }
-      </Row>
-    )
-  }
+  // const crearAlbumes = (albumes) => {
+  //   return (
+  //     <Row>
+  //       {albumes.map(album => {
+  //         if (album.tipoMaterial === "TIPO_ALBUM") {
+  //           return crearAlbum(album)
+  //         }
+  //       })
+  //       }
+  //     </Row>
+  //   )
+  // }
 
-  const mostrarMaterialDescargable = (albumes) => {
-    if (albumes.length !== 0) {
-      return (
-        <div>
-          <h2 className="text-white">Material Descargable</h2>
-          {crearAlbumes(albumes)}
-        </div> 
-      )
-    }else {
-      return(
-        <div>
-          <h2 className="text-white">No Hay Material Descargable</h2>
-        </div>
-      )
-    }
-  }
+  // const mostrarMaterialDescargable = (albumes) => {
+  //   if (albumes.length !== 0) {
+  //     return (
+  //       <div>
+  //         <h2 className="text-white">Material Descargable</h2>
+  //         {crearAlbumes(albumes)}
+  //       </div> 
+  //     )
+  //   }else {
+  //     return(
+  //       <div>
+  //         <h2 className="text-white">No Hay Material Descargable</h2>
+  //       </div>
+  //     )
+  //   }
+  // }
 
   return (
     <>

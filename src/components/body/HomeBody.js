@@ -64,7 +64,11 @@ const HomeBody = () => {
                     <Container>
                         <h1 className="tituloHome">Comparti donde estes lo mejor de la musica under.</h1>
                         <p className=" subtituloHome">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five .
+                        Descubrí las bandas under mas sobresalientes de tu ciudad. A través de circuito del under 
+                            conectarte con las bandas del estilo que mas te identifiquen,
+                            conoce sus perfiles, material y los lugares donde tocan.<br/> 
+                            Registrate usando facebook y unite al circuto del under,
+                            difundí la actividad de tu banda y conéctate con otras bandas para organizar recitales 
                             </p>
                         <div className="mt-sm-5 ">
                             <Button className="col-sm-4 col-md-3 sm-mt btn-small" href="/BandasPage">Bandas</Button>

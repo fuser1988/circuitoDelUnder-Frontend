@@ -35,6 +35,7 @@
     "classnames": "2.2.6",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
+    "react-dependent-script": "^1.1.2",
     "load-google-maps-api": "^2.0.2",
     "moment": "2.24.0",
     "multiselect-react-dropdown": "^1.5.0",

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Row, Card, CardBody, CardTitle } from "reactstrap";
+import { Row, Card, CardBody,Col, CardTitle } from "reactstrap";
 
 import "assets/css/nucleo-icons.css";
 
@@ -27,7 +27,7 @@ function BandaCard(props) {
             <Card className="mt-2 ml-2 col-3 responsive-card" key={banda.id}>
                 <CardBody className="">
                     <Row className="d-flex justify-content-center">
-                        <img alt="" className="" src={banda.imagen} id="" />
+                        <img alt="" className="imagen-card" src={banda.imagen} id="" />
                     </Row>
                     <CardTitle className="mt-2 mb-0 text-center bold-text">
                         <a className="focus-pointer" href="###" key={banda.id} id={banda.id} onClick={redirectBanda}>
