@@ -6,18 +6,18 @@ export const useRecitalService = () => {
 
     const {mostrarPaginaError} = useManejadorDeErrores();
 
-    const buscarPorNombreYGenero = (busqueda) => {
+    const buscarPorNombreYGenero = (busqueda, page, size) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`recitales/bandas?genero=${busqueda}`)
+            CircuitoDelUnderApi.get(`recitales/bandas?genero=${busqueda}&page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
                 .catch((error) => { mostrarPaginaError(error) });
 
         });
     }
 
-    const traerTodos = () => {
+    const traerTodos = (page, size) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`recitales`)
+            CircuitoDelUnderApi.get(`recitales/?page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
                 .catch((error) => { mostrarPaginaError(error) });
 

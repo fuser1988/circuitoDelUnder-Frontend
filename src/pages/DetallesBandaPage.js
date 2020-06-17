@@ -51,57 +51,11 @@ function DetallesBandaPage(props) {
       })
   }
 
-  const crearVideo = (video) => {
-    return(
-      <div className="container-video">
-      <iframe className="video"
-        height="400"
-        src={video.url}
-        frameBorder="0"
-        allow="encrypted-media"
-        allowFullScreen
-        title="vidtitle"
-      />
-      <p className="text-center text-white mb-2 descripcio-text">{video.comentario}</p>
-      
-      </div>
-    )
-  }
-
-  const crearVideos = (videos) => {
-    return ( 
-      <Row>
-        {videos.map(video => {
-          if (video.tipoMaterial === "TIPO_VIDEO") {
-            return crearVideo(video)
-          }
-        })}
-      </Row>     
-    )
-  }
-
   const mostrarVideos = (videos) => {
-    if (videos.length !== 0) {
-      return (
-        <div>
-          <h2 className="text-white">Material Visual</h2>
-          {crearVideos(videos)}
-        </div> 
-      )
-    }else {
-      return(
-        <div>
-          <h2 className="text-white">No Hay Material Visual</h2>
-        </div>
-      )
-    }
-  }
-
-  const crearVideos2 = (videos) => {
     return(
       <Row>
         {videos.map(video => {
-          // if (video.tipoMaterial === "TIPO_VIDEO") {
+           if (video.tipoMaterial === "TIPO_VIDEO") {
             return(
               <Card >
               <iframe className="video"
@@ -117,7 +71,7 @@ function DetallesBandaPage(props) {
               </CardTitle>
               </Card>
             )
-          // }
+           }
         })}
       </Row>
     )
@@ -233,7 +187,7 @@ function DetallesBandaPage(props) {
             <br></br>
 
             <div className="grilla-Responsive mw-800">
-              {crearVideos2(banda.material)} 
+              {mostrarVideos(banda.material)} 
             </div>
             
             <br></br>

@@ -6,9 +6,9 @@ export const useBandaService = () => {
 
     const {mostrarPaginaError} = useManejadorDeErrores();
 
-    const traerTodos = () => {
+    const traerTodos = (page, size) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`bandas`)
+            CircuitoDelUnderApi.get(`bandas/?page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
                 .catch(mostrarPaginaError );
 
@@ -36,9 +36,9 @@ export const useBandaService = () => {
 
     }
 
-    const buscarPorGenero = (busqueda) => {
+    const buscarPorGenero = (busqueda, page, size) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`bandas/genero?genero=${busqueda}`)
+            CircuitoDelUnderApi.get(`bandas/genero?genero=${busqueda}&page=${page}&size=${size}`)
                 .then(({ data: banda }) => {
                     resolve(banda);
                 })
@@ -48,9 +48,9 @@ export const useBandaService = () => {
 
     }
 
-    const buscarPorNombre = (busqueda) => {
+    const buscarPorNombre = (busqueda, page, size) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`bandas/banda?nombre=${busqueda}`)
+            CircuitoDelUnderApi.get(`bandas/banda?nombre=${busqueda}&page=${page}&size=${size}`)
                 .then(({ data: banda }) => {
                     resolve(banda);
                 })

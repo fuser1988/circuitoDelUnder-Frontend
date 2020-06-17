@@ -14,7 +14,7 @@ function SearchComponentBanda(props) {
   }
 
   const redirecionarAPaginaDeBusqueda = () => {
-    props.busqueda(busqueda);
+    props.changeBusqueda(busqueda);
     setBusqueda("");
   }
 

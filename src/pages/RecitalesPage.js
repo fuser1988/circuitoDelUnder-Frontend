@@ -10,13 +10,20 @@ import Spinner from "components/spinner/Spinner.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
+import Pagination from "react-js-pagination";
 
 function RecitalesPage(props) {
 
     const { buscarPorNombreYGenero, traerTodos} = useRecitalService();
     const [ recitales, setRecitales ] = useState([]);
-    const [cargandoRecitales,setcargandoRecitales] = useState(true);
-    
+    const [cargandoRecitales,setCargandoRecitales] = useState(true);
+
+    const [activePage, setActivePage] = useState(1);
+    const [itemsCountPorPage] = useState(9);
+    const [totalItemsCount, setTotalItemsCount] = useState();
+
+    const [busqueda, setBusqueda] = useState();
+
     useEffect(() => {
         buscarRecitales();
         return () => {
@@ -24,7 +31,12 @@ function RecitalesPage(props) {
     },[]);
 
     const onChange = (event) => {
-        buscarRecitalesPorGenero(event)
+        buscarRecitalesPorGenero(event, activePage)
+    }
+
+    const onChangeBusqueda = (event) => {
+        setBusqueda(event)
+        buscarRecitalesPorGenero(event, activePage)
     }
     
     const notificar = (mensaje) => toast(mensaje, {
@@ -33,28 +45,34 @@ function RecitalesPage(props) {
         progressClassName: 'fancy-progress-bar'
     });
 
-    const buscarRecitalesPorGenero = (busqueda) => {
-        setcargandoRecitales(true);
-        buscarPorNombreYGenero(busqueda)
-        .then((recitales) => { procesarResultadoDeBusqueda(recitales); setcargandoRecitales(false); })
-        .catch((message) => { notificar(message) });
+    const buscarRecitalesPorGenero = (busqueda, page) => {
+        setCargandoRecitales(true);
+        buscarPorNombreYGenero(busqueda, (page -1), itemsCountPorPage)
+        .then((response) => { 
+            procesarResultadoDeBusqueda(response.content); 
+            setTotalItemsCount(response.totalElements);
+            setCargandoRecitales(false); 
+        }).catch((message) => { notificar(message) });
     }
 
     const buscarRecitales = () => {
         const pathname = props.location.pathname;
-        (pathname === "/RecitalesPage") ? buscarTodosLosRecitales() : buscarRecitalesPorGenero(pathname.slice(15))
+        (pathname === "/RecitalesPage") ? buscarTodosLosRecitales(activePage) : buscarRecitalesPorGenero(pathname.slice(15), activePage)
     }
     
-    const buscarTodosLosRecitales = () => {
-        setcargandoRecitales(true);
-        traerTodos()
-            .then((recitales) => { setRecitales( recitales ); setcargandoRecitales(false); })
+    const buscarTodosLosRecitales = (page) => {
+        setCargandoRecitales(true);
+        traerTodos((page -1), itemsCountPorPage)
+            .then((response) => { 
+                setRecitales(response.content); 
+                setTotalItemsCount(response.totalElements);
+                setCargandoRecitales(false); })
             .catch((message) => { notificar(message) });
     }
 
     const procesarResultadoDeBusqueda = (recitales) => {
         if (recitales.length === 0) {
-            buscarTodosLosRecitales();
+            buscarTodosLosRecitales(activePage);
             notificar("No se encontraron resultados para tu búsqueda. Tal vez te interesen estos recitales");
         } else {
             setRecitales(recitales);
@@ -62,16 +80,40 @@ function RecitalesPage(props) {
 
     }
 
+    const handlePageChange = (event) => {
+        setActivePage(event);
+        (busqueda === undefined)? buscarRecitales(): buscarRecitalesPorGenero(busqueda, event)
+    }
+
+    const recitalesGrilla = () => {
+        return(
+            <div>
+                <GrillaRecitales recitales={recitales} />
+                <div className="d-flex justify-content-center">
+                    <Pagination
+                    hideNavigation
+                    activePage={activePage}
+                    itemsCountPerPage={itemsCountPorPage}
+                    totalItemsCount={totalItemsCount}
+                    pageRangeDisplayed={3}
+                    itemClass='page-item'
+                    linkClass='btn btn-light'
+                    onChange={handlePageChange}
+                    />
+                </div>
+            </div>
+            )    
+    }
 
     return (
         <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
-                <SearchComponent busqueda={onChange}/>
+                <SearchComponent busqueda={onChange} changeBusqueda={onChangeBusqueda}/>
             </RecitalesHeader>
             <div>
                 <div className="grilla-Responsive offset-md-2 col-10">
-                    {cargandoRecitales?<Spinner/>:<GrillaRecitales recitales={recitales} />}
+                    {cargandoRecitales?<Spinner/>:recitalesGrilla()}
                     <ToastContainer />
                 </div>
             </div>

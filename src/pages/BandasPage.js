@@ -10,12 +10,19 @@ import Spinner from "components/spinner/Spinner.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
+import Pagination from "react-js-pagination";
 
 function BandasPage(props) {
 
     const { buscarPorNombre, buscarPorGenero, traerTodos} = useBandaService();
     const [ bandas, setBandas ] = useState([]);
     const [cargandoBandas,setCargandoBandas] = useState(true);
+    
+    const [activePage, setActivePage] = useState(1);
+    const [itemsCountPorPage] = useState(9);
+    const [totalItemsCount, setTotalItemsCount] = useState();
+
+    const [busqueda, setBusqueda] = useState();
     
     useEffect(() => {
         buscarBandas();
@@ -30,38 +37,52 @@ function BandasPage(props) {
     });
 
     const onChange = (event) => {
-        buscarBandasPorNombre(event)
+        buscarBandasPorNombre(event, activePage)
     }
 
-    const buscarBandasPorNombre = (busqueda) => {
+    const onChangeBusqueda = (event) => {
+        setBusqueda(event)
+        buscarBandasPorGenero(event, activePage)
+    }
+
+    const buscarBandasPorNombre = (busqueda, page) => {
         setCargandoBandas(true);
-        buscarPorNombre(busqueda)
-        .then((bandas) => { procesarResultadoDeBusqueda(bandas)})
+        buscarPorNombre(busqueda, (page -1), itemsCountPorPage)
+        .then((response) => { 
+            procesarResultadoDeBusqueda(response.content);
+            setTotalItemsCount(response.totalElements);
+            setCargandoBandas(false); })
         .catch((message) => { notificar(message) });
     }
 
-    const buscarBandasPorGenero = (busqueda) => {
+    const buscarBandasPorGenero = (busqueda, page) => {
         setCargandoBandas(true);
-        buscarPorGenero(busqueda)
-        .then((bandas) => { procesarResultadoDeBusqueda(bandas)})
+        buscarPorGenero(busqueda, (page-1), itemsCountPorPage)
+        .then((response) => { 
+            procesarResultadoDeBusqueda(response.content);
+            setTotalItemsCount(response.totalElements);
+            setCargandoBandas(false); })
         .catch((message) => { notificar(message) });
     }
 
     const buscarBandas = () => {
         const pathname = props.location.pathname;
-        (pathname === "/BandasPage") ? buscarTodasLasBandas() : buscarBandasPorGenero(pathname.slice(12))
+        (pathname === "/BandasPage") ? buscarTodasLasBandas(activePage) : buscarBandasPorGenero(pathname.slice(12), activePage)
     }
     
-    const buscarTodasLasBandas = () => {
+    const buscarTodasLasBandas = (page) => {
         setCargandoBandas(true);
-        traerTodos()
-            .then((bandas) => { setBandas( bandas ); setCargandoBandas(false)})
+        traerTodos((page -1), itemsCountPorPage)
+            .then((response) => { 
+                setBandas( response.content); 
+                setTotalItemsCount(response.totalElements);
+                setCargandoBandas(false); })
             .catch((message) => { notificar(message) });
     }
 
     const procesarResultadoDeBusqueda = (bandas) => {
         if (bandas.length === 0) {
-            buscarTodasLasBandas();
+            buscarTodasLasBandas(activePage);
             notificar("No se encontraron resultados para tu búsqueda. Tal vez te interesen estas bandas");
         } else {
             setBandas(bandas);
@@ -69,16 +90,41 @@ function BandasPage(props) {
         }
     }
 
+    const handlePageChange = (event) => {
+        setActivePage(event);
+        (busqueda === undefined)? buscarBandas(): buscarBandasPorNombre(busqueda, event)
+    }
+
+    const bandasGrilla = () => {
+        return(
+            <div>
+                <GrillaBandas bandas={bandas} />
+                <div className="d-flex justify-content-center">
+                    <Pagination className="pagination"
+                    hideNavigation
+                    activePage={activePage}
+                    itemsCountPerPage={itemsCountPorPage}
+                    totalItemsCount={totalItemsCount}
+                    pageRangeDisplayed={3}
+                    itemClass='page-item'
+                    linkClass='btn btn-light'
+                    onChange={handlePageChange}
+                    />
+                </div>
+            </div>
+            )    
+    }
+
 
     return (
         <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
-                <SearchComponentBanda busqueda={onChange}/>
+                <SearchComponentBanda busqueda={onChange} changeBusqueda={onChangeBusqueda}/>
             </RecitalesHeader>
             <div>
                 <div className="grilla-Responsive offset-md-2 col-10">
-                    {cargandoBandas?<Spinner/>:<GrillaBandas bandas={bandas}/>}
+                    {cargandoBandas?<Spinner/>:bandasGrilla()}
                     <ToastContainer />
                 </div>
             </div>
