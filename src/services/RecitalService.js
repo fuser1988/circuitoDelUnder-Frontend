@@ -35,6 +35,18 @@ export const useRecitalService = () => {
         });
 
     }
+    
+    const buscarRecitalesporBandaId = (id) => {
+        return new Promise((resolve, reject) => {
+            CircuitoDelUnderApi.get(`recitales/banda/${id}/?page=0&size=20`)
+                .then(({ data: recital }) => {
+                    resolve(recital);
+                })
+                .catch((error) => { mostrarPaginaError(error) });
+
+        });
+
+    }
 
     const crearRecital = (recital) => {
         return new Promise((resolve, reject) => {
@@ -45,6 +57,6 @@ export const useRecitalService = () => {
 
     }
 
-    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital }
+    return {buscarRecitalesporBandaId, buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital }
 
 }

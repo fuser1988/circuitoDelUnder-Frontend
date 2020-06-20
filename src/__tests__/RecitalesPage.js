@@ -49,7 +49,7 @@ it('Cuando el usuario ingresa al la pagina de busqueda de recitales aparecen tod
 
 it('Cuando el usuario ingresa al la pagina de busqueda redireccionado por link con parametro de busqueda .', () => {
     
-    const MockLocation = { pathname: "/RecitalesPage/Punk" };
+    const MockLocation = {pathname: "/RecitalesPage", search: "?genero=punk", hash: "", state: undefined};
     
     const wrapper = mount(<RecitalesPage location={MockLocation} />)
     expect(wrapper.find(GrillaRecitales).length).toBe(1);

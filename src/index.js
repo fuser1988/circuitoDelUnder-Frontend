@@ -31,7 +31,7 @@ ReactDOM.render(
     <BrowserRouter forceRefresh={true}>
       <Switch>
         <Route path="/index" render={props => <HomePage {...props} />} />
-        <Route path="/RecitalesPage/" render={props => <RecitalesPage {...props} />} />
+        <Route path="/RecitalesPage" render={props => <RecitalesPage {...props} />} />
         <Route path="/BandasPage/" render={props => <BandasPage {...props} />} />
         <Route path="/components" render={props => <Index {...props} />} />
         <Route path="/Recital/:id/:new" render={props => <DetallesRecitalPage {...props} />} />

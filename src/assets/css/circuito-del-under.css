@@ -545,6 +545,11 @@ textarea.form-control {
   transform: translate(0, 15%) !important;
 }
 
+.proximas-fechas-boton{
+  font-size: 36px;
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* homePage */
 
 .content-center.top-center{
@@ -681,3 +686,4 @@ textarea.form-control {
 .pac-container {
   z-index: 10000 !important;
 }
+

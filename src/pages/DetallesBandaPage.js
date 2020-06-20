@@ -11,7 +11,7 @@ import { withRouter } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
-import { Row, Card, CardBody, CardTitle } from "reactstrap";
+import { Row, Card, CardBody, CardTitle, Button } from "reactstrap";
 
 function DetallesBandaPage(props) {
 
@@ -203,9 +203,9 @@ function DetallesBandaPage(props) {
           <div className="container">
             <div className="col body-recital " >
               <div className="col pl-1 mw-800">
-                <h1 className="fuente-precentaciones titulo text-center text-white mb-2">{banda.nombre}</h1>
+                <h1 className="fuente-precentaciones titulo text-center text-white mb-4">{banda.nombre}</h1>
               </div>
-                <div className="d-flex justify-content-center mb-2 mw-800"> 
+                <div className="d-flex justify-content-center mb-4 mw-800"> 
                   {banda.getGeneros().map(genero => {
                     return <a className="btn-simple btn-round btn btn-primary focus-pointer" href={"/BandasPage/" + genero} id={genero} key={genero} ><i className="tim-icons icon-tag mr-2"></i>{genero}</a>
                   }
@@ -220,18 +220,17 @@ function DetallesBandaPage(props) {
             </div>
             <br></br>
             <br></br>
-            <div className="">
+            <div className="mb-3">
               <h4 className="mb-1">Generos:</h4>
                   {banda.getGeneros().map(genero => {
                     return <a className="focus-pointer mr-2" href={"/BandasPage/" + genero} id={genero} key={genero} >{genero}</a>
                   }
                   )}
             </div>
+            <div className="mb-4">
+              <a className="proximas-fechas-boton" href={"/RecitalesPage/banda/" + banda.id} >Proximas fechas</a>
+            </div>
             
-            <br></br>
-            <br></br>
-            <br></br>
-
             <div className="grilla-Responsive mw-800">
               {crearVideos2(banda.material)} 
             </div>

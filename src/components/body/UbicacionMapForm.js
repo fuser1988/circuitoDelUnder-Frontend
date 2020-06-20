@@ -18,26 +18,26 @@ const UbicacionMapForm = (props) => {
 
     const componentDidMount = () => {
         
-        console.log(window.google);
-        var map = new window.google.maps.Map(document.getElementById('map'), {
-            center: {lat: -34.804979, lng: -58.278897},
-            zoom: 16,
-            mapTypeId: 'roadmap'
-          });
+       console.log(window.google);
+       var map = new window.google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.804979, lng: -58.278897},
+        zoom: 16,
+        mapTypeId: 'roadmap'
+      });
 		  
-		map.addListener('click', function(e) {
+		map.addListener('click', function(event) {
             if(markerActual){
                 markerActual.setMap(null);        
 
             }
-            const myLatLng = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+            const myLatLng = {lat: event.latLng.lat(), lng: event.latLng.lng()};
             markerActual = new window.google.maps.Marker({
                 position:myLatLng,
                 map: map,
             });
 
-            map.panTo(myLatLng)
-            const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng}
+            map.panTo(myLatLng);
+            const ubicacion = {latitud: myLatLng.lat, longitud: myLatLng.lng};
             props.accion('ubicacion', ubicacion)
         });
         
@@ -51,10 +51,6 @@ const UbicacionMapForm = (props) => {
           var markers = [];
           searchBox.addListener('places_changed', function() {
             var places = searchBox.getPlaces();
-        
-            if (places.length == 0) {
-              return;
-            }
         
             markers.forEach(function(marker) {
               marker.setMap(null);
