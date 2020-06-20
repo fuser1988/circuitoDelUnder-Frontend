@@ -23,7 +23,6 @@ function RecitalesPage(props) {
     const [totalItemsCount, setTotalItemsCount] = useState();
 
     const [busqueda, setBusqueda] = useState();
-    const [buscarUbicacion, setBuscarUbicacion] = useState(false);
 
     useEffect(() => {
         buscarRecitales();
@@ -36,17 +35,14 @@ function RecitalesPage(props) {
     }
 
     const onChangeBusqueda = (event) => {
-        if(!buscarUbicacion) {
-            setBusqueda(event);
-            buscarRecitalesPorGenero(event, activePage);
-        }else{
-            buscarEnUbicacion(busqueda, activePage)
-        }
+        setBusqueda(event);
+        buscarRecitalesPorGenero(event, activePage);
+        
     }
 
-    const onChangeBusquedaUbicacion = (event, bool) => {
+    const onChangeBusquedaUbicacion = (event) => {
         setBusqueda(event);
-        setBuscarUbicacion(bool);
+        buscarEnUbicacion(event, activePage);
     }
     
     const notificar = (mensaje) => toast(mensaje, {
