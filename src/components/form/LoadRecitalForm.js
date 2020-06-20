@@ -11,7 +11,6 @@ import classnames from "classnames";
 import Recital from "../../model/Recital";
 import { Form, FormGroup, Label,Button, Row, Col,Input,InputGroup,InputGroupAddon,InputGroupText,Modal, ModalFooter,ModalBody } from 'reactstrap';
 import UbicacionMap from 'components/body/UbicacionMapForm.js';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../toast.css';
 
@@ -43,12 +42,6 @@ function LoadRecitalForm(props) {
         )[0].remove();
         window.google = {};
     }
-
-    const notificar = (mensaje) => toast(mensaje, {
-        className: 'black-background',
-        bodyClassName: "grow-font-size",
-        progressClassName: 'fancy-progress-bar'
-    });
 
     const handleChange = (event) => {
         const values = event;
@@ -107,21 +100,14 @@ function LoadRecitalForm(props) {
         const recitalActual = recital;
         setRecital({...recitalActual, precio:0});
         setEntradaLibre(!entradaLibre);
-        console.log(recital);
     }
 
     const toggle = () =>{
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                setModal(!modal)
-            },
-            error => notificar("Debe activar su ubicacion actual"),
-           );
+        setModal(!modal)    
     }
 
     return (
         <>
-            <ToastContainer />
             <Form className="mt-3 pt-4 ">
 
                 <Row>

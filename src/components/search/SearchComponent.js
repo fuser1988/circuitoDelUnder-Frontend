@@ -1,22 +1,51 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router";
-
+import UbicacionMap from 'components/body/UbicacionMapForm.js';
+import ReactDependentScript from "react-dependent-script";
 import {
   InputGroup,
   Col,
   InputGroupAddon,
   Input,
   Button,
-  Container
+  Container,
+  FormGroup,
+  Modal, 
+  ModalFooter,
+  ModalBody
 } from "reactstrap";
 
 
 function SearchBars(props) {
 
+  const [modal, setModal] = useState(false);
   const [busqueda, setBusqueda] = useState("");
+  const key = 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o';
+
+  React.useEffect(() => {
+        
+    return () => {
+        borrarDatosDeGmaps();
+    }
+  },[]);
+
+  const borrarDatosDeGmaps = ()=>{
+    const allScripts = document.getElementsByTagName('script');
+    [].filter.call(
+        allScripts,
+        (scpt) => scpt.src.indexOf('key=AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o') >= 0
+    )[0].remove();
+    window.google = {};
+  }
 
   const actualizarInput = (event) => {
     setBusqueda(event.target.value);
+  }
+
+  const onChangeUbicacion = (property, event) => {
+    setBusqueda(event);
+    props.busquedaUbicacion(event);
+    setBusqueda("");
   }
 
   const redirecionarAPaginaDeBusqueda = () => {
@@ -31,6 +60,10 @@ function SearchBars(props) {
     }
   }
 
+  const toggle = () =>{
+    setModal(!modal)
+  }
+
   return (
     <Container>
       <InputGroup>
@@ -40,6 +73,23 @@ function SearchBars(props) {
             <Button className="btn btn-text-center" onClick={redirecionarAPaginaDeBusqueda} >
               Buscar
               </Button>
+              <Button className="btn btn-text-center" onClick={toggle}>
+                <i className="tim-icons icon-square-pin" />
+              </Button>
+              <Modal isOpen={modal} toggle={toggle} className={props.className}>
+                  <ModalBody>
+                  <ReactDependentScript
+                      scripts={[
+                          'https://maps.googleapis.com/maps/api/js?key='+key+'&libraries=places,geometry'
+                      ]}
+                    >
+                      <UbicacionMap accion={onChangeUbicacion}/>
+                  </ReactDependentScript>
+                  </ModalBody>
+                  <ModalFooter>
+                  <Button color='secondary' onClick={toggle}>Aceptar</Button>
+                  </ModalFooter>
+              </Modal>
           </InputGroupAddon>
         </Col>
       </InputGroup>

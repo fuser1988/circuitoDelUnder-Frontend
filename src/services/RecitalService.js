@@ -45,6 +45,16 @@ export const useRecitalService = () => {
 
     }
 
-    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital }
+    const buscarPorUbicacion = (busqueda, page, size) => {
+        return new Promise((resolve, reject) => {
+            CircuitoDelUnderApi.get(`recitales/ubicacion?latitud=${busqueda.latitud}&longitud=${busqueda.longitud}&page=${page}&size=${size}`)
+                .then((response) => { resolve(response.data); })
+                .catch((error) => { mostrarPaginaError(error);});
+
+        });
+    
+    }
+
+    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital, buscarPorUbicacion }
 
 }

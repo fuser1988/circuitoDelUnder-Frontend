@@ -14,7 +14,7 @@ import Pagination from "react-js-pagination";
 
 function RecitalesPage(props) {
 
-    const { buscarPorNombreYGenero, traerTodos} = useRecitalService();
+    const { buscarPorNombreYGenero, buscarPorUbicacion, traerTodos} = useRecitalService();
     const [ recitales, setRecitales ] = useState([]);
     const [cargandoRecitales,setCargandoRecitales] = useState(true);
 
@@ -31,12 +31,17 @@ function RecitalesPage(props) {
     },[]);
 
     const onChange = (event) => {
-        buscarRecitalesPorGenero(event, activePage)
+        buscarRecitalesPorGenero(event, activePage);
     }
 
     const onChangeBusqueda = (event) => {
+        setBusqueda(event);
+        buscarRecitalesPorGenero(event, activePage);
+    }
+
+    const onChangeBusquedaUbicacion = (event) => {
         setBusqueda(event)
-        buscarRecitalesPorGenero(event, activePage)
+        buscarUbicacion(event, activePage)
     }
     
     const notificar = (mensaje) => toast(mensaje, {
@@ -45,14 +50,24 @@ function RecitalesPage(props) {
         progressClassName: 'fancy-progress-bar'
     });
 
+    const buscarUbicacion = (busqueda, page) => {
+        setCargandoRecitales(true);
+        buscarPorUbicacion(busqueda, (page -1), itemsCountPorPage)
+        .then((response) => {
+            procesarResultadoDeBusqueda(response.content); 
+            setTotalItemsCount(response.totalElements);
+            setCargandoRecitales(false); })
+        .catch((message) => { notificar(message)});
+    }
+
     const buscarRecitalesPorGenero = (busqueda, page) => {
         setCargandoRecitales(true);
         buscarPorNombreYGenero(busqueda, (page -1), itemsCountPorPage)
         .then((response) => { 
             procesarResultadoDeBusqueda(response.content); 
             setTotalItemsCount(response.totalElements);
-            setCargandoRecitales(false); 
-        }).catch((message) => { notificar(message) });
+            setCargandoRecitales(false); })
+        .catch((message) => { notificar(message) });
     }
 
     const buscarRecitales = () => {
@@ -109,7 +124,7 @@ function RecitalesPage(props) {
         <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
-                <SearchComponent busqueda={onChange} changeBusqueda={onChangeBusqueda}/>
+                <SearchComponent busqueda={onChange} changeBusqueda={onChangeBusqueda} busquedaUbicacion={onChangeBusquedaUbicacion}/>
             </RecitalesHeader>
             <div>
                 <div className="grilla-Responsive offset-md-2 col-10">
