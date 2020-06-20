@@ -23,6 +23,7 @@ function RecitalesPage(props) {
     const [totalItemsCount, setTotalItemsCount] = useState();
 
     const [busqueda, setBusqueda] = useState();
+    const [buscarUbicacion, setBuscarUbicacion] = useState(false);
 
     useEffect(() => {
         buscarRecitales();
@@ -35,13 +36,17 @@ function RecitalesPage(props) {
     }
 
     const onChangeBusqueda = (event) => {
-        setBusqueda(event);
-        buscarRecitalesPorGenero(event, activePage);
+        if(!buscarUbicacion) {
+            setBusqueda(event);
+            buscarRecitalesPorGenero(event, activePage);
+        }else{
+            buscarEnUbicacion(busqueda, activePage)
+        }
     }
 
-    const onChangeBusquedaUbicacion = (event) => {
-        setBusqueda(event)
-        buscarUbicacion(event, activePage)
+    const onChangeBusquedaUbicacion = (event, bool) => {
+        setBusqueda(event);
+        setBuscarUbicacion(bool);
     }
     
     const notificar = (mensaje) => toast(mensaje, {
@@ -50,11 +55,11 @@ function RecitalesPage(props) {
         progressClassName: 'fancy-progress-bar'
     });
 
-    const buscarUbicacion = (busqueda, page) => {
+    const buscarEnUbicacion = (busqueda, page) => {
         setCargandoRecitales(true);
         buscarPorUbicacion(busqueda, (page -1), itemsCountPorPage)
         .then((response) => {
-            procesarResultadoDeBusqueda(response.content); 
+            setRecitales(response.content); 
             setTotalItemsCount(response.totalElements);
             setCargandoRecitales(false); })
         .catch((message) => { notificar(message)});

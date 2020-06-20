@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router";
 import UbicacionMap from 'components/body/UbicacionMapForm.js';
 import ReactDependentScript from "react-dependent-script";
 import {
@@ -9,7 +8,6 @@ import {
   Input,
   Button,
   Container,
-  FormGroup,
   Modal, 
   ModalFooter,
   ModalBody
@@ -39,13 +37,13 @@ function SearchBars(props) {
   }
 
   const actualizarInput = (event) => {
+    props.busquedaUbicacion(event, false);
     setBusqueda(event.target.value);
   }
 
   const onChangeUbicacion = (property, event) => {
-    setBusqueda(event);
-    props.busquedaUbicacion(event);
-    setBusqueda("");
+    setBusqueda(event.latitud +" , " +event.longitud);
+    props.busquedaUbicacion(event, true);
   }
 
   const redirecionarAPaginaDeBusqueda = () => {
