@@ -1,10 +1,10 @@
 
 import CircuitoDelUnderApi from "utils/CircuitoDelUnderApi.js";
-import {useManejadorDeErrores} from "./ManejadorDeErrores.js";
+import { useManejadorDeErrores } from "./ManejadorDeErrores.js";
 
 export const useRecitalService = () => {
 
-    const {mostrarPaginaError} = useManejadorDeErrores();
+    const { mostrarPaginaError } = useManejadorDeErrores();
 
     const buscarPorNombreYGenero = (busqueda, page, size) => {
         return new Promise((resolve, reject) => {
@@ -36,9 +36,21 @@ export const useRecitalService = () => {
 
     }
 
+    const buscarRecitalesporBandaId = (id) => {
+        return new Promise((resolve, reject) => {
+            CircuitoDelUnderApi.get(`recitales/banda/${id}/?page=0&size=20`)
+                .then(({ data: recital }) => {
+                    resolve(recital);
+                })
+                .catch((error) => { mostrarPaginaError(error) });
+
+        });
+
+    }
+
     const crearRecital = (recital) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.post('recitales', recital )
+            CircuitoDelUnderApi.post('recitales', recital)
                 .then(({ data: recital }) => { resolve(recital) })
                 .catch((error) => { mostrarPaginaError(error) });
         });
@@ -49,12 +61,12 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`recitales/ubicacion?latitud=${busqueda.latitud}&longitud=${busqueda.longitud}&page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { mostrarPaginaError(error);});
+                .catch((error) => { mostrarPaginaError(error); });
 
         });
-    
+
     }
 
-    return {buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital, buscarPorUbicacion }
+    return { buscarRecitalesporBandaId, buscarPorNombreYGenero, traerTodos, buscarPorId, crearRecital, buscarPorUbicacion }
 
 }

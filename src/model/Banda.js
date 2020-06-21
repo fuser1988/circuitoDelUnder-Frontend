@@ -1,4 +1,5 @@
 class Banda {
+    id='';
     nombre = '';
     info = '';
     generos = [];
@@ -8,6 +9,7 @@ class Banda {
 
     constructor(banda){
         if(banda){
+            this.id = banda.id;
             this.nombre = banda.nombre;
             this.info = banda.info;
             this.imagen = banda.imagen;

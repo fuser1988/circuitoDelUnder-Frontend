@@ -6,6 +6,7 @@ import GrillaRecitales from "components/body/GrillaRecitales.js";
 import { useRecitalService } from "services/RecitalService.js";
 import SearchComponent from "components/search/SearchComponent.js";
 import Spinner from "components/spinner/Spinner.js";
+import queryString from "query-string";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +15,7 @@ import Pagination from "react-js-pagination";
 
 function RecitalesPage(props) {
 
-    const { buscarPorNombreYGenero, buscarPorUbicacion, traerTodos} = useRecitalService();
+    const { buscarPorUbicacion,buscarRecitalesporBandaId, buscarPorNombreYGenero, traerTodos} = useRecitalService();
     const [ recitales, setRecitales ] = useState([]);
     const [cargandoRecitales,setCargandoRecitales] = useState(true);
 
@@ -29,17 +30,17 @@ function RecitalesPage(props) {
         return () => {
         }
     },[]);
-
+    
     const onChange = (event) => {
         buscarRecitalesPorGenero(event, activePage);
     }
-
+    
     const onChangeBusqueda = (event) => {
         setBusqueda(event);
         buscarRecitalesPorGenero(event, activePage);
         
     }
-
+    
     const onChangeBusquedaUbicacion = (event) => {
         setBusqueda(event);
         buscarEnUbicacion(event, activePage);
@@ -50,7 +51,7 @@ function RecitalesPage(props) {
         bodyClassName: "grow-font-size",
         progressClassName: 'fancy-progress-bar'
     });
-
+    
     const buscarEnUbicacion = (busqueda, page) => {
         setCargandoRecitales(true);
         buscarPorUbicacion(busqueda, (page -1), itemsCountPorPage)
@@ -58,22 +59,43 @@ function RecitalesPage(props) {
             setRecitales(response.content); 
             setTotalItemsCount(response.totalElements);
             setCargandoRecitales(false); })
-        .catch((message) => { notificar(message)});
-    }
-
-    const buscarRecitalesPorGenero = (busqueda, page) => {
-        setCargandoRecitales(true);
-        buscarPorNombreYGenero(busqueda, (page -1), itemsCountPorPage)
-        .then((response) => { 
-            procesarResultadoDeBusqueda(response.content); 
+            .catch((message) => { notificar(message)});
+        }
+        
+        const buscarRecitalesPorGenero = (busqueda, page) => {
+            setCargandoRecitales(true);
+            buscarPorNombreYGenero(busqueda, (page -1), itemsCountPorPage)
+            .then((response) => { 
+                procesarResultadoDeBusqueda(response.content); 
+                setTotalItemsCount(response.totalElements);
+                setCargandoRecitales(false); })
+                .catch((message) => { notificar(message) });
+            }
+            
+            const buscarRecitales = () => {
+                const pathname = props.location.pathname;
+                if(pathname === "/RecitalesPage"){
+                    const  stringParam = queryString.parse(props.location.search);
+                    if(stringParam.genero){
+                        buscarRecitalesPorGenero(pathname.slice(15), activePage);
+                    }else{
+                        buscarTodosLosRecitales(activePage);
+                    }
+                } 
+                if(pathname.slice(0,21) === "/RecitalesPage/banda/"){
+                    console.log(pathname);
+                    console.log(pathname.slice(21));
+                    buscarRecitalesPorIdDeBanda(pathname.slice(21));
+                }
+            }
+            
+            const buscarRecitalesPorIdDeBanda = (id)=>{
+                document.getElementById("search-component").classList.add("hidden");
+                buscarRecitalesporBandaId(id).then((response)=>{
+            setRecitales(response.content);
             setTotalItemsCount(response.totalElements);
-            setCargandoRecitales(false); })
-        .catch((message) => { notificar(message) });
-    }
-
-    const buscarRecitales = () => {
-        const pathname = props.location.pathname;
-        (pathname === "/RecitalesPage") ? buscarTodosLosRecitales(activePage) : buscarRecitalesPorGenero(pathname.slice(15), activePage)
+            setCargandoRecitales(false);
+        });
     }
     
     const buscarTodosLosRecitales = (page) => {
@@ -102,9 +124,10 @@ function RecitalesPage(props) {
     }
 
     const recitalesGrilla = () => {
-        return(
-            <div>
+        return(<>
+            <div className="grilla-Responsive offset-md-2 col-10">
                 <GrillaRecitales recitales={recitales} />
+            </div>
                 <div className="d-flex justify-content-center">
                     <Pagination
                     hideNavigation
@@ -116,8 +139,8 @@ function RecitalesPage(props) {
                     linkClass='btn btn-light'
                     onChange={handlePageChange}
                     />
-                </div>
             </div>
+            </>
             )    
     }
 
@@ -128,10 +151,8 @@ function RecitalesPage(props) {
                 <SearchComponent busqueda={onChange} changeBusqueda={onChangeBusqueda} busquedaUbicacion={onChangeBusquedaUbicacion}/>
             </RecitalesHeader>
             <div>
-                <div className="grilla-Responsive offset-md-2 col-10">
-                    {cargandoRecitales?<Spinner/>:recitalesGrilla()}
-                    <ToastContainer />
-                </div>
+                {cargandoRecitales?<Spinner/>:recitalesGrilla()}
+                <ToastContainer />
             </div>
         </div>
     );

@@ -63,7 +63,7 @@ function SearchBars(props) {
   }
 
   return (
-    <Container>
+    <Container id="search-component">
       <InputGroup>
         <Col className="resize-search offset-2 col-8 mt-4">
           <InputGroupAddon className="d-flex align-items-center" addonType="append">
@@ -71,7 +71,7 @@ function SearchBars(props) {
             <Button className="btn btn-text-center" onClick={redirecionarAPaginaDeBusqueda} >
               Buscar
               </Button>
-              <Button className="btn btn-text-center" onClick={toggle}>
+              <Button className="btn btn-text-center ml-1" onClick={toggle}>
                 <i className="tim-icons icon-square-pin" />
               </Button>
               <Modal isOpen={modal} toggle={toggle} className={props.className}>

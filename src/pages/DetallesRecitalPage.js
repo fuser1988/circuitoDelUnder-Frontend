@@ -126,7 +126,7 @@ function DetallesRecitalPage(props) {
                   </p>
                 <div className="d-flex justify-content-center mb-3"> 
                   {recital.getGeneros().map(genero => {
-                    return <a className="btn-simple btn-round btn btn-primary focus-pointer" href={"/RecitalesPage/" + genero} id={genero} key={genero} ><i className="tim-icons icon-tag mr-2"></i>{genero}</a>
+                    return <a className="btn-simple btn-round btn btn-primary focus-pointer" href={"/RecitalesPage?genero=" + genero} id={genero} key={genero} ><i className="tim-icons icon-tag mr-2"></i>{genero}</a>
                   }
                   )}
 
@@ -153,7 +153,7 @@ function DetallesRecitalPage(props) {
 
                 <h4 className="mb-1">Generos:</h4>
                 {recital.getGeneros().map(genero => {
-                  return <a className="focus-pointer mr-2" href={"/RecitalesPage/" + genero} id={genero} key={genero} >{genero}</a>
+                  return <a className="focus-pointer mr-2" href={"/RecitalesPage?genero=" + genero} id={genero} key={genero} >{genero}</a>
                 }
                 )}
               <div className="button-container">

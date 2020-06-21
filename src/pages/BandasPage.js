@@ -14,21 +14,21 @@ import Pagination from "react-js-pagination";
 
 function BandasPage(props) {
 
-    const { buscarPorNombre, buscarPorGenero, traerTodos} = useBandaService();
-    const [ bandas, setBandas ] = useState([]);
-    const [cargandoBandas,setCargandoBandas] = useState(true);
-    
+    const { buscarPorNombre, buscarPorGenero, traerTodos } = useBandaService();
+    const [bandas, setBandas] = useState([]);
+    const [cargandoBandas, setCargandoBandas] = useState(true);
+
     const [activePage, setActivePage] = useState(1);
     const [itemsCountPorPage] = useState(9);
     const [totalItemsCount, setTotalItemsCount] = useState();
 
     const [busqueda, setBusqueda] = useState();
-    
+
     useEffect(() => {
         buscarBandas();
         return () => {
         }
-    },[]);
+    }, []);
 
     const notificar = (mensaje) => toast(mensaje, {
         className: 'black-background',
@@ -47,36 +47,39 @@ function BandasPage(props) {
 
     const buscarBandasPorNombre = (busqueda, page) => {
         setCargandoBandas(true);
-        buscarPorNombre(busqueda, (page -1), itemsCountPorPage)
-        .then((response) => { 
-            procesarResultadoDeBusqueda(response.content);
-            setTotalItemsCount(response.totalElements);
-            setCargandoBandas(false); })
-        .catch((message) => { notificar(message) });
+        buscarPorNombre(busqueda, (page - 1), itemsCountPorPage)
+            .then((response) => {
+                procesarResultadoDeBusqueda(response.content);
+                setTotalItemsCount(response.totalElements);
+                setCargandoBandas(false);
+            })
+            .catch((message) => { notificar(message) });
     }
 
     const buscarBandasPorGenero = (busqueda, page) => {
         setCargandoBandas(true);
-        buscarPorGenero(busqueda, (page-1), itemsCountPorPage)
-        .then((response) => { 
-            procesarResultadoDeBusqueda(response.content);
-            setTotalItemsCount(response.totalElements);
-            setCargandoBandas(false); })
-        .catch((message) => { notificar(message) });
+        buscarPorGenero(busqueda, (page - 1), itemsCountPorPage)
+            .then((response) => {
+                procesarResultadoDeBusqueda(response.content);
+                setTotalItemsCount(response.totalElements);
+                setCargandoBandas(false);
+            })
+            .catch((message) => { notificar(message) });
     }
 
     const buscarBandas = () => {
         const pathname = props.location.pathname;
         (pathname === "/BandasPage") ? buscarTodasLasBandas(activePage) : buscarBandasPorGenero(pathname.slice(12), activePage)
     }
-    
+
     const buscarTodasLasBandas = (page) => {
         setCargandoBandas(true);
-        traerTodos((page -1), itemsCountPorPage)
-            .then((response) => { 
-                setBandas( response.content); 
+        traerTodos((page - 1), itemsCountPorPage)
+            .then((response) => {
+                setBandas(response.content);
                 setTotalItemsCount(response.totalElements);
-                setCargandoBandas(false); })
+                setCargandoBandas(false);
+            })
             .catch((message) => { notificar(message) });
     }
 
@@ -92,15 +95,17 @@ function BandasPage(props) {
 
     const handlePageChange = (event) => {
         setActivePage(event);
-        (busqueda === undefined)? buscarBandas(): buscarBandasPorNombre(busqueda, event)
+        (busqueda === undefined) ? buscarBandas() : buscarBandasPorNombre(busqueda, event)
     }
 
     const bandasGrilla = () => {
-        return(
-            <div>
+        return (
+            <>
+            <div className="grilla-Responsive offset-md-2 col-10">
                 <GrillaBandas bandas={bandas} />
-                <div className="d-flex justify-content-center">
-                    <Pagination className="pagination"
+            </div>
+            <div className="d-flex justify-content-center">
+                <Pagination className="pagination"
                     hideNavigation
                     activePage={activePage}
                     itemsCountPerPage={itemsCountPorPage}
@@ -109,10 +114,10 @@ function BandasPage(props) {
                     itemClass='page-item'
                     linkClass='btn btn-light'
                     onChange={handlePageChange}
-                    />
-                </div>
+                />
             </div>
-            )    
+            </>
+            )
     }
 
 
@@ -120,13 +125,11 @@ function BandasPage(props) {
         <div className="recitalPage">
             <RecitalesNavbar />
             <RecitalesHeader>
-                <SearchComponentBanda busqueda={onChange} changeBusqueda={onChangeBusqueda}/>
+                <SearchComponentBanda busqueda={onChange} changeBusqueda={onChangeBusqueda} />
             </RecitalesHeader>
             <div>
-                <div className="grilla-Responsive offset-md-2 col-10">
-                    {cargandoBandas?<Spinner/>:bandasGrilla()}
-                    <ToastContainer />
-                </div>
+                {cargandoBandas ? <Spinner /> : bandasGrilla()}
+                <ToastContainer />
             </div>
         </div>
     );
