@@ -46,6 +46,21 @@ function RecitalesPage(props) {
         bodyClassName: "grow-font-size",
         progressClassName: 'fancy-progress-bar'
     });
+
+    const onChangeBusquedaUbicacion = (event) => {
+        setBusqueda(event);
+        buscarEnUbicacion(event, 1);
+    }
+
+    const buscarRecitalesPorGenero = (busqueda, page) => {
+        setCargandoRecitales(true);
+        buscarPorNombreYGenero(busqueda, (page -1), itemsCountPorPage)
+        .then((response) => { 
+            procesarResultadoDeBusqueda(response.content);
+            setTotalPages(response.totalPages);
+            setCargandoRecitales(false); 
+        }).catch((message) => { notificar(message) });
+    }
     
     const buscarEnUbicacion = (busqueda, page) => {
         setCargandoRecitales(true);
