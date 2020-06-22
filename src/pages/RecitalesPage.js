@@ -10,7 +10,7 @@ import Spinner from "components/spinner/Spinner.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
-import Pagination from "react-js-pagination";
+import Paginacion from 'components/pagination/Paginacion.js';
 
 function RecitalesPage(props) {
 
@@ -19,8 +19,8 @@ function RecitalesPage(props) {
     const [cargandoRecitales,setCargandoRecitales] = useState(true);
 
     const [activePage, setActivePage] = useState(1);
-    const [itemsCountPorPage] = useState(9);
-    const [totalItemsCount, setTotalItemsCount] = useState();
+    const [itemsCountPorPage] = useState(3);
+    const [totalPages, setTotalPages] = useState(0);
 
     const [busqueda, setBusqueda] = useState();
 
@@ -36,7 +36,8 @@ function RecitalesPage(props) {
 
     const onChangeBusqueda = (event) => {
         setBusqueda(event)
-        buscarRecitalesPorGenero(event, activePage)
+        setActivePage(1)
+        buscarRecitalesPorGenero(event, 1)
     }
     
     const notificar = (mensaje) => toast(mensaje, {
@@ -49,23 +50,23 @@ function RecitalesPage(props) {
         setCargandoRecitales(true);
         buscarPorNombreYGenero(busqueda, (page -1), itemsCountPorPage)
         .then((response) => { 
-            procesarResultadoDeBusqueda(response.content); 
-            setTotalItemsCount(response.totalElements);
+            procesarResultadoDeBusqueda(response.content);
+            setTotalPages(response.totalPages);
             setCargandoRecitales(false); 
         }).catch((message) => { notificar(message) });
     }
 
-    const buscarRecitales = () => {
+    const buscarRecitales = (event) => {
         const pathname = props.location.pathname;
-        (pathname === "/RecitalesPage") ? buscarTodosLosRecitales(activePage) : buscarRecitalesPorGenero(pathname.slice(15), activePage)
+        (pathname === "/RecitalesPage") ? buscarTodosLosRecitales(event) : buscarRecitalesPorGenero(pathname.slice(15), activePage)
     }
     
     const buscarTodosLosRecitales = (page) => {
         setCargandoRecitales(true);
         traerTodos((page -1), itemsCountPorPage)
             .then((response) => { 
-                setRecitales(response.content); 
-                setTotalItemsCount(response.totalElements);
+                procesarResultadoDeBusqueda(response.content); 
+                setTotalPages(response.totalPages);
                 setCargandoRecitales(false); })
             .catch((message) => { notificar(message) });
     }
@@ -76,13 +77,31 @@ function RecitalesPage(props) {
             notificar("No se encontraron resultados para tu búsqueda. Tal vez te interesen estos recitales");
         } else {
             setRecitales(recitales);
+
         }
 
     }
 
     const handlePageChange = (event) => {
-        setActivePage(event);
-        (busqueda === undefined)? buscarRecitales(): buscarRecitalesPorGenero(busqueda, event)
+      setActivePage(event);
+      (busqueda === undefined)? buscarRecitales(event): buscarRecitalesPorGenero(busqueda, event)
+    }
+
+    const firstClick = () => {
+        setActivePage(1);
+        handlePageChange(1);
+        
+    }
+
+    const lastClick = (lastPage) => {
+        setActivePage(lastPage);
+        handlePageChange(lastPage);
+        
+    }
+
+    const onChangePage = (page) => {
+        handlePageChange(page)
+        setActivePage(page)
     }
 
     const recitalesGrilla = () => {
@@ -90,16 +109,15 @@ function RecitalesPage(props) {
             <div>
                 <GrillaRecitales recitales={recitales} />
                 <div className="d-flex justify-content-center">
-                    <Pagination
-                    hideNavigation
-                    activePage={activePage}
-                    itemsCountPerPage={itemsCountPorPage}
-                    totalItemsCount={totalItemsCount}
-                    pageRangeDisplayed={3}
-                    itemClass='page-item'
-                    linkClass='btn btn-light'
-                    onChange={handlePageChange}
-                    />
+                    <Paginacion 
+                    activePage={activePage} 
+                    cantElemPorPage={itemsCountPorPage}
+                    totalPages={totalPages}
+                    onChangeFirst={firstClick}
+                    onChangeLast={lastClick}
+                    onChangePage={onChangePage}
+                    >
+                    </Paginacion>
                 </div>
             </div>
             )    
