@@ -64,7 +64,7 @@ function RecitalesPage(props) {
     
     const buscarEnUbicacion = (busqueda, page) => {
         setCargandoRecitales(true);
-        buscarPorNombreYGenero(busqueda, (page -1), itemsCountPorPage)
+        buscarPorUbicacion(busqueda, (page -1), itemsCountPorPage)
         .then((response) => { 
             procesarResultadoDeBusqueda(response.content);
             setTotalPages(response.totalPages);
