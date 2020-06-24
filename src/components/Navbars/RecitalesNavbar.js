@@ -79,7 +79,6 @@ function RecitalesNavBar(props) {
     buscarUsuario(referencia)
       .then(((usuario) => {
         console.log(usuario);
-        console.log("###################");
         setUser(usuario);
         procesarRespuestaDelBackend(usuario);
       }))
@@ -191,17 +190,17 @@ function RecitalesNavBar(props) {
                     Valida tu cuenta
                   </DropdownItem>
                   )}
+                  <DropdownItem tag={Link} to="/RecitalesPage">
+                    <i className="tim-icons icon-image-02" />
+                    Recitales
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/BandasPage">
+                    <i className="tim-icons icon-single-02" />
+                    Bandas
+                  </DropdownItem>
                   <DropdownItem tag={Link} to="/formularioNuevaBanda">
                     <i className="tim-icons icon-bullet-list-67" />
                     Crea tu banda
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/landing-page">
-                    <i className="tim-icons icon-image-02" />
-                    Landing Page
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/profile-page">
-                    <i className="tim-icons icon-single-02" />
-                    Profile Page
                   </DropdownItem>
                   {/* {user && user.tipoUsuario ==="REGISTRADO_CON_BANDA" && ( */}
                   <DropdownItem tag={Link} to="/recital-add">
@@ -209,6 +208,10 @@ function RecitalesNavBar(props) {
                     Nuevo recital
                   </DropdownItem>
                   {/* )} */}
+                  <DropdownItem tag={Link} to="/iniciativaRecital">
+                    <i className="tim-icons icon-image-02" />
+                    Iniciativas de Recitales
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
