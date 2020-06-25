@@ -8,7 +8,7 @@ export const useIniciativaService = () => {
 
     const traerIniciativas = (page, size) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.get(`iniciatica_recitales/?page=${page}&size=${size}`)
+            CircuitoDelUnderApi.get(`iniciativa_recitales/?page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
                 .catch(mostrarPaginaError );
 
@@ -17,7 +17,7 @@ export const useIniciativaService = () => {
 
     const crearIniciativa = (iniciativa) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.post('iniciatica_recitales', iniciativa )
+            CircuitoDelUnderApi.post('iniciativa_recitales', iniciativa )
                 .then(({ data: iniciativa }) => { resolve(iniciativa) })
                 .catch((error) => { mostrarPaginaError(error) });
         });
