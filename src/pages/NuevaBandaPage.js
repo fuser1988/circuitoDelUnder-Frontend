@@ -13,6 +13,7 @@ import { useBandaService } from "services/BandaService.js";
 import Material from "../model/Material";
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 
+
 function NuevaBandaPage(props) {
     
     const [listaDeMaterial, setListaDeMaterial] = useState([new Material(), new Material()]);    
@@ -21,7 +22,7 @@ function NuevaBandaPage(props) {
     const [values, setValues] = useState({});
     const [modal, setModal] = useState(false);    
     const { push } = useHistory();
-    const { user} = useContext(UserContext);
+    const { user, setUser} = useContext(UserContext);
     const { crearBanda } = useBandaService();
 
     React.useEffect(() => {
@@ -67,8 +68,13 @@ function NuevaBandaPage(props) {
         event.preventDefault();
         crearBanda(banda).then((banda)=>{
             push("/banda/" + banda.id);
+            actualizarDatosDeUsuarioLogueado(banda);
 
         });
+    }
+
+    const actualizarDatosDeUsuarioLogueado= (banda)=>{
+            setUser({...user, banda:banda, tipoUsuario:"REGISTRADO_CON_BANDA"});
     }
 
     const toBase64 = (file) => {
