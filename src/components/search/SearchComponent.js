@@ -42,7 +42,7 @@ function SearchBars(props) {
   }
 
   const onChangeUbicacion = (property, event) => {
-    setBusqueda(event.latitud +" , " +event.longitud);
+    setBusqueda("");
     props.busquedaUbicacion(event);
   }
 

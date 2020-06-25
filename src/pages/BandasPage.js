@@ -10,7 +10,7 @@ import Spinner from "components/spinner/Spinner.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
-import Pagination from "react-js-pagination";
+import Paginacion from 'components/pagination/Paginacion.js';
 
 function BandasPage(props) {
 
@@ -19,8 +19,8 @@ function BandasPage(props) {
     const [cargandoBandas, setCargandoBandas] = useState(true);
 
     const [activePage, setActivePage] = useState(1);
-    const [itemsCountPorPage] = useState(9);
-    const [totalItemsCount, setTotalItemsCount] = useState();
+    const [itemsCountPorPage] = useState(3);
+    const [totalPages, setTotalPages] = useState(0);
 
     const [busqueda, setBusqueda] = useState();
 
@@ -37,49 +37,46 @@ function BandasPage(props) {
     });
 
     const onChange = (event) => {
-        buscarBandasPorNombre(event, activePage)
+        buscarBandasPorGenero(event, 1)
     }
 
     const onChangeBusqueda = (event) => {
         setBusqueda(event)
-        buscarBandasPorGenero(event, activePage)
+        buscarBandasPorNombre(event, 1)
     }
 
     const buscarBandasPorNombre = (busqueda, page) => {
         setCargandoBandas(true);
-        buscarPorNombre(busqueda, (page - 1), itemsCountPorPage)
-            .then((response) => {
-                procesarResultadoDeBusqueda(response.content);
-                setTotalItemsCount(response.totalElements);
-                setCargandoBandas(false);
-            })
-            .catch((message) => { notificar(message) });
+        buscarPorNombre(busqueda, (page -1), itemsCountPorPage)
+        .then((response) => { 
+            procesarResultadoDeBusqueda(response.content);
+            setTotalPages(response.totalPages);
+            setCargandoBandas(false); })
+        .catch((message) => { notificar(message) });
     }
 
     const buscarBandasPorGenero = (busqueda, page) => {
         setCargandoBandas(true);
-        buscarPorGenero(busqueda, (page - 1), itemsCountPorPage)
-            .then((response) => {
-                procesarResultadoDeBusqueda(response.content);
-                setTotalItemsCount(response.totalElements);
-                setCargandoBandas(false);
-            })
-            .catch((message) => { notificar(message) });
+        buscarPorGenero(busqueda, (page-1), itemsCountPorPage)
+        .then((response) => { 
+            procesarResultadoDeBusqueda(response.content);
+            setTotalPages(response.totalPages);
+            setCargandoBandas(false); })
+        .catch((message) => { notificar(message) });
     }
 
-    const buscarBandas = () => {
+    const buscarBandas = (pages) => {
         const pathname = props.location.pathname;
-        (pathname === "/BandasPage") ? buscarTodasLasBandas(activePage) : buscarBandasPorGenero(pathname.slice(12), activePage)
+        (pathname === "/BandasPage") ? buscarTodasLasBandas(pages) : buscarBandasPorGenero(pathname.slice(12), pages)
     }
 
     const buscarTodasLasBandas = (page) => {
         setCargandoBandas(true);
-        traerTodos((page - 1), itemsCountPorPage)
-            .then((response) => {
-                setBandas(response.content);
-                setTotalItemsCount(response.totalElements);
-                setCargandoBandas(false);
-            })
+        traerTodos((page -1), itemsCountPorPage)
+            .then((response) => { 
+                setBandas( response.content); 
+                setTotalPages(response.totalPages);
+                setCargandoBandas(false); })
             .catch((message) => { notificar(message) });
     }
 
@@ -95,7 +92,24 @@ function BandasPage(props) {
 
     const handlePageChange = (event) => {
         setActivePage(event);
-        (busqueda === undefined) ? buscarBandas() : buscarBandasPorNombre(busqueda, event)
+        (busqueda === undefined)? buscarBandas(event): buscarBandasPorNombre(busqueda, event)
+    }
+
+    const firstClick = () => {
+        setActivePage(1);
+        handlePageChange(1);
+        
+    }
+
+    const lastClick = (lastPage) => {
+        setActivePage(lastPage);
+        handlePageChange(lastPage);
+        
+    }
+
+    const onChangePage = (page) => {
+        handlePageChange(page)
+        setActivePage(page)
     }
 
     const bandasGrilla = () => {
@@ -103,18 +117,17 @@ function BandasPage(props) {
             <>
             <div className="grilla-Responsive offset-md-2 col-10">
                 <GrillaBandas bandas={bandas} />
-            </div>
-            <div className="d-flex justify-content-center">
-                <Pagination className="pagination"
-                    hideNavigation
-                    activePage={activePage}
-                    itemsCountPerPage={itemsCountPorPage}
-                    totalItemsCount={totalItemsCount}
-                    pageRangeDisplayed={3}
-                    itemClass='page-item'
-                    linkClass='btn btn-light'
-                    onChange={handlePageChange}
-                />
+                <div className="d-flex justify-content-center">
+                    <Paginacion 
+                    activePage={activePage} 
+                    cantElemPorPage={itemsCountPorPage}
+                    totalPages={totalPages}
+                    onChangeFirst={firstClick}
+                    onChangeLast={lastClick}
+                    onChangePage={onChangePage}
+                    >
+                    </Paginacion>
+                </div>
             </div>
             </>
             )
