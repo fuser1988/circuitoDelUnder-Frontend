@@ -31,6 +31,7 @@ function IniciativaRecitalPage(props) {
     const { push } = useHistory();
     const { user } = useContext(UserContext);
     const { crearBanda } = useBandaService();
+    const { crearIniciativa, traerIniciativas } = useIniciativaService();
     const [ iniciativaRecitales, setIniciativaRecitales] = useState([]);
 
     const [cargandoIniciativa,setCargandoIniciativa] = useState(true);
@@ -120,16 +121,14 @@ function IniciativaRecitalPage(props) {
     }
 
     const handleSubmit = (iniciativa) => {
-        if (esValido(valores)) {
-            toggle();
-            crearIniciativa(iniciativa);
-            traerTodasLasIniciativas(1);
-            /*let material = new Material(valores);
-            let listaDeMaterial = banda.material;
-            listaDeMaterial.push(material)
-            setBanda({ ...banda, material: listaDeMaterial });*/
+        toggle();
+        crearIniciativa(iniciativa);
+        traerTodasLasIniciativas(1);
+        /*let material = new Material(valores);
+        let listaDeMaterial = banda.material;
+        listaDeMaterial.push(material)
+        setBanda({ ...banda, material: listaDeMaterial });*/
 
-        }
         console.log(values);
     }
 
@@ -205,7 +204,7 @@ function IniciativaRecitalPage(props) {
 
     const handlePageChange = (event) => {
         setActivePage(event);
-        (busqueda === undefined)? buscarBandas(event): buscarBandasPorNombre(busqueda, event)
+        traerTodasLasIniciativas(event);
     }
 
     const firstClick = () => {
@@ -277,7 +276,7 @@ function IniciativaRecitalPage(props) {
 
                     <div className="formulario-carga-banda background-form  mb-4">
                         {modal? <NuevaIniciativa
-                                usuario={idDeUsuarioLogueado} 
+                                usuario={user.Id} 
                                 isOpen={modal} 
                                 toggle={toggle} 
                                 className={props.className}

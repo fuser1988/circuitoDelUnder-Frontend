@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { Button, FormGroup, Modal, Label, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { useBandaService } from "services/BandaService.js";
-import Banda from "../model/Banda";
-import IniciativaRecital from "../model/IniciativaRecital.js";
+import IniciativaRecital from "../../model/IniciativaRecital.js";
 
 function NuevaIniciativa(props) {
 
     const [modal] = useState(props.isOpen);
     const [className] = useState(props.className);
-    const [banda, setBanda] = useState(new Banda);
+    const [banda, setBanda] = useState([]);
     const { bandaPorUsuarioId } = useBandaService();
-    const [ iniciativaRecital, setIniciativaRecital] = useState(new iniciativaRecitales());
+    const [ iniciativaRecital, setIniciativaRecital] = useState(new IniciativaRecital());
 
     React.useEffect(() => {
         obtenerBanda()
@@ -24,9 +23,19 @@ function NuevaIniciativa(props) {
     }
 
     const handleSubmit = (event, errors, valores) => {
-        let iniciativa = new IniciativaRecital(valores);
-        setIniciativaRecital({ ...iniciativa, banda: banda})
-        props.onSubmit(iniciativa);
+        if (esValido(valores)) {
+            let iniciativa = new IniciativaRecital(valores);
+            setIniciativaRecital({ ...iniciativa, banda: banda})
+            props.onSubmit(iniciativa);
+        }
+    }
+
+    const esValido = (valores) => {
+        let valid = true;
+        Object.values(valores).forEach(
+            (valor) => (valor.length === 0) && (valid = false)
+        )
+        return valid;
     }
 
     const toggle = () => {
