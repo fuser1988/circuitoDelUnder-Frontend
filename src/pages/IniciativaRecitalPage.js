@@ -24,7 +24,7 @@ function IniciativaRecitalPage(props) {
     const [cargandoIniciativa,setCargandoIniciativa] = useState(true);
     const [activePage, setActivePage] = useState(1);
     const [itemsCountPorPage] = useState(9);
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
 
     React.useEffect(() => {
         traerTodasLasIniciativas(1)
