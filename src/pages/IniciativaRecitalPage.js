@@ -2,11 +2,10 @@ import React, { useState, useContext } from "react";
 
 import { UserContext } from "context/UserContext.js";
 import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
-import { CardBody, Card, Container, Button, FormGroup, FormText, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
+import { CardBody, Card, Container, FormText } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import IniciativaRecitalCard from "components/card/IniciativaRecitalCard.js";
-import { AvForm, AvField } from 'availity-reactstrap-validation';
 import NuevaIniciativa from "components/form/NuevaIniciativa.js"
 import { useIniciativaService } from "services/IniciativaService.js";
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
 import Spinner from "components/spinner/Spinner.js";
 import Paginacion from 'components/pagination/Paginacion.js';
-import IniciativaRecital from "../model/IniciativaRecital.js";
 
 function IniciativaRecitalPage(props) {
 
@@ -44,10 +42,6 @@ function IniciativaRecitalPage(props) {
         toggle();
         crearIniciativa(iniciativa);
         traerTodasLasIniciativas(1);
-        /*let material = new Material(valores);
-        let listaDeMaterial = banda.material;
-        listaDeMaterial.push(material)
-        setBanda({ ...banda, material: listaDeMaterial });*/
 
     }
 
@@ -61,26 +55,6 @@ function IniciativaRecitalPage(props) {
         .catch((message) => { notificar(message) });
     }
     
-    const buscarIniciativaDeRecitales = ()=>{
-        setIniciativasdeRecitales([{
-            id:1,
-            descripcion:"Bunas colegas, estamos organizando una fechita en la cobacha burzaco, un bar chiquito pero amistoso, podemos tocar hasta 4 bandas, el sonido corre por cuenta de el lugar pero las bandas se encargarian del resto.",
-            fecha:"2020-09-18",
-            lugar:"La cobacha",
-            direccion:"San martin 2235",
-            localidad:"Burzaco",
-            banda:{id: 3, nombre:"Bulldog",imagen:"https://www.rosarioespectacular.com/library/timthumb/timthumb.php?src=/uploadsfotos/bulldog_b3.jpg&w=300&zc=1&q=80"}
-        },{
-            id:2,
-            descripcion:"Bunas colegas, estamos organizando una fechita en la cobacha burzaco, un bar chiquito pero amistoso, podemos tocar hasta 4 bandas, el sonido corre por cuenta de el lugar pero las bandas se encargarian del resto.",
-            fecha:"2020-10-12",
-            lugar:"La cobacha",
-            direccion:"San martin 2235",
-            localidad:"Burzaco",
-            banda:{id: 2, nombre:"Explenden",imagen:"https://scontent.faep4-1.fna.fbcdn.net/v/t1.0-9/p960x960/68701583_2644002115632614_3536889436358836224_o.jpg?_nc_cat=110&_nc_sid=85a577&_nc_oc=AQlmQbSgJvUjFyjxR02XflrutiijGeyQK5cipwxQ4FMvyOjbU9gwpCfgA4TloJzYYq0&_nc_ht=scontent.faep4-1.fna&_nc_tp=6&oh=53a810b0a02ddb507521919d63115578&oe=5F19C82C"}
-        }]);    
-    }
-
     const toggle = () => {
         setModal(
             !modal
@@ -138,17 +112,28 @@ function IniciativaRecitalPage(props) {
 
                     <div className="formulario-carga-banda background-form  mb-4">
                         {modal? <NuevaIniciativa
-                                usuario={user.Id} 
+                                usuario={user.id} 
                                 isOpen={modal} 
                                 toggle={toggle} 
                                 className={props.className}
                                 onSubmit={handleSubmit}
                                 />: <div></div>}
 
-                    {iniciativasDeRecitales.map((iniciativaDeRecital)=>{
+                    {cargandoIniciativa?<Spinner/>: iniciativasDeRecitales.map((iniciativaDeRecital)=>{
                         return <IniciativaRecitalCard iniciativaDeRecital={iniciativaDeRecital}/>
 
                     })}
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <Paginacion    
+                        activePage={activePage} 
+                        cantElemPorPage={itemsCountPorPage}
+                        totalPages={totalPages}
+                        onChangeFirst={firstClick}
+                        onChangeLast={lastClick}
+                        onChangePage={onChangePage}
+                        >
+                        </Paginacion>
                     </div>
                 </Container>
             </div>
