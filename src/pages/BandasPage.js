@@ -19,7 +19,7 @@ function BandasPage(props) {
     const [cargandoBandas, setCargandoBandas] = useState(true);
 
     const [activePage, setActivePage] = useState(1);
-    const [itemsCountPorPage] = useState(3);
+    const [itemsCountPorPage] = useState(9);
     const [totalPages, setTotalPages] = useState(0);
 
     const [busqueda, setBusqueda] = useState();

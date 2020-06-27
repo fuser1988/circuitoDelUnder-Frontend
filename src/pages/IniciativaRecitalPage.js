@@ -24,7 +24,7 @@ function IniciativaRecitalPage(props) {
     const [cargandoIniciativa,setCargandoIniciativa] = useState(true);
     const [activePage, setActivePage] = useState(1);
     const [itemsCountPorPage] = useState(9);
-    const [totalPages, setTotalPages] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
 
     React.useEffect(() => {
         traerTodasLasIniciativas(1)
@@ -40,9 +40,8 @@ function IniciativaRecitalPage(props) {
 
     const handleSubmit = (iniciativa) => {
         toggle();
-        crearIniciativa(iniciativa);
-        traerTodasLasIniciativas(1);
-
+        crearIniciativa(iniciativa)
+        .then(() =>{traerTodasLasIniciativas(1)})
     }
 
     const traerTodasLasIniciativas = (page) => {
@@ -59,6 +58,28 @@ function IniciativaRecitalPage(props) {
         setModal(
             !modal
         );
+    }
+
+    const grillaIniciativa = () => {
+        return (
+            <div>
+                {iniciativasDeRecitales.map((iniciativaDeRecital)=>{
+                        return <IniciativaRecitalCard iniciativaDeRecital={iniciativaDeRecital}/>
+                })}
+
+                <div className="d-flex justify-content-center">
+                    <Paginacion    
+                    activePage={activePage} 
+                    cantElemPorPage={itemsCountPorPage}
+                    totalPages={totalPages}
+                    onChangeFirst={firstClick}
+                    onChangeLast={lastClick}
+                    onChangePage={onChangePage}
+                    >
+                    </Paginacion>
+                </div>
+            </div>
+        )
     }
 
     const handlePageChange = (event) => {
@@ -119,22 +140,9 @@ function IniciativaRecitalPage(props) {
                                 onSubmit={handleSubmit}
                                 />: <div></div>}
 
-                    {cargandoIniciativa?<Spinner/>: iniciativasDeRecitales.map((iniciativaDeRecital)=>{
-                        return <IniciativaRecitalCard iniciativaDeRecital={iniciativaDeRecital}/>
-
-                    })}
+                    {cargandoIniciativa?<Spinner/>: grillaIniciativa() }
                     </div>
-                    <div className="d-flex justify-content-center">
-                        <Paginacion    
-                        activePage={activePage} 
-                        cantElemPorPage={itemsCountPorPage}
-                        totalPages={totalPages}
-                        onChangeFirst={firstClick}
-                        onChangeLast={lastClick}
-                        onChangePage={onChangePage}
-                        >
-                        </Paginacion>
-                    </div>
+                    
                 </Container>
             </div>
         </>

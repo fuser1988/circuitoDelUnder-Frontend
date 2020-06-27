@@ -1,5 +1,4 @@
 class IniciativaRecital {
-    nombre = '';
     descripcion = '';
     fecha = '';
     hora = '';
@@ -12,8 +11,8 @@ class IniciativaRecital {
 
     constructor(iniciativaRecital){
         if(iniciativaRecital){
-            this.nombre = iniciativaRecital.nombre;
             this.descripcion = iniciativaRecital.descripcion;
+            this.fecha = iniciativaRecital.fecha;
             this.hora = iniciativaRecital.hora;
             this.direccion = iniciativaRecital.direccion;
             this.localidad = iniciativaRecital.localidad;
