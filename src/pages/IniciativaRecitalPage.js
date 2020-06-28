@@ -20,7 +20,7 @@ function IniciativaRecitalPage(props) {
     const [modal, setModal] = useState(false);
     const { push } = useHistory();
     const { user } = useContext(UserContext);
-    const { crearIniciativa, traerIniciativas } = useIniciativaService();
+    const { crearIniciativa, traerIniciativas, borrarPorId } = useIniciativaService();
     const [cargandoIniciativa,setCargandoIniciativa] = useState(true);
     const [activePage, setActivePage] = useState(1);
     const [itemsCountPorPage] = useState(9);
@@ -41,7 +41,10 @@ function IniciativaRecitalPage(props) {
     const handleSubmit = (iniciativa) => {
         toggle();
         crearIniciativa(iniciativa)
-        .then(() =>{traerTodasLasIniciativas(1)})
+        .then(() =>{ 
+            notificar("La iniciativa se cargó correctamente");
+            traerTodasLasIniciativas(1) 
+        })
     }
 
     const traerTodasLasIniciativas = (page) => {
@@ -50,6 +53,15 @@ function IniciativaRecitalPage(props) {
             setIniciativasdeRecitales(response.content);
             setTotalPages(response.totalPages);
             setCargandoIniciativa(false);
+        })
+        .catch((message) => { notificar(message) });
+    }
+
+    const deleteIniciativa = (id) => {
+        borrarPorId(id)
+        .then(() => {
+            notificar("La iniciativa se cerró correctamente");
+            traerTodasLasIniciativas(activePage)
         })
         .catch((message) => { notificar(message) });
     }
@@ -64,7 +76,7 @@ function IniciativaRecitalPage(props) {
         return (
             <div>
                 {iniciativasDeRecitales.map((iniciativaDeRecital)=>{
-                        return <IniciativaRecitalCard iniciativaDeRecital={iniciativaDeRecital}/>
+                        return <IniciativaRecitalCard iniciativaDeRecital={iniciativaDeRecital} onDelete={deleteIniciativa}/>
                 })}
 
                 <div className="d-flex justify-content-center">

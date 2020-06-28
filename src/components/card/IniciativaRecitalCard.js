@@ -24,6 +24,7 @@ function IniciativaRecitalCard(props) {
     }
     
     const cerrarConvocatoriaDeRecital=(idDeIniciativaDeRecital)=>{
+        props.onDelete(idDeIniciativaDeRecital);
         console.log("marcar iniciativa con id "+ idDeIniciativaDeRecital+ " como cerrada.");
     }
 
@@ -40,7 +41,7 @@ function IniciativaRecitalCard(props) {
                             <h3 className="mb-1">{props.iniciativaDeRecital.banda.nombre}</h3>
                         </a>
                         <div className="d-flex justify-content-center mb-3">
-                            {props.iniciativaDeRecital.banda.id===user.banda.id &&
+                            {user.banda !== null && props.iniciativaDeRecital.banda.id===user.banda.id &&
                                     <Button id={props.iniciativaDeRecital.id} className="btn-sm btn-warning" onClick={(event)=>{cerrarConvocatoriaDeRecital(event.target.id)}}>Cerrar convocatoria</Button>
                                 }
                         </div>
