@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 
 import { UserContext } from "context/UserContext.js";
 import { UncontrolledTooltip, Row, Col, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
-import RecitalesHeader from "components/header/RecitalesHeader.js";
-import { useBandaService } from "services/BandaService.js";
 import moment from "moment";
 
 function IniciativaRecitalCard(props) {
@@ -32,6 +30,7 @@ function IniciativaRecitalCard(props) {
     }
 
     const cerrarConvocatoriaDeRecital = (idDeIniciativaDeRecital) => {
+        props.onDelete(idDeIniciativaDeRecital);
         console.log("marcar iniciativa con id " + idDeIniciativaDeRecital + " como cerrada.");
     }
 
@@ -47,7 +46,7 @@ function IniciativaRecitalCard(props) {
                             <h3 className="mb-1">{props.iniciativaDeRecital.banda.nombre}</h3>
                         </a>
                         <div className="d-flex justify-content-center mb-3">
-                            {props.iniciativaDeRecital.banda.id === user.banda.id &&
+                            {user.banda !== null && props.iniciativaDeRecital.banda.id === user.banda.id &&
                                 <Button id={props.iniciativaDeRecital.id} className="btn-sm btn-warning" onClick={(event) => { cerrarConvocatoriaDeRecital(event.target.id) }}>Cerrar convocatoria</Button>
                             }
                         </div>
@@ -74,7 +73,7 @@ function IniciativaRecitalCard(props) {
                                     Envia un mensaje de whatsapp al organizador
                                 </UncontrolledTooltip>
                             </div>
-                            
+
                         </div>
 
                     </Col>

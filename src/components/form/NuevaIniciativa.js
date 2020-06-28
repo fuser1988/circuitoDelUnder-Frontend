@@ -3,6 +3,9 @@ import { Button, FormGroup, Modal, Label, ModalFooter, ModalHeader, ModalBody } 
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import IniciativaRecital from "../../model/IniciativaRecital.js";
 import { UserContext } from "context/UserContext.js";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../../toast.css';
 
 function NuevaIniciativa(props) {
 
@@ -16,7 +19,11 @@ function NuevaIniciativa(props) {
         }
     }, []);
 
-    
+    const notificar = (mensaje) => toast(mensaje, {
+        className: 'black-background',
+        bodyClassName: "grow-font-size",
+        progressClassName: 'fancy-progress-bar'
+    });
 
     const handleSubmit = (event, errors, valores) => {
         if (esValido(valores)) {
@@ -28,11 +35,15 @@ function NuevaIniciativa(props) {
     }
 
     const esValido = (valores) => {
+        if (user.banda == null) {
+            notificar("Para crear una iniciativa debe crear una banda")
+        }
+        
         let valid = true;
         Object.values(valores).forEach(
             (valor) => (valor.length === 0) && (valid = false)
         )
-        return valid;
+        return valid && user.banda !== null;
     }
 
     const toggle = () => {
@@ -56,7 +67,7 @@ function NuevaIniciativa(props) {
                             
                             <Label>Banda</Label>
                             <br></br>
-                            {user.banda === undefined? <Label>Debe crear una banda</Label>:<Label>{user.banda.nombre}</Label>}
+                            {user.banda === null? <Label>Debe crear una banda</Label>:<Label>{user.banda.nombre}</Label>}
 
                             <FormGroup>
                                 <ModalFooter>

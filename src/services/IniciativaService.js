@@ -17,12 +17,21 @@ export const useIniciativaService = () => {
 
     const crearIniciativa = (iniciativa) => {
         return new Promise((resolve, reject) => {
-            CircuitoDelUnderApi.post('iniciativa_recitales', iniciativa )
+            CircuitoDelUnderApi.post('iniciativa_recital', iniciativa )
                 .then(({ data: iniciativa }) => { resolve(iniciativa) })
                 .catch((error) => { mostrarPaginaError(error) });
         });
 
     }
 
-    return {crearIniciativa, traerIniciativas }
+    const borrarPorId = (id) => {
+        return new Promise((resolve, reject) => {
+            CircuitoDelUnderApi.delete(`iniciativa_recital/${id}`)
+                .then(({ data: iniciativa }) => { resolve(iniciativa) })
+                .catch((error) => { mostrarPaginaError(error) });
+
+        });
+    }
+
+    return {crearIniciativa, traerIniciativas, borrarPorId }
 }
