@@ -131,7 +131,7 @@ function IniciativaRecitalPage(props) {
 
                     </Card>
 
-                    <div className="formulario-carga-banda background-form  mb-4">
+                    <div className="formulario-carga-banda mb-4">
                         {modal? <NuevaIniciativa
                                 usuario={user.id} 
                                 isOpen={modal} 
