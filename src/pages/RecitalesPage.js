@@ -6,16 +6,15 @@ import GrillaRecitales from "components/body/GrillaRecitales.js";
 import { useRecitalService } from "services/RecitalService.js";
 import SearchComponent from "components/search/SearchComponent.js";
 import Spinner from "components/spinner/Spinner.js";
-import queryString from "query-string";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
 import Paginacion from 'components/pagination/Paginacion.js';
 
 function RecitalesPage(props) {
 
-    const { buscarPorUbicacion,buscarRecitalesporBandaId, buscarPorNombreYGenero, traerTodos} = useRecitalService();
+    const { buscarPorUbicacion, buscarRecitalesporBandaId, buscarPorNombreYGenero, traerTodos} = useRecitalService();
     const [ recitales, setRecitales ] = useState([]);
     const [cargandoRecitales,setCargandoRecitales] = useState(true);
 
@@ -88,10 +87,18 @@ function RecitalesPage(props) {
         setCargandoRecitales(true);
         traerTodos((page -1), itemsCountPorPage)
             .then((response) => { 
-                procesarResultadoDeBusqueda(response.content); 
+                procesarResultadoDeBusquedaTodo(response.content); 
                 setTotalPages(response.totalPages);
-                setCargandoRecitales(false); })
-            .catch((message) => { notificar(message) });
+                setCargandoRecitales(false); 
+            })
+    }
+
+    const procesarResultadoDeBusquedaTodo = (recitales) => {
+        if (recitales.length === 0) {
+            setRecitales(recitales);
+            //console.log("que hay");
+            notificar("No se encontraron recitales en el sistema");
+        }
     }
 
     const procesarResultadoDeBusqueda = (recitales) => {
@@ -156,7 +163,6 @@ function RecitalesPage(props) {
             </RecitalesHeader>
             <div>
                 {cargandoRecitales?<Spinner/>:recitalesGrilla()}
-                <ToastContainer />
             </div>
         </div>
     );
