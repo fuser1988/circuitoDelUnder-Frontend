@@ -172,7 +172,8 @@ function RecitalesNavBar(props) {
             </div>
             <Nav navbar>
               <UncontrolledDropdown nav>
-                {user&&(<DropdownToggle
+                {/* {user&&( */}
+                  <DropdownToggle
                   caret
                   color="default"
                   data-toggle="dropdown"
@@ -182,14 +183,15 @@ function RecitalesNavBar(props) {
                 >
                   <i className="fa fa-cogs d-lg-none d-xl-none" />
                   Menu
-                </DropdownToggle>)}
+                </DropdownToggle>
+                 {/* )} */}
                 <DropdownMenu className="dropdown-with-icons">
-                  {user && user.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION"  && (
+                  {/* {user && user.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION"  && ( */}
                   <DropdownItem href="/confirmaciones-de-cuentas">
                     <i className="tim-icons icon-paper" />
                     Valida tu cuenta
                   </DropdownItem>
-                  )}
+                  {/* )} */}
                   <DropdownItem tag={Link} to="/RecitalesPage">
                     <i className="tim-icons icon-image-02" />
                     Recitales

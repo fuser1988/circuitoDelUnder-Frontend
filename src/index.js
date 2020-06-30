@@ -31,8 +31,8 @@ ReactDOM.render(
   <UserProvider>
     <BrowserRouter forceRefresh={true}>
       <Switch>
-        <Route path="/index" render={props => <HomePage {...props} />} />
         <Route path="/RecitalesPage" render={props => <RecitalesPage {...props} />} />
+        <Route path="/Home" render={props => <HomePage {...props} />} />
         <Route path="/BandasPage/" render={props => <BandasPage {...props} />} />
         <Route path="/components" render={props => <Index {...props} />} />
         <Route path="/Recital/:id/:new" render={props => <DetallesRecitalPage {...props} />} />
@@ -46,7 +46,7 @@ ReactDOM.render(
         <Route path="/confirmaciones-de-cuentas" render={props => <ConfirmacionCuentaPage {...props} />} />
         <Route path="/formularioNuevaBanda" render={props => <NuevaBandaPage {...props} />} />
         <Route path="/iniciativaRecital" render={props => <IniciativaRecitalPage {...props} />} />
-        <Redirect from="/" to="/index" />
+        <Redirect from="/" to="/RecitalesPage" />
       </Switch>
     </BrowserRouter>
   </UserProvider>,
