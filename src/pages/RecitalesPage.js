@@ -96,7 +96,6 @@ function RecitalesPage(props) {
     const procesarResultadoDeBusquedaTodo = (recitales) => {
         if (recitales.length === 0) {
             setRecitales(recitales);
-            //console.log("que hay");
             notificar("No se encontraron recitales en el sistema");
         }
     }
