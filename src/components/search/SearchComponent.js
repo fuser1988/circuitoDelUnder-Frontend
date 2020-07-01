@@ -10,7 +10,8 @@ import {
   Container,
   Modal, 
   ModalFooter,
-  ModalBody
+  ModalBody,
+  UncontrolledTooltip
 } from "reactstrap";
 
 
@@ -71,9 +72,12 @@ function SearchBars(props) {
             <Button className="btn btn-text-center" onClick={redirecionarAPaginaDeBusqueda} >
               Buscar
               </Button>
-              <Button className="btn btn-text-center ml-1" onClick={toggle}>
+              <Button id="tooltip" className="btn btn-text-center ml-1" onClick={toggle}>
                 <i className="tim-icons icon-square-pin" />
               </Button>
+              <UncontrolledTooltip placement="bottom" target="tooltip">
+                  Buscar por Ubicación
+              </UncontrolledTooltip>
               <Modal isOpen={modal} toggle={toggle} className={props.className}>
                   <ModalBody>
                   <ReactDependentScript
