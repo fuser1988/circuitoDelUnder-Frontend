@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import UbicacionMap from 'components/body/UbicacionMapForm.js';
 import ReactDependentScript from "react-dependent-script";
 import {
-  InputGroup,
   Col,
-  InputGroupAddon,
   Input,
   Button,
   Container,
@@ -12,29 +10,13 @@ import {
   ModalFooter,
   ModalBody
 } from "reactstrap";
-
+import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
 
 function SearchBars(props) {
 
   const [modal, setModal] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const key = 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o';
-
-  React.useEffect(() => {
-        
-    return () => {
-        borrarDatosDeGmaps();
-    }
-  },[]);
-
-  const borrarDatosDeGmaps = ()=>{
-    const allScripts = document.getElementsByTagName('script');
-    [].filter.call(
-        allScripts,
-        (scpt) => scpt.src.indexOf('key=AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o') >= 0
-    )[0].remove();
-    window.google = {};
-  }
 
   const actualizarInput = (event) => {
     props.busquedaUbicacion(event, false);
@@ -64,16 +46,17 @@ function SearchBars(props) {
 
   return (
     <Container id="search-component">
-      <InputGroup>
-        <Col className="resize-search offset-2 col-8 mt-4">
-          <InputGroupAddon className="d-flex align-items-center" addonType="append">
+        <Col className="resize-search offset-2 col-8 mt-4 mb-3">
+            <div className="d-flex align-items-center">
             <Input id="search-input" className="form-control" placeholder="" type="text" value={busqueda} onChange={actualizarInput} onKeyPress={redirecionarSiPresionoEnter} ></Input>
-            <Button className="btn btn-text-center" onClick={redirecionarAPaginaDeBusqueda} >
-              Buscar
+            <Button className="btn btn-text-center boton-buscar-mobile des buscar" onClick={redirecionarAPaginaDeBusqueda} >
+              <div className="texto-boton-buscar">Buscar</div>
+              <FaSearch className="hidden icon-search"/> 
+            </Button >
+              <Button className="btn btn-text-center boton-ubicacion-mobile" onClick={toggle}>
+                <FaMapMarkerAlt className="icon-search-map"/> 
               </Button>
-              <Button className="btn btn-text-center ml-1" onClick={toggle}>
-                <i className="tim-icons icon-square-pin" />
-              </Button>
+            </div>  
               <Modal isOpen={modal} toggle={toggle} className={props.className}>
                   <ModalBody>
                   <ReactDependentScript
@@ -88,9 +71,7 @@ function SearchBars(props) {
                   <Button color='secondary' onClick={toggle}>Aceptar</Button>
                   </ModalFooter>
               </Modal>
-          </InputGroupAddon>
         </Col>
-      </InputGroup>
     </Container >
   );
 

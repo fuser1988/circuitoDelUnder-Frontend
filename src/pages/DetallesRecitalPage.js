@@ -61,7 +61,7 @@ function DetallesRecitalPage(props) {
     moment.locale('es');
     fechaDeRecital.locale(false);
     return fechaDeRecital.format('dddd D [de] MMMM [de] YYYY');
-  }
+  } 
 
   const toggle = () =>{
     setModal(
@@ -70,10 +70,10 @@ function DetallesRecitalPage(props) {
   }
 
   return (
-    <>
+    <div id="recitales-page">
       <RecitalesNavba />
       <div className="page-header">
-        <RecitalesHeader />
+        <RecitalesHeader/>
         <img
           alt="..."
           className="path"
@@ -136,33 +136,35 @@ function DetallesRecitalPage(props) {
               <div className="col pl-0 mw-800 d-flex justify-content-center">
                 <img alt="..." className="img-fluid" src={recital.imagen} />
               </div>
-              <div className="col pl-1 mt-3 mw-800">
-                <p className="text-center text-white mb-2 descripcio-text">{recital.descripcion}</p>
-              </div>
-              <div className="btn-wrapper mb-3 size-font">
+              <div className="mobile-font-size">
+                <div className="col pl-1 mt-3 mw-800">
+                  <p className="text-center text-white mb-2 descripcio-text parrafo-mobile">{recital.descripcion}</p>
+                </div>
+                <div className="btn-wrapper mb-3 size-font">
 
-                <br />
-                <p className="d-inline"><i className="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar},</p>
-                <p className="d-inline pl-1">{recital.direccion}</p>
-                <p className="d-inline pl-1">{recital.localidad}</p>
-                <p><i className="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>
-                  {traducirFecha()}  {recital.hora}hs. </p>
-                 <a href="##" onClick={toggle}><i className="fas fa-map-marker-alt mr-1">   </i>ver mapa</a>   
-              </div>
+                  <br />
+                  <p className="d-inline"><i className="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar},</p>
+                  <p className="d-inline pl-1">{recital.direccion}</p>
+                  <p className="d-inline pl-1">{recital.localidad}</p>
+                  <p><i className="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>
+                    {traducirFecha()}  {recital.hora}hs. </p>
+                  <a href="##" onClick={toggle}><i className="fas fa-map-marker-alt mr-1">   </i>ver mapa</a>   
+                </div>
 
 
-                <h4 className="mb-1">Generos:</h4>
-                {recital.getGeneros().map(genero => {
-                  return <a className="focus-pointer mr-2" href={"/RecitalesPage?genero=" + genero} id={genero} key={genero} >{genero}</a>
-                }
-                )}
-              <div className="button-container">
-                <h4 className=" mt-1 mb-1">Bandas:</h4>
-                {recital.bandas.map(banda => {
-                  return <a className="focus-pointer mr-2" href={"/banda/" + banda.id} key={banda.nombre} id={banda.id} >{banda.nombre}</a>
-                }
-                )}
+                  <h4 className="mb-1">Generos:</h4>
+                  {recital.getGeneros().map(genero => {
+                    return <a className="focus-pointer mr-2" href={"/RecitalesPage?genero=" + genero} id={genero} key={genero} >{genero}</a>
+                  }
+                  )}
+                <div className="button-container">
+                  <h4 className=" mt-1 mb-1">Bandas:</h4>
+                  {recital.bandas.map(banda => {
+                    return <a className="focus-pointer mr-2" href={"/banda/" + banda.id} key={banda.nombre} id={banda.id} >{banda.nombre}</a>
+                  }
+                  )}
 
+                </div>
               </div>
             </div>
 
@@ -172,7 +174,7 @@ function DetallesRecitalPage(props) {
         <br></br>
         <br></br>
       </div>
-    </>
+    </div>
   );
 
 }
