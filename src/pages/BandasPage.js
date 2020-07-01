@@ -82,9 +82,9 @@ function BandasPage(props) {
 
     const procesarResultadoDeBusquedaTodas = (bandas) => {
         if (bandas.length === 0) {
-            setBandas(bandas);
             notificar("No se encontraron bandas en el sistema");
         }
+        setBandas(bandas);
     }
 
     const procesarResultadoDeBusqueda = (bandas) => {

@@ -26,7 +26,7 @@ function RecitalesPage(props) {
     const [busquedaUbicacion, setBusquedaUbicacion] = useState(false);
 
     useEffect(() => {
-        buscarRecitales();
+       // buscarRecitales();
         return () => {
         }
     },[]);
@@ -95,9 +95,9 @@ function RecitalesPage(props) {
 
     const procesarResultadoDeBusquedaTodo = (recitales) => {
         if (recitales.length === 0) {
-            setRecitales(recitales);
             notificar("No se encontraron recitales en el sistema");
         }
+        setRecitales(recitales);
     }
 
     const procesarResultadoDeBusqueda = (recitales) => {
