@@ -6,7 +6,7 @@ import GrillaRecitales from "components/body/GrillaRecitales.js";
 import { useRecitalService } from "services/RecitalService.js";
 import SearchComponent from "components/search/SearchComponent.js";
 import Spinner from "components/spinner/Spinner.js";
-
+import queryString from "query-string";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
@@ -80,7 +80,28 @@ function RecitalesPage(props) {
 
     const buscarRecitales = (event) => {
         const pathname = props.location.pathname;
-        (pathname === "/RecitalesPage") ? buscarTodosLosRecitales(event) : buscarRecitalesPorGenero(pathname.slice(15), activePage)
+        if(pathname === "/RecitalesPage"){
+            const  stringParam = queryString.parse(props.location.search);
+            if(stringParam.genero){
+                buscarRecitalesPorGenero(pathname.slice(15), activePage);
+            }else{
+                buscarTodosLosRecitales(activePage);
+            }
+        } 
+        if(pathname.slice(0,21) === "/RecitalesPage/banda/"){
+            console.log(pathname);
+            console.log(pathname.slice(21));
+            buscarRecitalesPorIdDeBanda(pathname.slice(21));
+        }    
+    }
+
+    const buscarRecitalesPorIdDeBanda = (id)=>{
+                document.getElementById("search-component").classList.add("hidden");
+                buscarRecitalesporBandaId(id).then((response)=>{
+            setRecitales(response.content);
+            setTotalItemsCount(response.totalElements);
+            setCargandoRecitales(false);
+        });
     }
     
     const buscarTodosLosRecitales = (page) => {
