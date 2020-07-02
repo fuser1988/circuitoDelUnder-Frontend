@@ -57,18 +57,18 @@ const HomeBody = () => {
                 className="page-header section-dark"
                 style={{
                     backgroundImage:
-                        "url(" + require("assets/img/ecenario2.png") + ")"
+                        "url(" + require("assets/img/fondoCircuito.jpg") + ")"
                 }}
             >
                 <div className="content-center top-center">
                     <Container>
-                        <h1 className="tituloHome">Comparti donde estes lo mejor de la musica under.</h1>
+                        <h1 className="tituloHome">Compartí donde estes lo mejor de la música under.</h1>
                         <p className=" subtituloHome">
-                        Descubrí las bandas under mas sobresalientes de tu ciudad. A través de circuito del under 
-                            conectarte con las bandas del estilo que mas te identifiquen,
+                        Descubrí las bandas under mas sobresalientes de tu ciudad. A través de Circuito del Under 
+                            conectate con las bandas del estilo que más te identifiquen,
                             conoce sus perfiles, material y los lugares donde tocan.<br/> 
-                            Registrate usando facebook y unite al circuto del under,
-                            difundí la actividad de tu banda y conéctate con otras bandas para organizar recitales 
+                            Registrate usando Facebook y unite al Circuito del Under,
+                            difundí la actividad de tu banda y conéctate con otras bandas para organizar recitales. 
                             </p>
                         <div className="mt-sm-5 ">
                             <Button className="col-sm-4 col-md-3 sm-mt btn-small" href="/BandasPage">Bandas</Button>

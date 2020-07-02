@@ -126,7 +126,7 @@ function IniciativaRecitalPage(props) {
                                 <div className="col-11 col-md-10">
                                     <h4 className="ml-4">Crea una inicitiva de recital para convocar bandas que se sumen a participar de un recital.</h4>
                                     <FormText color="muted" className="ml-4 mt-0">
-                                        Si tenes un lugar gratuito donde hacer un recital podes realizar una convocatoria para que mas bandas se sumen a participar ya sea de la organizacion como del show, los interezados se van a poner en contacto con vos. 
+                                        Si tenes un lugar gratuito donde hacer un recital, podés realizar una convocatoria para que más bandas se sumen a participar, ya sea de la organización como del show, los interesados se van a poner en contacto con vos. 
                             </FormText>
                                     <div className="col-12 d-flex justify-content-end">
                                         <a href="##" className="btn-simple btn-round btn btn-primary" onClick={toggle} >Iniciativa de recital</a>

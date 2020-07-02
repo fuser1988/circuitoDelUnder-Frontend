@@ -59,7 +59,7 @@ function IngresoCodigoBody(props) {
                         </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                        placeholder="codigo de validación"
+                        placeholder="código de validación"
                         type="text"
                         onFocus={e =>
                             setPasswordFocus(true)

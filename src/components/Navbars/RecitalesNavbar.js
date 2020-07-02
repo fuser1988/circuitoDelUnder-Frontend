@@ -185,7 +185,7 @@ function RecitalesNavBar(props) {
                   onClick={e => e.preventDefault()}
                 >
                   <i className="fa fa-cogs d-lg-none d-xl-none" />
-                  Menu
+                  Menú
                 </DropdownToggle>
                  {/* )} */}
                 <DropdownMenu className="dropdown-with-icons">
