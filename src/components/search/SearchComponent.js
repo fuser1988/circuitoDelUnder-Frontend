@@ -8,7 +8,8 @@ import {
   Container,
   Modal, 
   ModalFooter,
-  ModalBody
+  ModalBody,
+  UncontrolledTooltip
 } from "reactstrap";
 import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
 
@@ -53,9 +54,12 @@ function SearchBars(props) {
               <div className="texto-boton-buscar">Buscar</div>
               <FaSearch className="hidden icon-search"/> 
             </Button >
-              <Button className="btn btn-text-center boton-ubicacion-mobile" onClick={toggle}>
+              <Button id="tooltip"  className="btn btn-text-center boton-ubicacion-mobile" onClick={toggle}>
                 <FaMapMarkerAlt className="icon-search-map"/> 
               </Button>
+              <UncontrolledTooltip placement="bottom" target="tooltip">
+                  Buscar por Ubicación
+              </UncontrolledTooltip>
             </div>  
               <Modal isOpen={modal} toggle={toggle} className={props.className}>
                   <ModalBody>

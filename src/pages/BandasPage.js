@@ -7,7 +7,7 @@ import { useBandaService } from "services/BandaService.js";
 import SearchComponentBanda from "components/search/SearchComponentBanda.js";
 import Spinner from "components/spinner/Spinner.js";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
 import Paginacion from 'components/pagination/Paginacion.js';
@@ -74,10 +74,17 @@ function BandasPage(props) {
         setCargandoBandas(true);
         traerTodos((page -1), itemsCountPorPage)
             .then((response) => { 
-                setBandas( response.content); 
+                procesarResultadoDeBusquedaTodas( response.content); 
                 setTotalPages(response.totalPages);
                 setCargandoBandas(false); })
             .catch((message) => { notificar(message) });
+    }
+
+    const procesarResultadoDeBusquedaTodas = (bandas) => {
+        if (bandas.length === 0) {
+            notificar("No se encontraron bandas en el sistema");
+        }
+        setBandas(bandas);
     }
 
     const procesarResultadoDeBusqueda = (bandas) => {
@@ -142,7 +149,6 @@ function BandasPage(props) {
             </RecitalesHeader>
             <div>
                 {cargandoBandas ? <Spinner /> : bandasGrilla()}
-                <ToastContainer />
             </div>
         </div>
     );

@@ -1,8 +1,6 @@
 class IniciativaRecital {
     descripcion = '';
     fecha = '';
-    hora = '';
-    direccion = '';
     localidad = '';
     lugar = '';
     telefono = '';
@@ -13,8 +11,6 @@ class IniciativaRecital {
         if(iniciativaRecital){
             this.descripcion = iniciativaRecital.descripcion;
             this.fecha = iniciativaRecital.fecha;
-            this.hora = iniciativaRecital.hora;
-            this.direccion = iniciativaRecital.direccion;
             this.localidad = iniciativaRecital.localidad;
             this.lugar = iniciativaRecital.lugar;
             this.telefono = iniciativaRecital.telefono;

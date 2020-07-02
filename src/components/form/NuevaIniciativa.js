@@ -56,19 +56,27 @@ function NuevaIniciativa(props) {
                 <ModalHeader toggle={toggle}>Nueva Iniciativa</ModalHeader>
                     <ModalBody>
                         <AvForm onSubmit={handleSubmit} >
+                        <div className=" form form-group">
+                                <div className="row">
+                                    <div className="col-6 form form-group mb-0">
+                                        <AvField type="text" name="lugar" label="Lugar" required />
+                                    </div>
+                                    <div className="col-6 form form-group mb-0">
+                                        <AvField type="text" name="localidad" label="Localidad" required />
+                                    </div>
+                                </div>
+                            </div>
                             <AvField type="textarea" name="descripcion" label="Descripción" required />
-                            <AvField type="text" name="localidad" label="Localidad" required />
-                            <AvField type="text" name="direccion" label="Dirección" required />
-                            <AvField type="text" name="lugar" label="Lugar" required />
-                            
-                            <AvField type="date" name="fecha" label="Fecha" required />
-                            <AvField type="time" name="hora" label="Hora" required />
-                            <AvField type="telephoneProp" name="telefono" label="Telefono" required />
-                            
-                            <Label>Banda</Label>
-                            <br></br>
-                            {user.banda === null? <Label>Debe crear una banda</Label>:<Label>{user.banda.nombre}</Label>}
-
+                            <div className=" form form-group">
+                                <div className="row">
+                                    <div className="col-6 form form-group mb-0">
+                                        <AvField type="date" name="fecha" label="Fecha" required />
+                                    </div>
+                                    <div className="col-6 form form-group mb-0">
+                                        <AvField type="telephoneProp" name="telefono" label="Telefono" required />
+                                    </div>
+                                </div>
+                            </div>
                             <FormGroup>
                                 <ModalFooter>
 
