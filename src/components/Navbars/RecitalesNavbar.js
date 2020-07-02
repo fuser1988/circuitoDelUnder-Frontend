@@ -34,6 +34,7 @@ function RecitalesNavBar(props) {
   const [collapseOpen, setCollapseOpen] = useState(false);
   const [collapseOut, setCollapseOut] = useState(true);
   const [color, setColor] = useState("navbar-transparent");
+  const [show, setShow] = useState("");
 
   React.useEffect(() => {
     window.addEventListener("scroll", changeColor);
@@ -56,6 +57,7 @@ function RecitalesNavBar(props) {
   const toggleCollapse = () => {
     document.documentElement.classList.toggle("nav-open");
     setCollapseOpen(!collapseOpen);
+    setShow("show");
   };
 
   const onCollapseExiting = () => {
@@ -64,6 +66,7 @@ function RecitalesNavBar(props) {
 
   const onCollapseExited = () => {
     setCollapseOut("");
+    setShow("");
   };
 
   const notificar = (mensaje) => toast(mensaje, {
@@ -171,7 +174,7 @@ function RecitalesNavBar(props) {
               </Row>
             </div>
             <Nav navbar>
-              <UncontrolledDropdown nav>
+              <UncontrolledDropdown nav className={show}>
                 {/* {user&&( */}
                   <DropdownToggle
                   caret
