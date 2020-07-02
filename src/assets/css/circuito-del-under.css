@@ -749,7 +749,7 @@ textarea.form-control {
     padding-right: 23px !important;
   }
 
-  #recitales-page .custom-size-header{
+  #recitales-page .custom-size-header, #banda-Page .custom-size-header{
     height: 100px !important;
   }
 
@@ -787,6 +787,11 @@ textarea.form-control {
   .dropdown-toggle.nav-link{
     display: none !important;
   }
+
+  .fuente-precentaciones.titulo.text-center.text-white.mb-4{
+      margin-top: 10px !important;
+      margin-top: 10px !important;
+  }
 }
 
 
@@ -802,3 +807,6 @@ textarea.form-control {
 .focus-pointer{
   cursor: pointer !important;
 } 
+.text-capitalize{
+  text-transform: capitalize;
+}

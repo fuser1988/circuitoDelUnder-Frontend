@@ -118,7 +118,7 @@ function DetallesBandaPage(props) {
   // }
 
   return (
-    <>
+    <div id="banda-Page">
       <RecitalesNavba />
       <div className="page-header">
         <RecitalesHeader />
@@ -159,12 +159,6 @@ function DetallesBandaPage(props) {
               <div className="col pl-1 mw-800">
                 <h1 className="fuente-precentaciones titulo text-center text-white mb-4">{banda.nombre}</h1>
               </div>
-                <div className="d-flex justify-content-center mb-4 mw-800"> 
-                  {banda.getGeneros().map(genero => {
-                    return <a className="btn-simple btn-round btn btn-primary focus-pointer" href={"/BandasPage/" + genero} id={genero} key={genero} ><i className="tim-icons icon-tag mr-2"></i>{genero}</a>
-                  }
-                  )}
-                </div>
             </div>
             <div className="col pl-0 mw-800 d-flex justify-content-center">
                 <img alt="..." className="img-fluid" src={banda.imagen} />
@@ -175,11 +169,12 @@ function DetallesBandaPage(props) {
             <br></br>
             <br></br>
             <div className="mb-3">
-              <h4 className="mb-1">Generos:</h4>
+              <div className="d-flex justify-content-center mb-3 mw-800"> 
                   {banda.getGeneros().map(genero => {
-                    return <a className="focus-pointer mr-2" href={"/BandasPage/" + genero} id={genero} key={genero} >{genero}</a>
+                    return <a className="btn-simple btn-round btn btn-primary focus-pointer" href={"/BandasPage/" + genero} id={genero} key={genero} ><i className="tim-icons icon-tag mr-2"></i>{genero}</a>
                   }
                   )}
+                </div>
             </div>
             <div className="mb-4">
               <a className="proximas-fechas-boton" href={"/RecitalesPage/banda/" + banda.id} >Proximas fechas</a>
@@ -204,7 +199,7 @@ function DetallesBandaPage(props) {
         <br></br>
         
       </div>
-    </>
+      </div>
   );
 
 }

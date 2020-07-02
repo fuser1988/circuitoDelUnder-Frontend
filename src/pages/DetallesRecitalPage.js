@@ -17,6 +17,10 @@ import 'moment/locale/es'
 import moment from "moment";
 import UbicacionMap from 'components/body/UbicacionMap.js';
 
+import { FcCalendar } from 'react-icons/fc';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { RiAlbumLine } from 'react-icons/ri';
+
 function DetallesRecitalPage(props) {
 
   const { buscarPorId } = useRecitalService();
@@ -141,14 +145,22 @@ function DetallesRecitalPage(props) {
                   <p className="text-center text-white mb-2 descripcio-text parrafo-mobile">{recital.descripcion}</p>
                 </div>
                 <div className="btn-wrapper mb-3 size-font">
-
-                  <br />
-                  <p className="d-inline"><i className="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{recital.lugar},</p>
-                  <p className="d-inline pl-1">{recital.direccion}</p>
-                  <p className="d-inline pl-1">{recital.localidad}</p>
-                  <p><i className="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>
-                    {traducirFecha()}  {recital.hora}hs. </p>
-                  <a href="##" onClick={toggle}><i className="fas fa-map-marker-alt mr-1">   </i>ver mapa</a>   
+                        
+                  <div className="d-flex align-items-center mt-4">  
+                    <RiAlbumLine/>
+                    <p className="d-inline ml-1 mb-0 ">{recital.lugar},</p>
+                    <p className="d-inline ml-1 mb-0 pl-1">{recital.direccion}</p>
+                    <p className="d-inline ml-1 mb-0 pl-1">{recital.localidad}</p>
+                  </div>
+                  <div className="d-flex align-items-center mt-1">
+                    <FcCalendar/>    
+                    <p className="ml-1 mb-0 text-capitalize">{traducirFecha()}  {recital.hora}hs. </p>
+                  </div>
+                  <div className="d-flex align-items-center focus-pointer mt-1">
+                      <FaMapMarkerAlt/>
+                      <p className="ml-1 mb-0" onClick={toggle}>Ver en mapa</p>
+                  </div>
+                  {/* <a href="##" onClick={toggle}><i className="fas fa-map-marker-alt mr-1">   </i>ver mapa</a>    */}
                 </div>
 
 

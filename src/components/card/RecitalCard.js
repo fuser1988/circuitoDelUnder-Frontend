@@ -4,7 +4,13 @@ import { Row, Card, CardBody, Col, CardTitle } from "reactstrap";
 import "assets/css/nucleo-icons.css";
 
 import {withRouter} from "react-router-dom";
+import 'moment/locale/es'
+import moment from "moment";
 
+import { FcCalendar } from 'react-icons/fc';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { RiAlbumLine } from 'react-icons/ri';
+    
 class RecitalCard extends Component {
     
     constructor(props){
@@ -14,7 +20,13 @@ class RecitalCard extends Component {
 
     redirectRecital(event) {
 		this.props.history.push("/recital/" + event.currentTarget.id );
-	}
+    }
+    traducirFecha () {
+        var fechaDeRecital = moment(this.props.recital.fecha);
+        moment.locale('es');
+        fechaDeRecital.locale(false);
+        return fechaDeRecital.format('D [de] MMMM [de] YYYY');
+      } 
     
     render(){
         return(
@@ -29,9 +41,18 @@ class RecitalCard extends Component {
                         </p>
                     </CardTitle>
                     <Col className="pl-0 pr-0">
-                        <p><i className ="tim-icons icon-square-pin pr-1 pb-1" aria-hidden="true"></i>{this.props.recital.lugar}</p>
-                        <p>{this.props.recital.localidad}</p>
-                        <p><i className ="tim-icons icon-calendar-60 pr-1 pb-1" aria-hidden="true"></i>{this.props.recital.fecha}</p>
+                        <div className="d-flex align-items-center">
+                           <RiAlbumLine/>
+                           <p className="ml-1 mb-0">{this.props.recital.lugar}</p>
+                        </div>
+                        <div className="d-flex align-items-center">
+                           <FaMapMarkerAlt/>
+                           <p className="ml-1 mb-0">{this.props.recital.localidad}</p>
+                        </div>
+                        <div className="d-flex align-items-center">
+                           <FcCalendar/>
+                           <p className="ml-1 mb-0">{this.traducirFecha()}</p>
+                        </div>
                     </Col>
 
                 </CardBody>
