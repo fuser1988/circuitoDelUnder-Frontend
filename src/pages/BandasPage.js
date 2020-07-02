@@ -124,7 +124,8 @@ function BandasPage(props) {
             <>
             <div className="grilla-Responsive offset-md-2 col-10">
                 <GrillaBandas bandas={bandas} />
-                <div className="d-flex justify-content-center">
+             </div>   
+            <div className="d-flex justify-content-center">
                     <Paginacion 
                     activePage={activePage} 
                     cantElemPorPage={itemsCountPorPage}
@@ -134,7 +135,6 @@ function BandasPage(props) {
                     onChangePage={onChangePage}
                     >
                     </Paginacion>
-                </div>
             </div>
             </>
             )

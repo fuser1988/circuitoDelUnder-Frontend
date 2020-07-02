@@ -56,11 +56,14 @@ function IniciativaRecitalCard(props) {
                             {props.iniciativaDeRecital.descripcion}
                         </p>
                         <div className="row d-flex justify-content-start ml-1 mt-3">
-                            <span className="badge badge-primary ">Lugar</span>
-                            <p className="ml-2">{props.iniciativaDeRecital.lugar + ", " + props.iniciativaDeRecital.localidad}</p>
-                            <span className="badge badge-info ml-3">Fecha</span>
-                            <p className="ml-2">{traducirFecha()}</p>
-
+                            <div className="row"  >
+                                <span className="badge badge-primary ">Lugar</span>
+                                <p className="ml-2">{props.iniciativaDeRecital.lugar + ", " + props.iniciativaDeRecital.localidad}</p>
+                            </div>
+                            <div className="row ml-md-5">
+                                <span className="badge badge-info">Fecha</span>
+                                <p className="ml-2">{traducirFecha()}</p>
+                            </div>
                         </div>
                         <div className=" row d-flex align-items-center justify-content-end mt-5 mb-4 mr-5 ">
 

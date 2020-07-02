@@ -111,9 +111,10 @@ function NuevaBandaPage(props) {
             let listaDeMaterial = banda.material;
             listaDeMaterial.push(material)
             setBanda({...banda, material:listaDeMaterial});
+            console.log("modal valido");
     
         }
-        console.log(values);
+        console.log(valores);
     }    
     
 
@@ -124,6 +125,7 @@ function NuevaBandaPage(props) {
     return (
         <> 
         <div
+            id="nueva-banda"
             className="page-header fondo-responsive"
            
         >
@@ -210,7 +212,7 @@ function NuevaBandaPage(props) {
                         </Col>
                 </Row>
                 
-                <FormGroup>
+                <FormGroup className="mt-2">
                 <Label for="descripcion">
                 Descripción
                         

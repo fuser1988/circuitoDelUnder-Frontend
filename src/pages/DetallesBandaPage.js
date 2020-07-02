@@ -166,38 +166,24 @@ function DetallesBandaPage(props) {
             <div className="col pl-1 mt-3 mw-800">
                 <p className="text-center text-white mb-2 descripcio-text">{banda.info}</p>
             </div>
-            <br></br>
-            <br></br>
             <div className="mb-3">
-              <div className="d-flex justify-content-center mb-3 mw-800"> 
+              <div className="d-flex justify-content-center mb-3 mt-4 mw-800"> 
                   {banda.getGeneros().map(genero => {
                     return <a className="btn-simple btn-round btn btn-primary focus-pointer" href={"/BandasPage/" + genero} id={genero} key={genero} ><i className="tim-icons icon-tag mr-2"></i>{genero}</a>
                   }
                   )}
                 </div>
             </div>
-            <div className="mb-4">
+            <div className="mobile-size mb-4">
               <a className="proximas-fechas-boton" href={"/RecitalesPage/banda/" + banda.id} >Proximas fechas</a>
             </div>
             
-            <div className="grilla-Responsive mw-800">
+            <div className="grilla-Responsive mw-800 mobile">
               {mostrarVideos(banda.material)} 
             </div>
             
-            <br></br>
-            <br></br>
-
-            {/* <div className="grilla-Responsive offset-md-1 col-10">
-              {mostrarMaterialDescargable(banda.material)}
-            </div> */}
-
-             
           </div>
         }
-        <br></br>
-        <br></br>
-        <br></br>
-        
       </div>
       </div>
   );

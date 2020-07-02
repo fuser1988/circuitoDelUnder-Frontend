@@ -25,8 +25,8 @@ function RecitalAddPage() {
     return (
         <>
 
-            <div
-                className="page-header fondo-responsive"
+            <div id="nuevo-recital"
+                 className="page-header fondo-responsive"
 
             >
                 <RecitalesNavbar />

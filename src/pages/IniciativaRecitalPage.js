@@ -3,12 +3,11 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "context/UserContext.js";
 import RecitalesNavbar from "components/Navbars/RecitalesNavbar.js";
 import { CardBody, Card, Container, FormText } from "reactstrap";
-import { useHistory } from "react-router-dom";
 import RecitalesHeader from "components/header/RecitalesHeader.js";
 import IniciativaRecitalCard from "components/card/IniciativaRecitalCard.js";
 import NuevaIniciativa from "components/form/NuevaIniciativa.js"
 import { useIniciativaService } from "services/IniciativaService.js";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
 import Spinner from "components/spinner/Spinner.js";
@@ -18,7 +17,6 @@ function IniciativaRecitalPage(props) {
 
     const [iniciativasDeRecitales, setIniciativasdeRecitales] = useState([]);
     const [modal, setModal] = useState(false);
-    const { push } = useHistory();
     const { user } = useContext(UserContext);
     const { crearIniciativa, traerIniciativas, borrarPorId } = useIniciativaService();
     const [cargandoIniciativa,setCargandoIniciativa] = useState(true);
@@ -117,7 +115,7 @@ function IniciativaRecitalPage(props) {
     }
 
     return (
-        <>
+        <div id="iniciativa-recital">
             <div className="page-header fondo-responsive">
                 <RecitalesNavbar />
                 <RecitalesHeader />
@@ -125,10 +123,10 @@ function IniciativaRecitalPage(props) {
                     <Card className="mt-4">
                         <CardBody>
                             <div className="row">
-                                <div className="col-10">
+                                <div className="col-11 col-md-10">
                                     <h4 className="ml-4">Crea una inicitiva de recital para convocar bandas que se sumen a participar de un recital.</h4>
                                     <FormText color="muted" className="ml-4 mt-0">
-                                        Incluí el material de tu bandaas convocar bandas que se sumen a participar de un recital dfsdfgsdfgsdg  dfgdfhdfjg hjghjghjlj,kfxgohcfiopgjhiofghpoifgughoj.
+                                        Si tenes un lugar gratuito donde hacer un recital podes realizar una convocatoria para que mas bandas se sumen a participar ya sea de la organizacion como del show, los interezados se van a poner en contacto con vos. 
                             </FormText>
                                     <div className="col-12 d-flex justify-content-end">
                                         <a href="##" className="btn-simple btn-round btn btn-primary" onClick={toggle} >Iniciativa de recital</a>
@@ -157,7 +155,7 @@ function IniciativaRecitalPage(props) {
                     
                 </Container>
             </div>
-        </>
+        </div>
     );
 
 }

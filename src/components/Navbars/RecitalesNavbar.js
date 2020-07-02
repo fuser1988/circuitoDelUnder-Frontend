@@ -189,22 +189,26 @@ function RecitalesNavBar(props) {
                 </DropdownToggle>
                  {/* )} */}
                 <DropdownMenu className="dropdown-with-icons">
+                  <DropdownItem href="/home">
+                    <i className="tim-icons icon-bank" />
+                    Home
+                  </DropdownItem>
                   {/* {user && user.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION"  && ( */}
                   <DropdownItem href="/confirmaciones-de-cuentas">
-                    <i className="tim-icons icon-paper" />
+                    <i className="tim-icons icon-badge" />
                     Valida tu cuenta
                   </DropdownItem>
                   {/* )} */}
                   <DropdownItem tag={Link} to="/RecitalesPage">
-                    <i className="tim-icons icon-image-02" />
+                    <i className="tim-icons icon-sound-wave" />
                     Recitales
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/BandasPage">
-                    <i className="tim-icons icon-single-02" />
+                    <i className="tim-icons icon-headphones" />
                     Bandas
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/formularioNuevaBanda">
-                    <i className="tim-icons icon-bullet-list-67" />
+                    <i className="tim-icons icon-simple-add" />
                     Crea tu banda
                   </DropdownItem>
                   {/* {user && user.tipoUsuario ==="REGISTRADO_CON_BANDA" && ( */}
@@ -214,7 +218,7 @@ function RecitalesNavBar(props) {
                   </DropdownItem>
                   {/* )} */}
                   <DropdownItem tag={Link} to="/iniciativaRecital">
-                    <i className="tim-icons icon-image-02" />
+                    <i className="tim-icons icon-bulb-63" />
                     Iniciativas de Recitales
                   </DropdownItem>
                 </DropdownMenu>

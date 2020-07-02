@@ -749,7 +749,9 @@ textarea.form-control {
     padding-right: 23px !important;
   }
 
-  #recitales-page .custom-size-header, #banda-Page .custom-size-header{
+  #recitales-page .custom-size-header, #banda-Page .custom-size-header,
+   #nueva-banda .custom-size-header, #nuevo-recital .custom-size-header,
+   #iniciativa-recital .custom-size-header {
     height: 100px !important;
   }
 
@@ -791,6 +793,63 @@ textarea.form-control {
   .fuente-precentaciones.titulo.text-center.text-white.mb-4{
       margin-top: 10px !important;
       margin-top: 10px !important;
+  }
+
+  .text-center.text-white.mb-2.descripcio-text{
+    font-size: 13px !important;
+  }
+
+  .grilla-Responsive.mw-800.mobile{
+    width: 311px !important;
+    margin-left: 10px !important;
+  }
+
+  .mobile-size.mb-4{
+    text-align: center !important;
+  }
+  .content-center.brand.aling{
+    margin-top: -9% !important;
+  }
+  .row.justify-content-center .btn.btn-secondary {
+    width: 300px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important; 
+  }
+  .content-center.brand.aling{
+    width: 100% !important;
+    max-width: 880px !important;
+  }
+  .contenedor-imagen.d-flex.justify-content-center {
+    margin-top: 10px !important;
+  }
+
+  .col-2.w-md-25{
+    display: none;
+  } 
+  .col-12.d-flex.justify-content-end{
+    margin-top: 14px !important ;
+  }
+  
+  .tituloHome{
+    font-size: 30px !important;
+    margin-bottom: 14px;
+    font-weight: bold;
+  }
+
+  .subtituloHome{
+    margin-bottom: 30px !important;
+  }
+
+  .justify-content-center.mobile-align{
+    padding-right: 26px !important;
+    margin-top: 3px !important;
+  }
+  .col-11.col-md-10{
+    text-align: inherit !important;
+  }
+  .row.d-flex.align-items-center.justify-content-end.mt-5.mb-4.mr-5 {
+    margin-top: 20px !important;
+    margin-right: 89px !important;
   }
 }
 
