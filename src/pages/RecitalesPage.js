@@ -26,7 +26,7 @@ function RecitalesPage(props) {
     const [busquedaUbicacion, setBusquedaUbicacion] = useState(false);
 
     useEffect(() => {
-       // buscarRecitales();
+       buscarRecitales();
         return () => {
         }
     },[]);
