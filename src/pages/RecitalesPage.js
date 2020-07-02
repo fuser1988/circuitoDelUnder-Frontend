@@ -99,7 +99,7 @@ function RecitalesPage(props) {
                 document.getElementById("search-component").classList.add("hidden");
                 buscarRecitalesporBandaId(id).then((response)=>{
             setRecitales(response.content);
-            setTotalItemsCount(response.totalElements);
+            setTotalPages(response.totalPages);
             setCargandoRecitales(false);
         });
     }
