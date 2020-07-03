@@ -10,7 +10,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`recitales/bandas?genero=${busqueda}&page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
     }
@@ -19,7 +19,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`recitales/?page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
     }
@@ -30,7 +30,7 @@ export const useRecitalService = () => {
                 .then(({ data: recital }) => {
                     resolve(recital);
                 })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
 
@@ -42,7 +42,7 @@ export const useRecitalService = () => {
                 .then(({ data: recital }) => {
                     resolve(recital);
                 })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
 
@@ -52,7 +52,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.post('recitales', recital)
                 .then(({ data: recital }) => { resolve(recital) })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
         });
 
     }
@@ -61,7 +61,7 @@ export const useRecitalService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`recitales/ubicacion?latitud=${busqueda.latitud}&longitud=${busqueda.longitud}&page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { mostrarPaginaError(error); });
+                .catch((error) => { reject(error.response); });
 
         });
 

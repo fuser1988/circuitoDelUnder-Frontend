@@ -10,7 +10,7 @@ export const useBandaService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`bandas/?page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
-                .catch(mostrarPaginaError );
+                .catch((error) => { reject(error.response) } );
 
         });
     }
@@ -21,7 +21,7 @@ export const useBandaService = () => {
                 .then(({ data: banda }) => {
                     resolve(banda);
                 })
-                .catch(mostrarPaginaError);
+                .catch((error) => { reject(error.response) });
 
         });
 
@@ -31,7 +31,7 @@ export const useBandaService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.post('banda', banda )
                 .then(({ data: banda }) => { resolve(banda) })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
         });
 
     }
@@ -42,7 +42,7 @@ export const useBandaService = () => {
                 .then(({ data: banda }) => {
                     resolve(banda);
                 })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
 
@@ -54,7 +54,7 @@ export const useBandaService = () => {
                 .then(({ data: banda }) => {
                     resolve(banda);
                 })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
 
@@ -64,7 +64,7 @@ export const useBandaService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`bandasRef`)
                 .then((response) => { resolve(response.data); })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
     }

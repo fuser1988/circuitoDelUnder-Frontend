@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
 import Paginacion from 'components/pagination/Paginacion.js';
+import ErrorServerPage from './ErrorServerPage.js';
 
 function BandasPage(props) {
 
@@ -23,6 +24,8 @@ function BandasPage(props) {
     const [totalPages, setTotalPages] = useState(0);
 
     const [busqueda, setBusqueda] = useState();
+    const [obtuvoResultado, setObtuvoResultado] = useState(true);
+    const [error, setError] = useState();
 
     useEffect(() => {
         buscarBandas();
@@ -52,17 +55,26 @@ function BandasPage(props) {
             procesarResultadoDeBusqueda(response.content);
             setTotalPages(response.totalPages);
             setCargandoBandas(false); })
-        .catch((message) => { notificar(message) });
+        .catch((error) => { 
+            setError(error);
+            ocurrioError()
+            setObtuvoResultado(false);
+        });
     }
 
     const buscarBandasPorGenero = (busqueda, page) => {
         setCargandoBandas(true);
+        console.log("ebtir");
         buscarPorGenero(busqueda, (page-1), itemsCountPorPage)
         .then((response) => { 
             procesarResultadoDeBusqueda(response.content);
             setTotalPages(response.totalPages);
             setCargandoBandas(false); })
-        .catch((message) => { notificar(message) });
+        .catch((error) => { 
+            setError(error);
+            ocurrioError()
+            setObtuvoResultado(false);
+        });
     }
 
     const buscarBandas = (pages) => {
@@ -77,7 +89,11 @@ function BandasPage(props) {
                 procesarResultadoDeBusquedaTodas( response.content); 
                 setTotalPages(response.totalPages);
                 setCargandoBandas(false); })
-            .catch((message) => { notificar(message) });
+            .catch((error) => { 
+                setError(error);
+                ocurrioError()
+                setObtuvoResultado(false);
+            });
     }
 
     const procesarResultadoDeBusquedaTodas = (bandas) => {
@@ -140,16 +156,31 @@ function BandasPage(props) {
             )
     }
 
+    const respuestaCorrecta = () => {
+        return (
+            <div className="recitalPage">
+                <RecitalesNavbar />
+                <RecitalesHeader>
+                    <SearchComponentBanda busqueda={onChange} changeBusqueda={onChangeBusqueda} />
+                </RecitalesHeader>
+                <div>
+                    {cargandoBandas ? <Spinner /> : bandasGrilla()}
+                </div>
+            </div>
+        )
+    }
+
+    const ocurrioError = () => {
+        return (
+            <div>
+                <ErrorServerPage error={error}/>
+            </div>
+        )
+    }
 
     return (
-        <div className="recitalPage">
-            <RecitalesNavbar />
-            <RecitalesHeader>
-                <SearchComponentBanda busqueda={onChange} changeBusqueda={onChangeBusqueda} />
-            </RecitalesHeader>
-            <div>
-                {cargandoBandas ? <Spinner /> : bandasGrilla()}
-            </div>
+        <div>
+            {obtuvoResultado? respuestaCorrecta(): ocurrioError()}
         </div>
     );
 

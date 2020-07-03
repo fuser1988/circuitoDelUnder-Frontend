@@ -10,7 +10,7 @@ export const useIniciativaService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.get(`iniciativa_recitales/?page=${page}&size=${size}`)
                 .then((response) => { resolve(response.data); })
-                .catch(mostrarPaginaError );
+                .catch((error) => { reject(error.response) } );
 
         });
     }
@@ -19,7 +19,7 @@ export const useIniciativaService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.post('iniciativa_recital', iniciativa )
                 .then(({ data: iniciativa }) => { resolve(iniciativa) })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
         });
 
     }
@@ -28,7 +28,7 @@ export const useIniciativaService = () => {
         return new Promise((resolve, reject) => {
             CircuitoDelUnderApi.delete(`iniciativa_recital/${id}`)
                 .then(({ data: iniciativa }) => { resolve(iniciativa) })
-                .catch((error) => { mostrarPaginaError(error) });
+                .catch((error) => { reject(error.response) });
 
         });
     }

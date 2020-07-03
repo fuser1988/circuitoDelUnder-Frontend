@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
 import Paginacion from 'components/pagination/Paginacion.js';
+import ErrorServerPage from './ErrorServerPage.js';
 
 function RecitalesPage(props) {
 
@@ -24,6 +25,8 @@ function RecitalesPage(props) {
 
     const [busqueda, setBusqueda] = useState();
     const [busquedaUbicacion, setBusquedaUbicacion] = useState(false);
+    const [obtuvoResultado, setObtuvoResultado] = useState(true);
+    const [error, setError] = useState();
 
     useEffect(() => {
        buscarRecitales();
@@ -65,7 +68,12 @@ function RecitalesPage(props) {
             procesarResultadoDeBusqueda(response.content);
             setTotalPages(response.totalPages);
             setCargandoRecitales(false); 
-        }).catch((message) => { notificar(message) });
+        }).catch((error) => { 
+            setError(error);
+            ocurrioError()
+            setObtuvoResultado(false);
+            
+        });
     }
     
     const buscarEnUbicacion = (busqueda, page) => {
@@ -75,7 +83,11 @@ function RecitalesPage(props) {
             procesarResultadoDeBusqueda(response.content);
             setTotalPages(response.totalPages);
             setCargandoRecitales(false); 
-        }).catch((message) => { notificar(message) });
+        }).catch((error) => {
+            setError(error);
+            ocurrioError()
+            setObtuvoResultado(false);
+        });
     }
 
     const buscarRecitales = (event) => {
@@ -96,12 +108,16 @@ function RecitalesPage(props) {
     }
 
     const buscarRecitalesPorIdDeBanda = (id)=>{
-                document.getElementById("search-component").classList.add("hidden");
-                buscarRecitalesporBandaId(id).then((response)=>{
+            document.getElementById("search-component").classList.add("hidden");
+            buscarRecitalesporBandaId(id).then((response)=>{
             setRecitales(response.content);
             setTotalPages(response.totalPages);
             setCargandoRecitales(false);
-        });
+        }).catch((error) => {
+            setError(error);
+            ocurrioError()
+            setObtuvoResultado(false);
+        })
     }
     
     const buscarTodosLosRecitales = (page) => {
@@ -111,6 +127,10 @@ function RecitalesPage(props) {
                 procesarResultadoDeBusquedaTodo(response.content); 
                 setTotalPages(response.totalPages);
                 setCargandoRecitales(false); 
+            }).catch((error) => {
+                setError(error);
+                ocurrioError()
+                setObtuvoResultado(false);
             })
     }
 
@@ -175,15 +195,31 @@ function RecitalesPage(props) {
             )    
     }
 
-    return (
-        <div className="recitalPage">
-            <RecitalesNavbar />
-            <RecitalesHeader>
-                <SearchComponent busqueda={onChange} changeBusqueda={onChangeBusqueda} busquedaUbicacion={onChangeBusquedaUbicacion}/>
-            </RecitalesHeader>
+    const respuestaCorrecta = () => {
+        return (
+            <div className="recitalPage">
+                <RecitalesNavbar />
+                <RecitalesHeader>
+                    <SearchComponent busqueda={onChange} changeBusqueda={onChangeBusqueda} busquedaUbicacion={onChangeBusquedaUbicacion}/>
+                </RecitalesHeader>
+                <div>
+                    {cargandoRecitales?<Spinner/>:recitalesGrilla()}
+                </div>
+            </div>    
+        )
+    }
+
+    const ocurrioError = () => {
+        return (
             <div>
-                {cargandoRecitales?<Spinner/>:recitalesGrilla()}
+                <ErrorServerPage error={error}/>
             </div>
+        )
+    }
+
+    return (
+        <div>
+            {obtuvoResultado? respuestaCorrecta(): ocurrioError()}
         </div>
     );
 

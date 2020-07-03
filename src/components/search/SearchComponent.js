@@ -20,7 +20,6 @@ function SearchBars(props) {
   const key = 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o';
 
   const actualizarInput = (event) => {
-    props.busquedaUbicacion(event, false);
     setBusqueda(event.target.value);
   }
 

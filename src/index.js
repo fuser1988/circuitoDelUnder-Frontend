@@ -41,8 +41,6 @@ ReactDOM.render(
         <Route path="/politica-privacidad" render={props => <PoliticaDePrivacidadPage {...props} />} />
         <Route path="/recital-add" render={props => <RecitalAddPage {...props} />} />
         <Route path="/login" render={props => <RegisterPage {...props} />} />
-        <Route path="/serverError" render={props => <ErrorServerPage {...props} />} />
-        <Route path="/notFound" render={props => <NotFoundPage {...props} />} />
         <Route path="/confirmaciones-de-cuentas" render={props => <ConfirmacionCuentaPage {...props} />} />
         <Route path="/formularioNuevaBanda" render={props => <NuevaBandaPage {...props} />} />
         <Route path="/iniciativaRecital" render={props => <IniciativaRecitalPage {...props} />} />

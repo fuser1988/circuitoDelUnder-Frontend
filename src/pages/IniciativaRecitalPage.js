@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../toast.css';
 import Spinner from "components/spinner/Spinner.js";
 import Paginacion from 'components/pagination/Paginacion.js';
+import ErrorServerPage from './ErrorServerPage.js';
 
 function IniciativaRecitalPage(props) {
 
@@ -25,6 +26,8 @@ function IniciativaRecitalPage(props) {
     const [activePage, setActivePage] = useState(1);
     const [itemsCountPorPage] = useState(9);
     const [totalPages, setTotalPages] = useState(0);
+    const [obtuvoResultado, setObtuvoResultado] = useState(true);
+    const [error, setError] = useState();
 
     React.useEffect(() => {
         traerTodasLasIniciativas(1)
@@ -44,7 +47,11 @@ function IniciativaRecitalPage(props) {
         .then(() =>{ 
             notificar("La iniciativa se cargó correctamente");
             traerTodasLasIniciativas(1) 
-        })
+        }).catch((error) => {
+            setError(error);
+            ocurrioError()
+            setObtuvoResultado(false);
+        });
     }
 
     const traerTodasLasIniciativas = (page) => {
@@ -53,8 +60,11 @@ function IniciativaRecitalPage(props) {
             setIniciativasdeRecitales(response.content);
             setTotalPages(response.totalPages);
             setCargandoIniciativa(false);
-        })
-        .catch((message) => { notificar(message) });
+        }).catch((error) => {
+            setError(error);
+            ocurrioError()
+            setObtuvoResultado(false);
+        });
     }
 
     const deleteIniciativa = (id) => {
@@ -116,8 +126,8 @@ function IniciativaRecitalPage(props) {
         setActivePage(page)
     }
 
-    return (
-        <>
+    const respuestaCorrecta = () => {
+        return (
             <div className="page-header fondo-responsive">
                 <RecitalesNavbar />
                 <RecitalesHeader />
@@ -145,7 +155,7 @@ function IniciativaRecitalPage(props) {
 
                     <div className="formulario-carga-banda mb-4">
                         {modal? <NuevaIniciativa
-                                usuario={user.id} 
+                                usuario={0} 
                                 isOpen={modal} 
                                 toggle={toggle} 
                                 className={props.className}
@@ -157,6 +167,22 @@ function IniciativaRecitalPage(props) {
                     
                 </Container>
             </div>
+        )
+    }
+
+    const ocurrioError = () => {
+        return (
+            <div>
+                <ErrorServerPage error={error}/>
+            </div>
+        )
+    }
+
+    return (
+        <>
+        <div>
+            {obtuvoResultado? respuestaCorrecta(): ocurrioError()}
+        </div>
         </>
     );
 
