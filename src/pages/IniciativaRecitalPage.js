@@ -155,7 +155,7 @@ function IniciativaRecitalPage(props) {
 
                     <div className="formulario-carga-banda mb-4">
                         {modal? <NuevaIniciativa
-                                usuario={0} 
+                                usuario={user.id} 
                                 isOpen={modal} 
                                 toggle={toggle} 
                                 className={props.className}

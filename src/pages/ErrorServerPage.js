@@ -24,9 +24,15 @@ class ErrorServerPage extends React.Component {
       this.state.titulo = "UPS, SERVIDOR CAÍDO";
       this.state.message = "Ocurrió un error en el servidor"
     }else{
-      this.state.status = this.state.error.status;
-      this.state.titulo = "SERVER ERROR";
-      this.state.message = "Ocurrió un error en el servidor"
+      if(this.state.error.status >=400 && this.state.error.status < 500) {
+        this.state.status = this.state.error.status;
+        this.state.titulo = "NOT FOUND";
+        this.state.message = "No se encontró el recurso al que intenta acceder.."
+      }else{
+        this.state.status = this.state.error.status;
+        this.state.titulo = "SERVER ERROR";
+        this.state.message = "Ocurrió un error en el servidor"
+      }
     }
 
   }
