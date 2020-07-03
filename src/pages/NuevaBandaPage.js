@@ -36,6 +36,7 @@ function NuevaBandaPage(props) {
     const cargarImagen = (selectorFiles) => {
         toBase64(selectorFiles[0])
             .then((imagenBase64) => {
+                console.log(imagenBase64);
                 const bandaParaActualizar = banda;
                 setBanda({ ...bandaParaActualizar, imagen: imagenBase64 });
           });
@@ -135,7 +136,7 @@ function NuevaBandaPage(props) {
             <Container className="formulario-angosto">
 
             <div className="formulario-carga-banda background-form ">
-
+                
                 <Modal isOpen={modal} toggle={toggle} className={props.className}>
                     <ModalHeader toggle={toggle}>Material</ModalHeader>
                     <ModalBody>
