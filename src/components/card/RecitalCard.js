@@ -8,8 +8,7 @@ import 'moment/locale/es'
 import moment from "moment";
 
 import { FcCalendar } from 'react-icons/fc';
-import { FaMapMarkerAlt } from 'react-icons/fa';
-import { RiAlbumLine } from 'react-icons/ri';
+import { RiAlbumLine, RiMapPinLine } from 'react-icons/ri';
     
 class RecitalCard extends Component {
     
@@ -46,7 +45,7 @@ class RecitalCard extends Component {
                            <p className="ml-1 mb-0">{this.props.recital.lugar}</p>
                         </div>
                         <div className="d-flex align-items-center">
-                           <FaMapMarkerAlt/>
+                           <RiMapPinLine/>
                            <p className="ml-1 mb-0">{this.props.recital.localidad}</p>
                         </div>
                         <div className="d-flex align-items-center">
