@@ -42,15 +42,15 @@ class RecitalCard extends Component {
                     </CardTitle>
                     <Col className="pl-0 pr-0">
                         <div className="d-flex align-items-center">
-                           <RiAlbumLine/>
+                           {/* <RiAlbumLine/> */}
                            <p className="ml-1 mb-0">{this.props.recital.lugar}</p>
                         </div>
                         <div className="d-flex align-items-center">
-                           <FaMapMarkerAlt/>
+                           {/* <FaMapMarkerAlt/> */}
                            <p className="ml-1 mb-0">{this.props.recital.localidad}</p>
                         </div>
                         <div className="d-flex align-items-center">
-                           <FcCalendar/>
+                           {/* <FcCalendar/> */}
                            <p className="ml-1 mb-0">{this.traducirFecha()}</p>
                         </div>
                     </Col>
