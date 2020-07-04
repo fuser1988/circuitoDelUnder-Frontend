@@ -46,7 +46,7 @@ class RecitalCard extends Component {
                            <p className="ml-1 mb-0">{this.props.recital.lugar}</p>
                         </div>
                         <div className="d-flex align-items-center">
-                           {/* <FaMapMarkerAlt/> */}
+                           <FaMapMarkerAlt/>
                            <p className="ml-1 mb-0">{this.props.recital.localidad}</p>
                         </div>
                         <div className="d-flex align-items-center">
