@@ -74,7 +74,7 @@ function IniciativaRecitalPage(props) {
         return (
             <div>
                 {iniciativasDeRecitales.map((iniciativaDeRecital)=>{
-                        return <IniciativaRecitalCard iniciativaDeRecital={iniciativaDeRecital} onDelete={deleteIniciativa}/>
+                        return <IniciativaRecitalCard key={iniciativaDeRecital.id} iniciativaDeRecital={iniciativaDeRecital} onDelete={deleteIniciativa}/>
                 })}
 
                 <div className="d-flex justify-content-center">

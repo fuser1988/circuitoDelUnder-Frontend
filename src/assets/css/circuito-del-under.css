@@ -556,10 +556,12 @@ textarea.form-control {
 
 .tituloHome{
   font-size: 60px !important;
+  font-family: 'Ubuntu', sans-serif !important;
 }
 
 .subtituloHome{
   font-size: 22px !important;
+  font-family: 'Ubuntu', sans-serif !important;
 }
 
 .pie-pagina-font{
@@ -779,6 +781,7 @@ textarea.form-control {
   }
   .font-nav.new-rock-font{
     font-size:16px !important;
+    font-family: 'Bangers', cursive !important;
   } 
  
   li.dropdown.nav-item{
@@ -868,4 +871,12 @@ textarea.form-control {
 } 
 .text-capitalize{
   text-transform: capitalize;
+}
+.font-nav.new-rock-font.navbar-brand{
+  font-size: 23px !important;
+  font-family: 'Bangers', cursive !important;
+}
+
+#iniciativa-recital p, #iniciativa-recital h4 , #banda-Page p, .recitalPage p {
+  font-family: 'Ubuntu', sans-serif;
 }

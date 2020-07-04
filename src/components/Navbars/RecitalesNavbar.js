@@ -126,7 +126,7 @@ function RecitalesNavBar(props) {
               />
 
               <NavbarBrand
-                to="/"
+                to="/home"
                 tag={Link}
                 id="navbar-brand"
                 className="font-nav new-rock-font "
@@ -157,12 +157,12 @@ function RecitalesNavBar(props) {
           >
             <div className="navbar-collapse-header">
               <Row>
-                <Col className="collapse-brand" xs="6">
+                <Col className="collapse-brand" xs="8">
                   <a href="#circuito" className="font-nav new-rock-font " onClick={e => e.preventDefault()}>
                   Circuito del under
                   </a>
                 </Col>
-                <Col className="collapse-close text-right" xs="6">
+                <Col className="collapse-close text-right" xs="4">
                   <button
                     aria-expanded={collapseOpen}
                     className="navbar-toggler"
