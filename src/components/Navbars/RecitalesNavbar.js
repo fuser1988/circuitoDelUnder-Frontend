@@ -175,7 +175,6 @@ function RecitalesNavBar(props) {
             </div>
             <Nav navbar>
               <UncontrolledDropdown nav className={show}>
-                {/* {user&&( */}
                   <DropdownToggle
                   caret
                   color="default"
@@ -187,18 +186,17 @@ function RecitalesNavBar(props) {
                   <i className="fa fa-cogs d-lg-none d-xl-none" />
                   Menú
                 </DropdownToggle>
-                 {/* )} */}
                 <DropdownMenu className="dropdown-with-icons">
                   <DropdownItem href="/home">
                     <i className="tim-icons icon-bank" />
                     Home
                   </DropdownItem>
-                  {/* {user && user.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION"  && ( */}
+                  {user && user.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION"  && (
                   <DropdownItem href="/confirmaciones-de-cuentas">
                     <i className="tim-icons icon-badge" />
                     Valida tu cuenta
                   </DropdownItem>
-                  {/* )} */}
+                  )} 
                   <DropdownItem tag={Link} to="/RecitalesPage">
                     <i className="tim-icons icon-sound-wave" />
                     Recitales
@@ -207,20 +205,24 @@ function RecitalesNavBar(props) {
                     <i className="tim-icons icon-headphones" />
                     Bandas
                   </DropdownItem>
+                  {user && user.tipoUsuario ==="REGISTRADO_SIN_BANDA" && (
                   <DropdownItem tag={Link} to="/formularioNuevaBanda">
                     <i className="tim-icons icon-simple-add" />
                     Crea tu banda
                   </DropdownItem>
-                  {/* {user && user.tipoUsuario ==="REGISTRADO_CON_BANDA" && ( */}
+                  )}
+                  {user && user.tipoUsuario ==="REGISTRADO_CON_BANDA" && (
                   <DropdownItem tag={Link} to="/recital-add">
                     <i className="tim-icons icon-triangle-right-17" />
                     Nuevo recital
                   </DropdownItem>
-                  {/* )} */}
+                  )} 
+                  {user && user.tipoUsuario ==="REGISTRADO_CON_BANDA" && (
                   <DropdownItem tag={Link} to="/iniciativaRecital">
                     <i className="tim-icons icon-bulb-63" />
                     Iniciativas de Recitales
                   </DropdownItem>
+                  )} 
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
