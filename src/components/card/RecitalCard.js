@@ -30,13 +30,13 @@ class RecitalCard extends Component {
     
     render(){
         return(
-            <Card className="mt-2 ml-2 col-3 responsive-card" key={this.props.recital.id} id={this.props.recital.id}>
-                <CardBody className="focus-pointer" key={this.props.recital.id} id={this.props.recital.id}  onClick={this.redirectRecital}>
+            <Card className="mt-2 ml-2 col-3 responsive-card" >
+                <CardBody className=""  id={this.props.recital.id} >
                     <Row className="d-flex justify-content-center">
-                        <img alt="" className="" src={this.props.recital.imagen} id="" />
+                        <img alt="" className="" src={this.props.recital.imagen}  />
                     </Row>
                     <CardTitle className="mt-2 mb-0 text-center bold-text">
-                        <p className="focus-pointer"  key={this.props.recital.id} id={this.props.recital.id} onClick={this.redirectRecital}>
+                        <p className="focus-pointer"   id={this.props.recital.id} onClick={this.redirectRecital}>
                             {this.props.recital.nombre}
                         </p>
                     </CardTitle>
