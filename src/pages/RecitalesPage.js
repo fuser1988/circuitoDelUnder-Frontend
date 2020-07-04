@@ -29,7 +29,7 @@ function RecitalesPage(props) {
     const [error, setError] = useState();
 
     useEffect(() => {
-       buscarRecitales();
+       buscarRecitales(1);
         return () => {
         }
     },[]);
@@ -129,7 +129,7 @@ function RecitalesPage(props) {
                 setCargandoRecitales(false); 
             }).catch((error) => {
                 setError(error);
-                ocurrioError()
+                // ocurrioError();
                 setObtuvoResultado(false);
             })
     }

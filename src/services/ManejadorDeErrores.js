@@ -11,7 +11,7 @@ export const useManejadorDeErrores = () => {
             push("/serverError")
         }else {
             if (error.response) {
-            
+                    
                 const {status} = error.response;
                 
                 switch (status) {
@@ -22,7 +22,7 @@ export const useManejadorDeErrores = () => {
                         push("/notFound");
                         break;
                     case 404:
-                        push("/notFound");
+                        console.log(error.response.data);
                         break;
                     case 500:
                         push("/serverError");

@@ -30,7 +30,7 @@ export const useRecitalService = () => {
                 .then(({ data: recital }) => {
                     resolve(recital);
                 })
-                .catch((error) => { reject(error.response) });
+                .catch((error) => { mostrarPaginaError(error) });
 
         });
 

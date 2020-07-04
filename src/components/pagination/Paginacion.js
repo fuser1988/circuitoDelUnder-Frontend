@@ -50,9 +50,12 @@ function Paginacion(props) {
             <div className="d-flex justify-content-center">
                 {pages.map((pageI) => {
                     return (
-                        <PaginationItem active={activePage===pageI}>
-                        <PaginationLink onClick={onChangePage} id={pageI}>{pageI}</PaginationLink>
-                        </PaginationItem>
+
+                        <div key ={pageI}>
+                            <PaginationItem active={activePage===pageI}>
+                            <PaginationLink onClick={onChangePage} id={pageI}>{pageI}</PaginationLink>
+                            </PaginationItem>
+                        </div>
                         )
                 })}
             </div>

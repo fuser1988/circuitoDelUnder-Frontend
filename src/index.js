@@ -44,6 +44,8 @@ ReactDOM.render(
         <Route path="/confirmaciones-de-cuentas" render={props => <ConfirmacionCuentaPage {...props} />} />
         <Route path="/formularioNuevaBanda" render={props => <NuevaBandaPage {...props} />} />
         <Route path="/iniciativaRecital" render={props => <IniciativaRecitalPage {...props} />} />
+        <Route path="/serverError" render={props => <ErrorServerPage {...props} />} />
+        <Route path="/notFound" render={props => <NotFoundPage {...props} />} />
         <Redirect from="/" to="/RecitalesPage" />
       </Switch>
     </BrowserRouter>
