@@ -19,8 +19,23 @@ function SearchBars(props) {
   const [busqueda, setBusqueda] = useState("");
   const key = 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o';
 
+  React.useEffect(() => {
+        
+    return () => {
+        borrarDatosDeGmaps();
+    }
+  },[]);
+
+  const borrarDatosDeGmaps = ()=>{
+      const allScripts = document.getElementsByTagName('script');
+      [].filter.call(
+          allScripts,
+          (scpt) => scpt.src.indexOf('key=AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o') >= 0
+      )[0].remove();
+      window.google = {};
+  }
+
   const actualizarInput = (event) => {
-    props.busquedaUbicacion(event, false);
     setBusqueda(event.target.value);
   }
 

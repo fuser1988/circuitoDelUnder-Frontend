@@ -10,29 +10,25 @@ export const useManejadorDeErrores = () => {
         if (error.response === undefined){
             push("/serverError")
         }else {
-            if (error.response) {
-            
-                const {status} = error.response;
-                
-                switch (status) {
-                    case 400:
-                        push("/notFound");
-                        break;
-                    case 403:
-                        push("/notFound");
-                        break;
-                    case 404:
-                        push("/notFound");
-                        break;
-                    case 500:
-                        push("/serverError");
-                        break;
-                    default:    
-                        push("/serverError");
-                }
+            const status = error.response.status;
+            const message = error.response.data;
+            switch (status) {
+                case 400:
+                    push("/error/"+status+"/"+message+"/BAD REQUEST");
+                    break;
+                case 403:
+                    push("/error/"+status+"/"+message+"/FORBIDDEN");
+                    break;
+                case 404:
+                    push("/error/"+status+"/"+message+"/NOT FOUND");
+                    break;
+                case 500:
+                    push("/error/"+status+"/"+message+"/SERVER ERROR");
+                    break;
+                default:
+                    push("/error/"+status+"/"+message+"/SERVER ERROR");
             }
         }
-        
     }    
     
     return {mostrarPaginaError}

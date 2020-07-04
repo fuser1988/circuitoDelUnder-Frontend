@@ -36,6 +36,7 @@ function RecitalesPage(props) {
     }
     
     const onChangeBusqueda = (event) => {
+        setActivePage(1)
         setBusqueda(event)
         setActivePage(1)
         setBusquedaUbicacion(false)
@@ -49,6 +50,7 @@ function RecitalesPage(props) {
     });
 
     const onChangeBusquedaUbicacion = (event) => {
+        setActivePage(1)
         setBusqueda(event);
         setBusquedaUbicacion(true);
         buscarEnUbicacion(event, 1);
