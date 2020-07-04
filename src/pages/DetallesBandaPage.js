@@ -175,7 +175,7 @@ function DetallesBandaPage(props) {
                 </div>
             </div>
             <div className="mobile-size mb-4">
-              <a className="proximas-fechas-boton" href={"/RecitalesPage/banda/" + banda.id} >Proximas fechas</a>
+              <a className="proximas-fechas-boton" href={"/RecitalesPage/banda/" + banda.id} >Próximas fechas</a>
             </div>
             
             <div className="grilla-Responsive mw-800 mobile">
