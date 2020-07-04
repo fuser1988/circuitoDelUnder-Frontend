@@ -32,7 +32,7 @@ function RecitalesPage(props) {
     },[]);
     
     const onChange = (event) => {
-        buscarRecitalesPorGenero(event, activePage);
+        buscarRecitalesPorGenero(event, 1);
     }
     
     const onChangeBusqueda = (event) => {
@@ -83,9 +83,9 @@ function RecitalesPage(props) {
         if(pathname === "/RecitalesPage"){
             const  stringParam = queryString.parse(props.location.search);
             if(stringParam.genero){
-                buscarRecitalesPorGenero(pathname.slice(15), activePage);
+                buscarRecitalesPorGenero(pathname.slice(15), event);
             }else{
-                buscarTodosLosRecitales(activePage);
+                buscarTodosLosRecitales(event);
             }
         } 
         if(pathname.slice(0,21) === "/RecitalesPage/banda/"){
@@ -111,7 +111,7 @@ function RecitalesPage(props) {
                 procesarResultadoDeBusquedaTodo(response.content); 
                 setTotalPages(response.totalPages);
                 setCargandoRecitales(false); 
-            })
+            }).catch((message) => { notificar(message) });
     }
 
     const procesarResultadoDeBusquedaTodo = (recitales) => {
@@ -132,9 +132,9 @@ function RecitalesPage(props) {
 
     }
 
-    const handlePageChange = (event) => {
-      setActivePage(event);
-      (busqueda === undefined)? buscarRecitales(event): buscarRecitalesPorGeneroUbicacion(busqueda, event)
+    const handlePageChange = (event) => { 
+        setActivePage(event);
+        (busqueda === undefined)? buscarRecitales(event): buscarRecitalesPorGeneroUbicacion(busqueda, event)
     }
 
     const firstClick = () => {
