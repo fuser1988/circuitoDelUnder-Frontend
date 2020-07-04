@@ -50,7 +50,7 @@ class RecitalCard extends Component {
                            <p className="ml-1 mb-0">{this.props.recital.localidad}</p>
                         </div>
                         <div className="d-flex align-items-center">
-                           {/* <FcCalendar/> */}
+                           <FcCalendar/>
                            <p className="ml-1 mb-0">{this.traducirFecha()}</p>
                         </div>
                     </Col>
