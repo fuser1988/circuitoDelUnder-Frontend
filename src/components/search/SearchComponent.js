@@ -13,11 +13,13 @@ import {
 } from "reactstrap";
 import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
 
+
 function SearchBars(props) {
 
   const [modal, setModal] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const key = 'AIzaSyDAuIBs1Jon6yWwS-O7mg_1q8EH1M9jl8o';
+  const [activo, setActivo] = useState(false);
 
   React.useEffect(() => {
         
@@ -36,6 +38,7 @@ function SearchBars(props) {
   }
 
   const actualizarInput = (event) => {
+    setActivo(false)
     setBusqueda(event.target.value);
   }
 
@@ -57,7 +60,14 @@ function SearchBars(props) {
   }
 
   const toggle = () =>{
-    setModal(!modal)
+    if(!activo){
+      setModal(!modal)
+    }
+    setActivo(!activo)
+  }
+
+  const cerrarToggle = () =>{
+    setModal(false)
   }
 
   return (
@@ -69,7 +79,7 @@ function SearchBars(props) {
               <div className="texto-boton-buscar">Buscar</div>
               <FaSearch className="hidden icon-search"/> 
             </Button >
-              <Button id="tooltip"  className="btn btn-text-center boton-ubicacion-mobile" onClick={toggle}>
+              <Button id="tooltip"  className="btn btn-text-center boton-ubicacion-mobile" active={activo} outline onClick={toggle}>
                 <FaMapMarkerAlt className="icon-search-map"/> 
               </Button>
               <UncontrolledTooltip placement="bottom" target="tooltip">
@@ -87,7 +97,7 @@ function SearchBars(props) {
                   </ReactDependentScript>
                   </ModalBody>
                   <ModalFooter>
-                  <Button color='secondary' onClick={toggle}>Aceptar</Button>
+                  <Button color='secondary' onClick={cerrarToggle}>Aceptar</Button>
                   </ModalFooter>
               </Modal>
         </Col>
