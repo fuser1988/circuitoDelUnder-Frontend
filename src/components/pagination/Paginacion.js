@@ -75,11 +75,11 @@ function Paginacion(props) {
         <div>
             <Pagination>
                 <PaginationItem disabled={activePage === 1}>
-                <PaginationLink onClick={firstClick}>First</PaginationLink>
+                <PaginationLink onClick={firstClick}>Primera</PaginationLink>
                 </PaginationItem>
                 {totalPages <=3? marcacionSimple(): marciacionConRecorrido()}
                 <PaginationItem disabled={activePage === totalPages}>
-                <PaginationLink onClick={lastClick}>Last</PaginationLink>
+                <PaginationLink onClick={lastClick}>Última</PaginationLink>
                 </PaginationItem>
 
             </Pagination>
