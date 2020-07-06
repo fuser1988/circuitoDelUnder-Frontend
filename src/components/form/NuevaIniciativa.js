@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Button, FormGroup, Modal, Label, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
-import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation';
 import IniciativaRecital from "../../model/IniciativaRecital.js";
 import { UserContext } from "context/UserContext.js";
 import { toast } from 'react-toastify';
@@ -59,28 +59,48 @@ function NuevaIniciativa(props) {
                         <div className=" form form-group">
                                 <div className="row">
                                     <div className="col-6 form form-group mb-0">
-                                        <AvField type="text" name="lugar" label="Lugar" required />
+                                        <AvGroup>
+                                            <Label>Lugar</Label>
+                                            <AvInput name="lugar" required />
+                                            <AvFeedback>Es necesario Completar este campo</AvFeedback>
+                                        </AvGroup>
                                     </div>
                                     <div className="col-6 form form-group mb-0">
-                                        <AvField type="text" name="localidad" label="Localidad" required />
+                                        <AvGroup>
+                                            <Label>Localidad</Label>
+                                            <AvInput name="localidad" required />
+                                            <AvFeedback>Es necesario Completar este campo</AvFeedback>
+                                        </AvGroup>
                                     </div>
                                 </div>
                             </div>
-                            <AvField type="textarea" name="descripcion" label="Descripción" required />
+                            <AvGroup>
+                                <Label>Descripción</Label>
+                                <AvInput name="descripcion" required />
+                                <AvFeedback>Es necesario Completar este campo</AvFeedback>
+                            </AvGroup>
                             <div className=" form form-group">
                                 <div className="row">
                                     <div className="col-6 form form-group mb-0">
-                                        <AvField type="date" name="fecha" label="Fecha" required />
+                                        <AvGroup>
+                                            <Label>Fecha</Label>
+                                            <AvInput type="date" name="fecha" required />
+                                            <AvFeedback>Es necesario Completar este campo</AvFeedback>
+                                        </AvGroup>
                                     </div>
                                     <div className="col-6 form form-group mb-0">
-                                        <AvField type="telephoneProp" name="telefono" label="Telefono" required />
+                                        <AvGroup>
+                                            <Label>Telefono</Label>
+                                            <AvInput type="telephoneProp" name="telefono" required />
+                                            <AvFeedback>Es necesario Completar este campo</AvFeedback>
+                                        </AvGroup>
                                     </div>
                                 </div>
                             </div>
                             <FormGroup>
                                 <ModalFooter>
 
-                                    <Button color='secondary' onClick={toggle}>cancelar</Button>
+                                    <Button color='secondary' onClick={toggle}>Cancelar</Button>
                                     <Button color='secondary' onSubmit={handleSubmit}>Aceptar</Button>
                                 </ModalFooter>
                             </FormGroup>
