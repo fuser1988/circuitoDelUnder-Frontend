@@ -7,7 +7,7 @@ import moment from "moment";
 
 function IniciativaRecitalCard(props) {
 
-    let mensajeSolicitudDeParticipacion = `*!Saludos colega de Circuito del under¡* 🤚🏼🤟🏼 😁\nSoy integrante de ` + props.iniciativaDeRecital.banda.nombre + ` y estamos interesados en participar del recital en ` + props.iniciativaDeRecital.lugar + `.\nTe pido por favor mas detalles y te dejo el link al perfil de mi banda.\nURL_PERFIL_BANDA`;
+    let mensajeSolicitudDeParticipacion = `*¡Saludos colega de Circuito del under!* 🤚🏼🤟🏼 😁\nSoy integrante de ` + props.iniciativaDeRecital.banda.nombre + ` y estamos interesados en participar del recital en ` + props.iniciativaDeRecital.lugar + `.\nTe pido por favor mas detalles y te dejo el link al perfil de mi banda.\nURL_PERFIL_BANDA`;
     let apiWhatsApp = "https://api.whatsapp.com/send?";
 
     const { push } = useHistory();

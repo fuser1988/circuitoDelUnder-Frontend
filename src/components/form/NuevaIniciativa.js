@@ -56,6 +56,11 @@ function NuevaIniciativa(props) {
                 <ModalHeader toggle={toggle}>Nueva Iniciativa</ModalHeader>
                     <ModalBody>
                         <AvForm onSubmit={handleSubmit} >
+                        <AvGroup>
+                            <Label>Descripción</Label>
+                            <AvInput type="textarea" name="descripcion" required />
+                            <AvFeedback>Es necesario Completar este campo</AvFeedback>
+                        </AvGroup>
                         <div className=" form form-group">
                                 <div className="row">
                                     <div className="col-6 form form-group mb-0">
@@ -73,12 +78,7 @@ function NuevaIniciativa(props) {
                                         </AvGroup>
                                     </div>
                                 </div>
-                            </div>
-                            <AvGroup>
-                                <Label>Descripción</Label>
-                                <AvInput name="descripcion" required />
-                                <AvFeedback>Es necesario Completar este campo</AvFeedback>
-                            </AvGroup>
+                        </div>
                             <div className=" form form-group">
                                 <div className="row">
                                     <div className="col-6 form form-group mb-0">
@@ -98,11 +98,10 @@ function NuevaIniciativa(props) {
                                 </div>
                             </div>
                             <FormGroup>
-                                <ModalFooter>
-
-                                    <Button color='secondary' onClick={toggle}>Cancelar</Button>
+                                <div className="d-flex justify-content-end mt-4">
+                                    <Button color='danger' onClick={toggle}>Cancelar</Button>
                                     <Button color='secondary' onSubmit={handleSubmit}>Aceptar</Button>
-                                </ModalFooter>
+                                </div>
                             </FormGroup>
                         </AvForm>
                     </ModalBody>    

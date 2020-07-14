@@ -64,9 +64,9 @@ const HomeBody = () => {
                     <Container>
                         <h1 className="tituloHome">Compartí donde estes lo mejor de la música under.</h1>
                         <p className=" subtituloHome">
-                        Descubrí las bandas under mas sobresalientes de tu ciudad. A través de Circuito del Under 
+                        Descubrí las bandas under más sobresalientes de tu ciudad. A través de Circuito del Under 
                             conectate con las bandas del estilo que más te identifiquen,
-                            conoce sus perfiles, material y los lugares donde tocan.<br/> 
+                            conocé sus perfiles, material y los lugares donde tocan.<br/> 
                             Registrate usando Facebook y unite al Circuito del Under,
                             difundí la actividad de tu banda y conéctate con otras bandas para organizar recitales. 
                             </p>

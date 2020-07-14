@@ -86,13 +86,15 @@ function RecitalesNavBar(props) {
         procesarRespuestaDelBackend(usuario);
       }))
       
+  }
+  
   const procesarRespuestaDelBackend = (usuario) => {
-        
-        if (usuario.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION") {
-          push("/confirmaciones-de-cuentas");
-        } else {
-          notificar("Bienvenido " + usuario.nombre);
-        }
+         
+    if (usuario.tipoUsuario === "REGISTRADO_SIN_CONFIRMACION") {
+        // notificar("Bienvenido " + usuario.nombre);
+        push("/confirmaciones-de-cuentas");
+    } else {
+        notificar("Bienvenido " + usuario.nombre);
     }
   }
 

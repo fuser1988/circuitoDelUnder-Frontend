@@ -256,7 +256,8 @@ div.loader {
 }
 
 .loader.center {
-  padding-top: 27%;
+  padding-top: 22%;
+  padding-left: 121px;
   height: 448.063px;
   width: 100px;
 }
@@ -716,7 +717,7 @@ textarea.form-control {
     padding-top: 15px !important;
     padding-bottom: 12px !important;
   }
-
+                     
   #search-component .btn.btn-text-center.boton-ubicacion-mobile.btn.btn-secondary{
     margin-top: 0px !important;
     margin-bottom: 0px !important;
@@ -725,9 +726,27 @@ textarea.form-control {
     padding-bottom: 12px !important;
   }
 
+  
+.btn, .btn-morphing {
+     margin-bottom: 0px;
+     margin-top: 0px !important;
+     margin-bottom: 0px !important;
+     padding-right: 23px !important;
+     padding-top: 10px !important;
+     padding-bottom: 12px !important;
+     padding-left: 20px !important; 
+}
+
   .btn.btn-text-center.btn.btn-secondary{
-    padding-left: 18px !important;
+    padding-left: 13px !important;
   }
+  .btn.btn-text-center.boton-ubicacion-mobile.btn.btn-outline-secondary{
+    padding-top: 8px !important;
+    padding-bottom: 10px !important;
+    padding-left: 15px !important;
+    padding-right: 20px !important;      
+  }
+
   .resize-search{
     padding-left: 0px !important;
   }
@@ -854,6 +873,11 @@ textarea.form-control {
     margin-top: 20px !important;
     margin-right: 89px !important;
   }
+
+  .loader.center {
+    padding-top: 60%;
+    padding-left: 5px;
+  }
 }
 
 
@@ -879,4 +903,22 @@ textarea.form-control {
 
 #iniciativa-recital p, #iniciativa-recital h4 , #banda-Page p, .recitalPage p {
   font-family: 'Ubuntu', sans-serif;
+}
+
+.modal.show .modal-dialog {
+  transform: translate(0, 10%) !important;
+}
+
+.form-control {
+  border: 1.5px solid #cad1d7;
+}
+
+.iniciativa{
+  justify-content: end !important;
+}
+
+@media(min-width: 992px){
+.dropdown-menu .dropdown-item {
+    color: #000000 !important;
+}
 }
